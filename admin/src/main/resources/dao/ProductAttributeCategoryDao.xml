@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heng.mall.dao.ProductAttributeCategoryDao">
+    <resultMap id="productAttributeCategoryMap" type="com.heng.mall.dto.ProductAttributeCategoryResult"
+               extends="com.heng.mall.mapper.ProductAttributeCategoryMapper.BaseResultMap">
+        <collection property="productAttributeList" column="{productAttributeCategoryId=id}"
+                    select="selectProductAttr"/>
+    </resultMap>
+
+    <select id="listProductAttributeCategory" resultMap="productAttributeCategoryMap">
+        select * from product_attribute_category where shop_id=#{shopId}
+    </select>
+
+    <select id="selectProductAttr" resultMap="com.heng.mall.mapper.ProductAttributeMapper.BaseResultMap">
+        select * from product_attribute where product_attribute_category_id=#{productAttributeCategoryId}
+    </select>
+</mapper>

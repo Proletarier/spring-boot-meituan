@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heng.mall.dao.RegionDao">
+    <resultMap id="listWithChildrenMap" type="com.heng.mall.dto.RegionWithChildrenItem"
+               extends="com.heng.mall.mapper.RegionMapper.BaseResultMap">
+        <collection property="children" resultMap="com.heng.mall.mapper.RegionMapper.BaseResultMap"
+                    columnPrefix="child_">
+        </collection>
+    </resultMap>
+
+    <select id="listWithChildren" resultMap="listWithChildrenMap">
+        select r1.id,
+        r1.name,
+        r1.pid,
+        r1.level,
+        r1.city_code,
+        r1.pinyin,
+        r2.id child_id,
+        r2.name child_name,
+        r2.pid child_pid,
+        r2.level child_level,
+        r2.city_code child_city_code,
+        r2.pinyin child_pinyin2
+        from region r1, region r2 where r2.pid= r1.id and r1.level = 2
+    </select>
+</mapper>

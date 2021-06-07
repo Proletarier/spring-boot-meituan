@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heng.mall.dao.ProductDao">
+    <resultMap id="productInfoMap" type="com.heng.mall.dto.ProductInfo"
+               extends="com.heng.mall.mapper.ProductMapper.BaseResultMap">
+        <collection property="detailList" column="{parentId=id}" select="selectProductDetail"/>
+        <collection property="attributeValueList" column="{productId=id}" select="selectProductAttrValue"/>
+    </resultMap>
+    <select id="getProductInfo" resultMap="productInfoMap">
+        select * from product where id=#{id}
+    </select>
+    <select id="selectProductDetail" resultMap="com.heng.mall.mapper.ProductDetailMapper.BaseResultMap">
+        select * from product_detail where parent_id=#{parentId}
+    </select>
+    <select id="selectProductAttrValue" resultMap="com.heng.mall.mapper.ProductAttributeValueMapper.BaseResultMap">
+        select * from product_attribute_value where product_id=#{productId}
+    </select>
+</mapper>

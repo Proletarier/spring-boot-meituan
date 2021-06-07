@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heng.mall.dao.ShopCategoryDao">
+    <resultMap id="listWithChildrenMap" type="com.heng.mall.dto.ShopCategoryWithChildrenItem"
+               extends="com.heng.mall.mapper.ShopCategoryMapper.BaseResultMap">
+        <collection property="children" resultMap="com.heng.mall.mapper.ShopCategoryMapper.BaseResultMap"
+                    columnPrefix="child_"></collection>
+    </resultMap>
+
+    <select id="listWithChildren" resultMap="listWithChildrenMap">
+        SELECT
+        c1.id,
+        c1.NAME,
+        c2.id child_id,
+        c2.`name` child_name
+        FROM
+        shop_category c1,
+        shop_category c2
+        WHERE
+        c2.parent_id = c1.id
+        AND c1.`level`=1
+    </select>
+</mapper>
