@@ -16,6 +16,7 @@
         <module>mbg</module>
         <module>security</module>
         <module>jpa</module>
+        <module>market</module>
     </modules>
 
     <parent>
