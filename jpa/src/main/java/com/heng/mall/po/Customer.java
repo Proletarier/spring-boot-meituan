@@ -1,4 +1,4 @@
-package com.heng.mall.model;
+package com.heng.mall.po;
 
 
 import javax.persistence.*;
