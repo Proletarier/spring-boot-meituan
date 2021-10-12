@@ -1,6 +1,6 @@
 package com.meituan.waimai.dto;
 
-import com.heng.mall.model.Region;
+import com.meituan.waimai.model.Region;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

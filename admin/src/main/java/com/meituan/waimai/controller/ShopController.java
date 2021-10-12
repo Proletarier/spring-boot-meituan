@@ -3,7 +3,7 @@ package com.meituan.waimai.controller;
 import com.meituan.waimai.common.api.CommonPage;
 import com.meituan.waimai.common.api.CommonResult;
 import com.meituan.waimai.dto.ShopInfo;
-import com.heng.mall.model.Shop;
+import com.meituan.waimai.model.Shop;
 import com.meituan.waimai.service.ShopService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

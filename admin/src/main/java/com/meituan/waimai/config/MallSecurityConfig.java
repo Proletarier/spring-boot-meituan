@@ -1,8 +1,8 @@
 package com.meituan.waimai.config;
 
-import com.heng.mall.model.Resource;
-import com.heng.mall.security.component.DynamicSecurityService;
-import com.heng.mall.security.config.SecurityConfig;
+import com.meituan.waimai.model.Resource;
+import com.meituan.waimai.security.component.DynamicSecurityService;
+import com.meituan.waimai.security.config.SecurityConfig;
 import com.meituan.waimai.service.AdminService;
 import com.meituan.waimai.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MallSecurityConfig extends SecurityConfig  {
+public class MallSecurityConfig extends SecurityConfig {
 
     @Autowired
     private AdminService adminService;

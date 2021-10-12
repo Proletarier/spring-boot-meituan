@@ -1,7 +1,7 @@
 package com.meituan.waimai.service;
 
 import com.meituan.waimai.dto.ProductAttributeCategoryResult;
-import com.heng.mall.model.ProductAttributeCategory;
+import com.meituan.waimai.model.ProductAttributeCategory;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package com.meituan.waimai.controller;
 import com.meituan.waimai.common.api.CommonPage;
 import com.meituan.waimai.common.api.CommonResult;
 import com.meituan.waimai.dto.MenuNode;
-import com.heng.mall.model.Menu;
+import com.meituan.waimai.model.Menu;
 import com.meituan.waimai.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

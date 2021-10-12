@@ -1,6 +1,7 @@
 package com.meituan.waimai.service;
 
-import com.heng.mall.model.ProductAttribute;
+
+import com.meituan.waimai.model.ProductAttribute;
 
 import java.util.List;
 

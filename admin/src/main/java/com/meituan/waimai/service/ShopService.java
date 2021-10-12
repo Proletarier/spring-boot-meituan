@@ -1,7 +1,7 @@
 package com.meituan.waimai.service;
 
 import com.meituan.waimai.dto.ShopInfo;
-import com.heng.mall.model.Shop;
+import com.meituan.waimai.model.Shop;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

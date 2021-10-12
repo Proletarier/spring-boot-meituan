@@ -5,10 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.common.exception.Asserts;
 import com.meituan.waimai.dao.AdminRoleDao;
-import com.heng.mall.mapper.AdminMapper;
-import com.heng.mall.mapper.AdminRoleRelationMapper;
-import com.heng.mall.model.*;
-import com.heng.mall.security.util.JwtTokenUtil;
+
+import com.meituan.waimai.mapper.AdminMapper;
+import com.meituan.waimai.mapper.AdminRoleRelationMapper;
+import com.meituan.waimai.model.*;
+import com.meituan.waimai.security.util.JwtTokenUtil;
 import com.meituan.waimai.service.AdminCacheService;
 import com.meituan.waimai.service.AdminService;
 import lombok.extern.slf4j.Slf4j;

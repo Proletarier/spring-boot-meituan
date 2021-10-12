@@ -1,6 +1,6 @@
 package com.meituan.waimai.service;
 
-import com.heng.mall.model.Promotion;
+import com.meituan.waimai.model.Promotion;
 
 import java.util.List;
 

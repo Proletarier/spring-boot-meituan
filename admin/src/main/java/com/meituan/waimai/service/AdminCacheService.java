@@ -1,6 +1,7 @@
 package com.meituan.waimai.service;
 
-import com.heng.mall.model.Resource;
+
+import com.meituan.waimai.model.Resource;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.meituan.waimai.security.component;
 
-import com.meituan.waimai.util.JwtTokenUtil;
+import com.meituan.waimai.security.util.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

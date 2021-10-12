@@ -1,9 +1,10 @@
 package com.meituan.waimai.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.heng.mall.mapper.CustomerMapper;
-import com.heng.mall.model.Customer;
-import com.heng.mall.model.CustomerExample;
+
+import com.meituan.waimai.mapper.CustomerMapper;
+import com.meituan.waimai.model.Customer;
+import com.meituan.waimai.model.CustomerExample;
 import com.meituan.waimai.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

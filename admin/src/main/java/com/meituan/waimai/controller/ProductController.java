@@ -4,7 +4,7 @@ package com.meituan.waimai.controller;
 import com.meituan.waimai.common.api.CommonPage;
 import com.meituan.waimai.common.api.CommonResult;
 import com.meituan.waimai.dto.ProductInfo;
-import com.heng.mall.model.Product;
+import com.meituan.waimai.model.Product;
 import com.meituan.waimai.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

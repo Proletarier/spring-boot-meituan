@@ -91,19 +91,19 @@
         <dependencies>
             <!--mall通用模块-->
             <dependency>
-                <groupId>com.heng.meituan</groupId>
+                <groupId>com.meituan</groupId>
                 <artifactId>common</artifactId>
                 <version>${common.version}</version>
             </dependency>
             <!--mall中MBG生成模块-->
             <dependency>
-                <groupId>com.heng.meituan</groupId>
+                <groupId>com.meituan</groupId>
                 <artifactId>mbg</artifactId>
                 <version>${mbg.version}</version>
             </dependency>
             <!--mall安全模块-->
             <dependency>
-                <groupId>com.heng.meituan</groupId>
+                <groupId>com.meituan</groupId>
                 <artifactId>security</artifactId>
                 <version>${security.version}</version>
             </dependency>

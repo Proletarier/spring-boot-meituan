@@ -1,8 +1,9 @@
 package com.meituan.waimai.dto;
 
-import com.heng.mall.model.Shop;
-import com.heng.mall.model.ShopPromotionDetails;
-import com.heng.mall.model.ShopQualification;
+
+import com.meituan.waimai.model.Shop;
+import com.meituan.waimai.model.ShopPromotionDetails;
+import com.meituan.waimai.model.ShopQualification;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

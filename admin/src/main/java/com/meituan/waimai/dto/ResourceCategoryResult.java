@@ -1,7 +1,8 @@
 package com.meituan.waimai.dto;
 
-import com.heng.mall.model.Resource;
-import com.heng.mall.model.ResourceCategory;
+
+import com.meituan.waimai.model.Resource;
+import com.meituan.waimai.model.ResourceCategory;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;

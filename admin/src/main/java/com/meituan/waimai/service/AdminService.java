@@ -1,6 +1,6 @@
 package com.meituan.waimai.service;
 
-import com.heng.mall.model.*;
+import com.meituan.waimai.model.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +24,7 @@ public interface AdminService {
      * @param keyword
      * @return
      */
-    List<Admin> list(Integer pageNum, Integer pageSize,String keyword);
+    List<Admin> list(Integer pageNum, Integer pageSize, String keyword);
 
     /**
      * 更新用户

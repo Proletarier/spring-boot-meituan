@@ -4,7 +4,7 @@ package com.meituan.waimai.controller;
 import com.meituan.waimai.common.api.CommonPage;
 import com.meituan.waimai.common.api.CommonResult;
 import com.meituan.waimai.dto.ResourceQueryParam;
-import com.heng.mall.model.Resource;
+import com.meituan.waimai.model.Resource;
 import com.meituan.waimai.service.ResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,16 +1,16 @@
 package com.meituan.waimai.service;
 
-import com.heng.mall.model.Menu;
-import com.heng.mall.model.Role;
-import com.heng.mall.model.RoleMenuRelation;
-import com.heng.mall.model.RoleResourceRelation;
+
+import com.meituan.waimai.model.Role;
+import com.meituan.waimai.model.RoleMenuRelation;
+import com.meituan.waimai.model.RoleResourceRelation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface RoleService {
 
-    List<Role> list(Integer pageNum,Integer pageSize,String keyword);
+    List<Role> list(Integer pageNum, Integer pageSize, String keyword);
 
     Role getRole(Integer id);
 

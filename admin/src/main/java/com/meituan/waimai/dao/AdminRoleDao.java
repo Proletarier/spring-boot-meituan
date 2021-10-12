@@ -1,9 +1,9 @@
 package com.meituan.waimai.dao;
 
-import com.heng.mall.model.Menu;
-import com.heng.mall.model.Resource;
-import com.heng.mall.model.Role;
-import lombok.Data;
+
+import com.meituan.waimai.model.Menu;
+import com.meituan.waimai.model.Resource;
+import com.meituan.waimai.model.Role;
 
 import java.util.List;
 

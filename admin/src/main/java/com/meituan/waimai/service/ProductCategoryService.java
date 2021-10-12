@@ -1,6 +1,6 @@
 package com.meituan.waimai.service;
 
-import com.heng.mall.model.ProductCategory;
+import com.meituan.waimai.model.ProductCategory;
 
 import java.util.List;
 

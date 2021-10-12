@@ -1,7 +1,7 @@
 package com.meituan.waimai.controller;
 
 import com.meituan.waimai.common.api.CommonResult;
-import com.heng.mall.model.Promotion;
+import com.meituan.waimai.model.Promotion;
 import com.meituan.waimai.service.PromotionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

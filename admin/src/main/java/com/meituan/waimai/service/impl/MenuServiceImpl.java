@@ -2,9 +2,9 @@ package com.meituan.waimai.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dto.MenuNode;
-import com.heng.mall.mapper.MenuMapper;
-import com.heng.mall.model.Menu;
-import com.heng.mall.model.MenuExample;
+import com.meituan.waimai.mapper.MenuMapper;
+import com.meituan.waimai.model.Menu;
+import com.meituan.waimai.model.MenuExample;
 import com.meituan.waimai.service.MenuService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

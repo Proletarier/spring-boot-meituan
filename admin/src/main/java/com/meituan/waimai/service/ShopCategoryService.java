@@ -2,7 +2,7 @@ package com.meituan.waimai.service;
 
 import com.meituan.waimai.dto.ShopCategoryQueryParam;
 import com.meituan.waimai.dto.ShopCategoryWithChildrenItem;
-import com.heng.mall.model.ShopCategory;
+import com.meituan.waimai.model.ShopCategory;
 
 import java.util.List;
 

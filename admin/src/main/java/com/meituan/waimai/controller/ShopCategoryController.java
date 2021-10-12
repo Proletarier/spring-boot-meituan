@@ -4,7 +4,7 @@ import com.meituan.waimai.common.api.CommonPage;
 import com.meituan.waimai.common.api.CommonResult;
 import com.meituan.waimai.dto.ShopCategoryQueryParam;
 import com.meituan.waimai.dto.ShopCategoryWithChildrenItem;
-import com.heng.mall.model.ShopCategory;
+import com.meituan.waimai.model.ShopCategory;
 import com.meituan.waimai.service.ShopCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

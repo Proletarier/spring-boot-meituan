@@ -2,9 +2,9 @@ package com.meituan.waimai.controller;
 
 import com.meituan.waimai.common.api.CommonPage;
 import com.meituan.waimai.common.api.CommonResult;
-import com.heng.mall.model.Role;
-import com.heng.mall.model.RoleMenuRelation;
-import com.heng.mall.model.RoleResourceRelation;
+import com.meituan.waimai.model.Role;
+import com.meituan.waimai.model.RoleMenuRelation;
+import com.meituan.waimai.model.RoleResourceRelation;
 import com.meituan.waimai.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

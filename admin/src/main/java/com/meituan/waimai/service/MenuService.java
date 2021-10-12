@@ -1,13 +1,13 @@
 package com.meituan.waimai.service;
 
 import com.meituan.waimai.dto.MenuNode;
-import com.heng.mall.model.Menu;
+import com.meituan.waimai.model.Menu;
 
 import java.util.List;
 
 public interface MenuService {
 
-    List<Menu> list(Integer pageNum,Integer pageSize,Integer parentId);
+    List<Menu> list(Integer pageNum, Integer pageSize, Integer parentId);
 
     int create(Menu menu);
 

@@ -1,7 +1,8 @@
 package com.meituan.waimai.dto;
 
-import com.heng.mall.model.ProductAttribute;
-import com.heng.mall.model.ProductAttributeCategory;
+
+import com.meituan.waimai.model.ProductAttribute;
+import com.meituan.waimai.model.ProductAttributeCategory;
 import lombok.Data;
 
 import java.util.List;

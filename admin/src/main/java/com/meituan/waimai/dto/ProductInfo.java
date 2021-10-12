@@ -1,9 +1,9 @@
 package com.meituan.waimai.dto;
 
-import com.heng.mall.model.Product;
-import com.heng.mall.model.ProductAttributeValue;
-import com.heng.mall.model.ProductCategoryRelation;
-import com.heng.mall.model.ProductDetail;
+
+import com.meituan.waimai.model.Product;
+import com.meituan.waimai.model.ProductAttributeValue;
+import com.meituan.waimai.model.ProductDetail;
 import lombok.Data;
 
 import java.util.List;

@@ -19,11 +19,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.heng.meituan</groupId>
+            <groupId>com.meituan</groupId>
             <artifactId>mbg</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.heng.meituan</groupId>
+            <groupId>com.meituan</groupId>
             <artifactId>security</artifactId>
         </dependency>
     </dependencies>
