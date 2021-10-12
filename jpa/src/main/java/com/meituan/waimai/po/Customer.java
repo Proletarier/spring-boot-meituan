@@ -18,19 +18,19 @@ public class Customer {
     @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
     private Integer status;
 
-    @Column(name="phone",columnDefinition="varchar(32) COMMENT '电话'")
+    @Column(name="phone",unique=true,nullable = false, length = 32)
     private String phone;
 
-    @Column(name="icon",columnDefinition="varchar(100) COMMENT '头像'")
+    @Column(name="icon",length = 100)
     private String icon;
 
-    @Column(name="type",columnDefinition="int(1) COMMENT '客户类型'")
+    @Column(name="type")
     private Integer type;
 
-    @Column(name="city",columnDefinition="varchar(20) COMMENT '注册城市'")
+    @Column(name="city",length = 20)
     private String city;
 
-    @Column(name="cityCode",columnDefinition="varchar(20) COMMENT '注册城市'")
+    @Column(name="cityCode",length = 32)
     private String cityCode;
 
 

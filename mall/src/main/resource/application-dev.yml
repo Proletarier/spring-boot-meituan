@@ -30,6 +30,13 @@ spring:
     password: # Redis服务器连接密码（默认为空）
     timeout: 500ms # 连接超时时间（毫秒）
 
+  jpa:
+    database: MySQL
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
 logging:
   level:
     root: info
