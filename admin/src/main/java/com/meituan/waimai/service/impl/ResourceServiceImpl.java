@@ -3,9 +3,10 @@ package com.meituan.waimai.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.meituan.waimai.dto.ResourceQueryParam;
-import com.heng.mall.mapper.ResourceMapper;
-import com.heng.mall.model.Resource;
-import com.heng.mall.model.ResourceExample;
+
+import com.meituan.waimai.mapper.ResourceMapper;
+import com.meituan.waimai.model.Resource;
+import com.meituan.waimai.model.ResourceExample;
 import com.meituan.waimai.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

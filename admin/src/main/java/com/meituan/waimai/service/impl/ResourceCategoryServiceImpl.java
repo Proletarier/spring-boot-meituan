@@ -1,8 +1,9 @@
 package com.meituan.waimai.service.impl;
 
-import com.heng.mall.mapper.ResourceCategoryMapper;
-import com.heng.mall.model.ResourceCategory;
-import com.heng.mall.model.ResourceCategoryExample;
+
+import com.meituan.waimai.mapper.ResourceCategoryMapper;
+import com.meituan.waimai.model.ResourceCategory;
+import com.meituan.waimai.model.ResourceCategoryExample;
 import com.meituan.waimai.service.ResourceCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

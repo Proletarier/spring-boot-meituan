@@ -1,8 +1,9 @@
 package com.meituan.waimai.service.impl;
 
-import com.heng.mall.mapper.PromotionMapper;
-import com.heng.mall.model.Promotion;
-import com.heng.mall.model.PromotionExample;
+
+import com.meituan.waimai.mapper.PromotionMapper;
+import com.meituan.waimai.model.Promotion;
+import com.meituan.waimai.model.PromotionExample;
 import com.meituan.waimai.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

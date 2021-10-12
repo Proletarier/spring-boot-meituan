@@ -3,10 +3,11 @@ package com.meituan.waimai.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dao.ShopDao;
 import com.meituan.waimai.dto.ShopInfo;
-import com.heng.mall.mapper.ShopMapper;
-import com.heng.mall.mapper.ShopPromotionDetailsMapper;
-import com.heng.mall.mapper.ShopQualificationMapper;
-import com.heng.mall.model.*;
+
+import com.meituan.waimai.mapper.ShopMapper;
+import com.meituan.waimai.mapper.ShopPromotionDetailsMapper;
+import com.meituan.waimai.mapper.ShopQualificationMapper;
+import com.meituan.waimai.model.*;
 import com.meituan.waimai.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

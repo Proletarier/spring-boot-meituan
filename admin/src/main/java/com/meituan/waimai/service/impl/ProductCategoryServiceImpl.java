@@ -1,9 +1,10 @@
 package com.meituan.waimai.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.heng.mall.mapper.ProductCategoryMapper;
-import com.heng.mall.model.ProductCategory;
-import com.heng.mall.model.ProductCategoryExample;
+
+import com.meituan.waimai.mapper.ProductCategoryMapper;
+import com.meituan.waimai.model.ProductCategory;
+import com.meituan.waimai.model.ProductCategoryExample;
 import com.meituan.waimai.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
