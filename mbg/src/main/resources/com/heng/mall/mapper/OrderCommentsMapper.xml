@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heng.mall.mapper.OrderCommentsMapper">
-  <resultMap id="BaseResultMap" type="com.heng.mall.model.OrderComments">
+<mapper namespace="com.meituan.waimai.mapper.OrderCommentsMapper">
+  <resultMap id="BaseResultMap" type="com.meituan.waimai.model.OrderComments">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="shop_id" jdbcType="BIGINT" property="shopId" />
     <result column="customer_id" jdbcType="BIGINT" property="customerId" />
@@ -75,7 +75,7 @@
     id, shop_id, customer_id, content, comment_time, pictures, score, pack_score, quality_score, 
     delivery_score
   </sql>
-  <select id="selectByExample" parameterType="com.heng.mall.model.OrderCommentsExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.meituan.waimai.model.OrderCommentsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -99,13 +99,13 @@
     delete from order_comments
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.heng.mall.model.OrderCommentsExample">
+  <delete id="deleteByExample" parameterType="com.meituan.waimai.model.OrderCommentsExample">
     delete from order_comments
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.heng.mall.model.OrderComments">
+  <insert id="insert" parameterType="com.meituan.waimai.model.OrderComments">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -118,7 +118,7 @@
       #{packScore,jdbcType=DECIMAL}, #{qualityScore,jdbcType=DECIMAL}, #{deliveryScore,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.heng.mall.model.OrderComments">
+  <insert id="insertSelective" parameterType="com.meituan.waimai.model.OrderComments">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -182,7 +182,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.heng.mall.model.OrderCommentsExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.meituan.waimai.model.OrderCommentsExample" resultType="java.lang.Long">
     select count(*) from order_comments
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -242,7 +242,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.heng.mall.model.OrderComments">
+  <update id="updateByPrimaryKeySelective" parameterType="com.meituan.waimai.model.OrderComments">
     update order_comments
     <set>
       <if test="shopId != null">
@@ -275,7 +275,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.heng.mall.model.OrderComments">
+  <update id="updateByPrimaryKey" parameterType="com.meituan.waimai.model.OrderComments">
     update order_comments
     set shop_id = #{shopId,jdbcType=BIGINT},
       customer_id = #{customerId,jdbcType=BIGINT},

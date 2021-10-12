@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heng.mall.dao.RegionDao">
-    <resultMap id="listWithChildrenMap" type="com.heng.mall.dto.RegionWithChildrenItem"
+<mapper namespace="com.meituan.waimai.dao.RegionDao">
+    <resultMap id="listWithChildrenMap" type="com.meituan.waimai.dto.RegionWithChildrenItem"
                extends="com.heng.mall.mapper.RegionMapper.BaseResultMap">
         <collection property="children" resultMap="com.heng.mall.mapper.RegionMapper.BaseResultMap"
                     columnPrefix="child_">

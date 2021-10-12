@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heng.mall.mapper.ProductMapper">
-  <resultMap id="BaseResultMap" type="com.heng.mall.model.Product">
+<mapper namespace="com.meituan.waimai.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.meituan.waimai.model.Product">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="shop_id" jdbcType="INTEGER" property="shopId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
@@ -88,7 +88,7 @@
     praise_num, sell_status, delete_status, unit, sale, month_sale, price, promotion_price, 
     stock, low_stock, weight, product_category_name, min_sale_quantity, sort, box_price
   </sql>
-  <select id="selectByExample" parameterType="com.heng.mall.model.ProductExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.meituan.waimai.model.ProductExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -112,13 +112,13 @@
     delete from product
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.heng.mall.model.ProductExample">
+  <delete id="deleteByExample" parameterType="com.meituan.waimai.model.ProductExample">
     delete from product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.heng.mall.model.Product">
+  <insert id="insert" parameterType="com.meituan.waimai.model.Product">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -139,7 +139,7 @@
       #{minSaleQuantity,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{boxPrice,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.heng.mall.model.Product">
+  <insert id="insertSelective" parameterType="com.meituan.waimai.model.Product">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -275,7 +275,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.heng.mall.model.ProductExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.meituan.waimai.model.ProductExample" resultType="java.lang.Long">
     select count(*) from product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -383,7 +383,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.heng.mall.model.Product">
+  <update id="updateByPrimaryKeySelective" parameterType="com.meituan.waimai.model.Product">
     update product
     <set>
       <if test="shopId != null">
@@ -452,7 +452,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.heng.mall.model.Product">
+  <update id="updateByPrimaryKey" parameterType="com.meituan.waimai.model.Product">
     update product
     set shop_id = #{shopId,jdbcType=INTEGER},
       product_name = #{productName,jdbcType=VARCHAR},

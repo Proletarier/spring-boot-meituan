@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heng.mall.mapper.ShopQualificationMapper">
-  <resultMap id="BaseResultMap" type="com.heng.mall.model.ShopQualification">
+<mapper namespace="com.meituan.waimai.mapper.ShopQualificationMapper">
+  <resultMap id="BaseResultMap" type="com.meituan.waimai.model.ShopQualification">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="shop_id" jdbcType="INTEGER" property="shopId" />
     <result column="qualify_pics" jdbcType="VARCHAR" property="qualifyPics" />
@@ -74,7 +74,7 @@
     id, shop_id, qualify_pics, company_name, company_owner, business_scope, address, 
     enroll_time, expire_time
   </sql>
-  <select id="selectByExample" parameterType="com.heng.mall.model.ShopQualificationExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.meituan.waimai.model.ShopQualificationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -98,13 +98,13 @@
     delete from shop_qualification
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.heng.mall.model.ShopQualificationExample">
+  <delete id="deleteByExample" parameterType="com.meituan.waimai.model.ShopQualificationExample">
     delete from shop_qualification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.heng.mall.model.ShopQualification">
+  <insert id="insert" parameterType="com.meituan.waimai.model.ShopQualification">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -115,7 +115,7 @@
       #{companyOwner,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{enrollTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.heng.mall.model.ShopQualification">
+  <insert id="insertSelective" parameterType="com.meituan.waimai.model.ShopQualification">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -173,7 +173,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.heng.mall.model.ShopQualificationExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.meituan.waimai.model.ShopQualificationExample" resultType="java.lang.Long">
     select count(*) from shop_qualification
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -229,7 +229,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.heng.mall.model.ShopQualification">
+  <update id="updateByPrimaryKeySelective" parameterType="com.meituan.waimai.model.ShopQualification">
     update shop_qualification
     <set>
       <if test="shopId != null">
@@ -259,7 +259,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.heng.mall.model.ShopQualification">
+  <update id="updateByPrimaryKey" parameterType="com.meituan.waimai.model.ShopQualification">
     update shop_qualification
     set shop_id = #{shopId,jdbcType=INTEGER},
       qualify_pics = #{qualifyPics,jdbcType=VARCHAR},

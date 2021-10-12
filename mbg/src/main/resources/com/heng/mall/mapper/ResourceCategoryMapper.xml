@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heng.mall.mapper.ResourceCategoryMapper">
-  <resultMap id="BaseResultMap" type="com.heng.mall.model.ResourceCategory">
+<mapper namespace="com.meituan.waimai.mapper.ResourceCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.meituan.waimai.model.ResourceCategory">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, create_time, name, sort
   </sql>
-  <select id="selectByExample" parameterType="com.heng.mall.model.ResourceCategoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.meituan.waimai.model.ResourceCategoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,13 +92,13 @@
     delete from resource_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.heng.mall.model.ResourceCategoryExample">
+  <delete id="deleteByExample" parameterType="com.meituan.waimai.model.ResourceCategoryExample">
     delete from resource_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.heng.mall.model.ResourceCategory">
+  <insert id="insert" parameterType="com.meituan.waimai.model.ResourceCategory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -107,7 +107,7 @@
     values (#{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.heng.mall.model.ResourceCategory">
+  <insert id="insertSelective" parameterType="com.meituan.waimai.model.ResourceCategory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.heng.mall.model.ResourceCategoryExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.meituan.waimai.model.ResourceCategoryExample" resultType="java.lang.Long">
     select count(*) from resource_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.heng.mall.model.ResourceCategory">
+  <update id="updateByPrimaryKeySelective" parameterType="com.meituan.waimai.model.ResourceCategory">
     update resource_category
     <set>
       <if test="createTime != null">
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.heng.mall.model.ResourceCategory">
+  <update id="updateByPrimaryKey" parameterType="com.meituan.waimai.model.ResourceCategory">
     update resource_category
     set create_time = #{createTime,jdbcType=TIMESTAMP},
       name = #{name,jdbcType=VARCHAR},

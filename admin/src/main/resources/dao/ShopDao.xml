@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heng.mall.dao.ShopDao">
-    <resultMap id="shopInfoMap" type="com.heng.mall.dto.ShopInfo"
+<mapper namespace="com.meituan.waimai.dao.ShopDao">
+    <resultMap id="shopInfoMap" type="com.meituan.waimai.dto.ShopInfo"
                extends="com.heng.mall.mapper.ShopMapper.BaseResultMap">
         <collection property="shopPromotionDetails" column="{shopId=id}" select="selectShopPromotionByShopId"/>
         <collection property="shopQualification" column="{shopId=id}" select="selectShopQualificationByShopId"/>
