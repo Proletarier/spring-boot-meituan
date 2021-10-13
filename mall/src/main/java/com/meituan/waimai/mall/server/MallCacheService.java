@@ -13,4 +13,19 @@ public interface MallCacheService {
 	 */
 
 	void setCaptcha(String phone,String captcha);
+
+	/**
+	 * 获取今日验证发送次数
+	 * @param phone
+	 * @return
+	 */
+	Integer getSendCaptchaCount(String phone);
+
+	/**
+	 * 获取最后一次发送时间
+	 * @return
+	 */
+	Long getSendCaptchaLastTime(String phone);
+
+
 }
