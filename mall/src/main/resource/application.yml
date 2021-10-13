@@ -1,6 +1,6 @@
 spring:
   application:
-    name: admin
+    name: mall
   profiles:
     active: dev #默认为开发环境
   servlet:
@@ -12,23 +12,15 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
-mybatis:
-  mapper-locations:
-    - classpath:dao/*.xml
-    - classpath*:com/**/mapper/*.xml
-
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: republic-slave #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
-  tokenHead: 'Bearer '  #JWT负载中拿到开头
-
 
 redis:
   database: mall
   key:
-    admin: 'admin'
-    resourceList: 'resourceList'
+    captcha: 'captcha'
   expire:
     common: 86400 # 24小时
 

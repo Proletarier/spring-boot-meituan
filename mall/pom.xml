@@ -21,6 +21,10 @@
             <groupId>com.meituan</groupId>
             <artifactId>common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.meituan</groupId>
+            <artifactId>jpa</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

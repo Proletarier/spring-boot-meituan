@@ -1,7 +1,10 @@
 package com.meituan.waimai.po;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name="cms_customer_address")
 public class CustomerAddress {
@@ -28,4 +31,5 @@ public class CustomerAddress {
 
 	@Column(name="poi")
 	private String poi;
+
 }

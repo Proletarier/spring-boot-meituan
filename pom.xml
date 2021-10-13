@@ -45,6 +45,7 @@
         <common.version>1.0-SNAPSHOT</common.version>
         <mbg.version>1.0-SNAPSHOT</mbg.version>
         <security.version>1.0-SNAPSHOT</security.version>
+        <jpa.version>1.0-SNAPSHOT</jpa.version>
     </properties>
 
 
@@ -95,6 +96,12 @@
                 <groupId>com.meituan</groupId>
                 <artifactId>mbg</artifactId>
                 <version>${mbg.version}</version>
+            </dependency>
+            <!--jpa生成模块-->
+            <dependency>
+                <groupId>com.meituan</groupId>
+                <artifactId>jpa</artifactId>
+                <version>${jpa.version}</version>
             </dependency>
             <!--mall安全模块-->
             <dependency>
