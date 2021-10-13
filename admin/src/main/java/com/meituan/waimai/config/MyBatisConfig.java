@@ -6,6 +6,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.heng.mall.mapper", "com.heng.mall.dao"})
+@MapperScan({"com.meituan.waimai.mapper", "com.meituan.waimai.dao"})
 public class MyBatisConfig {
 }

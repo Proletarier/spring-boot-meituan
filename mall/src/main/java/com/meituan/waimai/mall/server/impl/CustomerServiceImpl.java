@@ -7,11 +7,12 @@ import com.meituan.waimai.common.util.DateUtil;
 import com.meituan.waimai.mall.dto.CustomerLoginForm;
 import com.meituan.waimai.mall.server.CustomerService;
 import com.meituan.waimai.mall.server.MallCacheService;
+import com.meituan.waimai.po.Customer;
 import com.meituan.waimai.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -28,6 +29,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 	 if (!loginForm.getCaptcha().equals(captchaCode)){
 		 throw  new ApiException("验证码验证失败");
+	 }
+	 Customer customer = customerRepository.findByPhone(loginForm.getPhone());
+	 if (Objects.isNull(customer)){
+	 	customer = new Customer();
+	 	customer.setPhone(loginForm.getPhone());
+	 	customer.setStatus(1);
+	 	customer.setUserName(loginForm.getPhone());
+	 	customerRepository.save(customer);
 	 }
 
 	 return null;
