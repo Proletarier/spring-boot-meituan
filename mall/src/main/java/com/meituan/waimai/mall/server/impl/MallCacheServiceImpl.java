@@ -54,8 +54,8 @@ public class MallCacheServiceImpl implements MallCacheService {
 	protected void updateCaptchaAliveTime(String phone) {
 		String key = phone + ":" + REDIS_DATABASE + ":" + REDIS_KEY_CAPTCHA;
 		if (redisService.hasKey(key)) {
-			redisService.hIncr(phone, "count", 1L);
-			redisService.hIncr(phone, "last_time", DateUtil.getCurrentSeconds());
+			redisService.hIncr(key, "count", 1L);
+			redisService.hIncr(key, "last_time", DateUtil.getCurrentSeconds());
 		} else {
 			Map map = new HashMap();
 			map.put("count", 1);
