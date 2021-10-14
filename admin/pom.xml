@@ -34,9 +34,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.meituan.waimai.mall.MallApplication</mainClass>
+                    <mainClass>com.meituan.waimai.AdminApplication</mainClass>
                 </configuration>
-
             </plugin>
         </plugins>
     </build>
