@@ -11,7 +11,9 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-
+  devtools:
+    livereload:
+      port: 35730
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: republic-slave #JWT加解密使用的密钥

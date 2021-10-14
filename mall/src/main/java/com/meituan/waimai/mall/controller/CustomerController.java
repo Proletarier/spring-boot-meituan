@@ -35,7 +35,7 @@ public class CustomerController {
 	}
 
 	@ApiOperation(value = "获取短信验证码")
-	@GetMapping(value = "/login")
+	@GetMapping(value = "/getCaptcha")
 	public CommonResult getCaptcha(@RequestParam("phone") String phone)  {
 	    customerService.sendCaptcha(phone);
 		return CommonResult.success();
