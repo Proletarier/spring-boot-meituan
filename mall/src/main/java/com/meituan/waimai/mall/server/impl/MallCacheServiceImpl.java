@@ -48,7 +48,7 @@ public class MallCacheServiceImpl implements MallCacheService {
 	@Override
 	public Long getSendCaptchaLastTime(String phone) {
 		String key = phone + ":" + REDIS_DATABASE + ":" + REDIS_KEY_CAPTCHA;
-		return (Long) redisService.hGet(key, "last_time");
+		return  Long.parseLong(redisService.hGet(key, "last_time").toString());
 	}
 
 	protected void updateCaptchaAliveTime(String phone) {
