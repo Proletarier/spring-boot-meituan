@@ -19,7 +19,7 @@ public class CustomerAddress {
 	@Column(name="id")
 	private Integer addressId;
 
-	@Column(name="customerId")
+	@Column(name="customer_id")
 	private Integer customerId;
 
 	@Column(name="name")
@@ -31,7 +31,7 @@ public class CustomerAddress {
 	@Column(name="phone")
 	private String phone;
 
-	@Column(name="houseNumber")
+	@Column(name="house_number")
 	private String houseNumber;
 
 	@Column(name="poi")

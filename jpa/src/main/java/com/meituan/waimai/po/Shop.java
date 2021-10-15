@@ -1,8 +1,13 @@
 package com.meituan.waimai.po;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -14,13 +19,13 @@ public class Shop {
 	@Column(name="id")
 	private Integer shopId;
 
-	@Column(name="shopSn")
+	@Column(name="shop_sn")
 	private String shopSn;
 
-	@Column(name="shopName")
+	@Column(name="shop_name")
 	private String shopName;
 
-	@Column(name="picUrl")
+	@Column(name="pic_url")
 	private String picUrl;
 
 	@Column(name="city")
@@ -34,5 +39,21 @@ public class Shop {
 
 	@Column(name="status")
 	private Integer status;
+
+	@CreatedDate
+	@Column(name = "created_date", updatable = false)
+	private Date createdDate;
+
+	@CreatedBy
+	@Column(name = "created_by", updatable = false, length = 64)
+	private String createdBy;
+
+	@LastModifiedDate
+	@Column(name = "updated_date")
+	private Date updatedDate;
+
+	@LastModifiedBy
+	@Column(name = "updated_by", length = 64)
+	private String updatedBy;
 
 }

@@ -16,10 +16,10 @@ public class GoodsCategory {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="cateId")
+	@Column(name="cate_id")
 	private Integer cateId;
 
-	@Column(name="parentId")
+	@Column(name="parent_id")
 	private Integer parentId;
 
 	@Column(name="all")

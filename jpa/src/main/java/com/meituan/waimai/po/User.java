@@ -29,7 +29,7 @@ public class User {
     @Column(name = "type",columnDefinition="int(1) COMMENT '账号类型: 1->系统人员；2->商家'")
     private Integer type;
 
-    @Column(name="nickName")
+    @Column(name="nick_name")
     private String nickName;
 
     @Column(name="phone",unique = true)
@@ -40,12 +40,6 @@ public class User {
 
     @Column(name="note")
     private String note;
-
-    @Column(name="createTime")
-    private Date createTime;
-
-    @Column(name="loginTime")
-    private Date loginTime;
 
     @Column(name="status",columnDefinition="int(1) COMMENT '账号类型: 0->禁用；1->启用'")
     private Integer status;

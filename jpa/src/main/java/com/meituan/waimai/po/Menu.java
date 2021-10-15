@@ -19,7 +19,7 @@ public class Menu {
 	@Column(name="id")
 	private Integer id;
 
-	@Column(name="parentId")
+	@Column(name="parent_id")
 	private Integer parentId;
 
 	@Column(name="type")
