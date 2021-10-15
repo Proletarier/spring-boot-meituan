@@ -1,4 +1,4 @@
-package com.meituan.waimai.mall.dto;
+package com.meituan.waimai.mall.dto.form;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

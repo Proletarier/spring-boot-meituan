@@ -4,10 +4,11 @@ package com.meituan.waimai.mall.server.impl;
 import cn.hutool.core.util.StrUtil;
 import com.meituan.waimai.common.exception.ApiException;
 import com.meituan.waimai.common.util.DateUtil;
-import com.meituan.waimai.mall.dto.CustomerLoginForm;
+import com.meituan.waimai.mall.dto.form.CustomerLoginForm;
 import com.meituan.waimai.mall.server.CustomerService;
 import com.meituan.waimai.mall.server.MallCacheService;
 import com.meituan.waimai.po.Customer;
+import com.meituan.waimai.repository.CustomerAddressRepository;
 import com.meituan.waimai.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,11 @@ import java.util.Objects;
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
-	private CustomerRepository customerRepository;
-
+	CustomerRepository customerRepository;
 	@Autowired
-	private MallCacheService mallCacheService;
+	CustomerAddressRepository addressRepository;
+	@Autowired
+	MallCacheService mallCacheService;
 
 	@Override
 	public String login(CustomerLoginForm loginForm) {
