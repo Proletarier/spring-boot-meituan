@@ -1,7 +1,0 @@
-package com.meituan.waimai.repository;
-
-import com.meituan.waimai.po.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface GoodsCategoryRepository extends JpaRepository<User, Integer> {
-}
