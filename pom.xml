@@ -44,6 +44,7 @@
         <jjwt.version>0.9.0</jjwt.version>
         <common.version>1.0-SNAPSHOT</common.version>
         <mbg.version>1.0-SNAPSHOT</mbg.version>
+        <jpg.version>1.0-SNAPSHOT</jpg.version>
         <security.version>1.0-SNAPSHOT</security.version>
         <jpa.version>1.0-SNAPSHOT</jpa.version>
     </properties>
@@ -85,13 +86,19 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--mall通用模块-->
+            <!--common通用模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
                 <artifactId>common</artifactId>
                 <version>${common.version}</version>
             </dependency>
-            <!--mall中MBG生成模块-->
+            <!-- jpg模块 -->
+            <dependency>
+                <groupId>com.meituan</groupId>
+                <artifactId>jpg</artifactId>
+                <version>${jpg.version}</version>
+            </dependency>
+            <!--MBG生成模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
                 <artifactId>mbg</artifactId>
@@ -103,7 +110,7 @@
                 <artifactId>jpa</artifactId>
                 <version>${jpa.version}</version>
             </dependency>
-            <!--mall安全模块-->
+            <!--安全模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
                 <artifactId>security</artifactId>

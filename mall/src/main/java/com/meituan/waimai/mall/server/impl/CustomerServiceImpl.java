@@ -40,7 +40,6 @@ public class CustomerServiceImpl implements CustomerService {
 	 	customer.setUserName(loginForm.getPhone());
 	 	customerRepository.save(customer);
 	 }
-
 	 return null;
 	}
 
