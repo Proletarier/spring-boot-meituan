@@ -11,34 +11,25 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="bms_dictionary_detail")
-public class DictionaryDetail {
+@Table(name="sms_goods_tags")
+public class GoodsTags {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
-    private Integer detailId;
+    private Integer tagId;
 
-    @Column(name="dic_id")
-    private String dicId;
+    @Column(name="shop_id")
+    private Integer shopId;
 
-    @Column(name="detail_key")
-    private String detailKey;
-
-    @Column(name="detail_value")
-    private String detailValue;
-
-    @Column(name="detail_value")
-    private String detailDesc;
-
-    @Column(name="is_lock")
-    private Integer isLock;
+    @Column(name="name")
+    private String name;
 
     @Column(name="icon")
     private String icon;
 
-    @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
-    private Integer status;
+    @Column(name="sort")
+    private Integer sort;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)

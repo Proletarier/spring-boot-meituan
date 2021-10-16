@@ -31,6 +31,12 @@ public class Dictionary {
     @Column(name="is_lock")
     private Integer isLock;
 
+    @Column(name="icon")
+    private String icon;
+
+    @Column(name="choice")
+    private Integer choice;
+
     @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
     private Integer status;
 

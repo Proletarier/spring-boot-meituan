@@ -11,8 +11,8 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="sms_goods_category")
-public class GoodsCategory {
+@Table(name="sms_shop_category")
+public class ShopCategory {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

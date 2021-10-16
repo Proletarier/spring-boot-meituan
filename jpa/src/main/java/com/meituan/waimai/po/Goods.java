@@ -1,5 +1,6 @@
 package com.meituan.waimai.po;
 
+
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,34 +12,37 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="bms_dictionary_detail")
-public class DictionaryDetail {
+@Table(name="sms_goods")
+public class Goods {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
-    private Integer detailId;
+    private Integer goodsId;
 
-    @Column(name="dic_id")
-    private String dicId;
+    @Column(name="shop_id")
+    private Integer shopId;
 
-    @Column(name="detail_key")
-    private String detailKey;
+    @Column(name="name")
+    private String name;
 
-    @Column(name="detail_value")
-    private String detailValue;
+    @Column(name="tag_ids")
+    private String tagIds;
 
-    @Column(name="detail_value")
-    private String detailDesc;
+    @Column(name="picture")
+    private String picture;
 
-    @Column(name="is_lock")
-    private Integer isLock;
+    @Column(name="goods_desc")
+    private String goodsDesc;
 
-    @Column(name="icon")
-    private String icon;
+    @Column(name="sell_status")
+    private Integer sellStatus;
 
-    @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
-    private Integer status;
+    @Column(name="unit")
+    private String unit;
+
+    @Column(name="price")
+    private Integer price;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
