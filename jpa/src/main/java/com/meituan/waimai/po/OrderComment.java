@@ -8,29 +8,45 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @Entity
-@Table(name="cms_user")
-public class User {
+@Table(name="oms_order_comment")
+public class OrderComment {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
-    @Column(name="customer_name")
-    private String userName;
+    @Column(name="shop_id")
+    private Integer shopId;
 
-    @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
-    private Integer status;
+    @Column(name="user_id")
+    private Integer userId;
 
-    @Column(name="phone",unique=true,nullable = false, length = 32)
-    private String phone;
+    @Column(name="content")
+    private String content;
 
-    @Column(name="face",length = 100)
-    private String face;
+    @Column(name="comment_time")
+    private Date commentTime;
+
+    @Column(name="pictures")
+    private String pictures;
+
+    @Column(name="pictures")
+    private BigDecimal score;
+
+    @Column(name="pack_score")
+    private BigDecimal packScore;
+
+    @Column(name="quality_score")
+    private BigDecimal qualityScore;
+
+    @Column(name="delivery_score")
+    private BigDecimal deliveryScore;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
@@ -47,4 +63,5 @@ public class User {
     @LastModifiedBy
     @Column(name = "updated_by", length = 64)
     private String updatedBy;
+
 }

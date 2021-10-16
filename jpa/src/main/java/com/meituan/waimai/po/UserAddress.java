@@ -11,8 +11,8 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="cms_customer_address")
-public class CustomerAddress {
+@Table(name="cms_user_address")
+public class UserAddress {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

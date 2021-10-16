@@ -1,6 +1,5 @@
 package com.meituan.waimai.po;
 
-
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,25 +11,46 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="cms_user")
-public class User {
+@Table(name="sms_shop_license")
+public class ShopLicense {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
-    @Column(name="customer_name")
-    private String userName;
+    @Column(name="shop_id")
+    private Integer shopId;
 
-    @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
-    private Integer status;
+    @Column(name="idacrd_name")
+    private String idacrdName;
 
-    @Column(name="phone",unique=true,nullable = false, length = 32)
-    private String phone;
+    @Column(name="idcard_num")
+    private String idcardNum;
 
-    @Column(name="face",length = 100)
-    private String face;
+    @Column(name="idcard_img")
+    private String idcardImg;
+
+    @Column(name="qualify_pics")
+    private String qualifyPics;
+
+    @Column(name="company_name")
+    private String companyName;
+
+    @Column(name="company_owner")
+    private String companyOwner;
+
+    @Column(name="business_scope")
+    private String businessScope;
+
+    @Column(name="address")
+    private String address;
+
+    @Column(name="enroll_time")
+    private Date enrollTime;
+
+    @Column(name="expire_time")
+    private Date expireTime;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)

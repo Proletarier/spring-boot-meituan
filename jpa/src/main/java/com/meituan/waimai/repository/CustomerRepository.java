@@ -1,11 +1,11 @@
 package com.meituan.waimai.repository;
 
-import com.meituan.waimai.po.Customer;
+import com.meituan.waimai.po.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
 
-public interface CustomerRepository  extends JpaRepository<Customer, Integer> {
+public interface CustomerRepository  extends JpaRepository<User, Integer> {
 
-	Customer findByPhone(String phone);
+	User findByPhone(String phone);
 }

@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.meituan.waimai.mall.dto.form.CustomerAddressForm;
 import com.meituan.waimai.mall.dto.vo.CustomerAddressVo;
 import com.meituan.waimai.mall.server.CustomerAddressService;
-import com.meituan.waimai.po.CustomerAddress;
+import com.meituan.waimai.po.UserAddress;
 import com.meituan.waimai.repository.CustomerAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class CustomerAddressServiceImpl implements CustomerAddressService {
 
 	@Override
 	public List<CustomerAddressVo> listAddressByCustomerId(Integer customerId) {
-		List<CustomerAddress> list = addressRepository.findByCustomerId(customerId);
+		List<UserAddress> list = addressRepository.findByCustomerId(customerId);
 
 		return list.stream().map(address ->{
 			CustomerAddressVo vo=new CustomerAddressVo();
@@ -31,16 +31,16 @@ public class CustomerAddressServiceImpl implements CustomerAddressService {
 
 	@Override
 	public void saveAddress(CustomerAddressForm addressForm) {
-		CustomerAddress customerAddress=new CustomerAddress();
-		BeanUtil.copyProperties(addressForm,customerAddress);
-		addressRepository.save(customerAddress);
+		UserAddress userAddress =new UserAddress();
+		BeanUtil.copyProperties(addressForm, userAddress);
+		addressRepository.save(userAddress);
 	}
 
 	@Override
 	public void updateAddress(CustomerAddressForm addressForm) {
-		CustomerAddress customerAddress=new CustomerAddress();
-		BeanUtil.copyProperties(addressForm,customerAddress);
-		addressRepository.saveAndFlush(customerAddress);
+		UserAddress userAddress =new UserAddress();
+		BeanUtil.copyProperties(addressForm, userAddress);
+		addressRepository.saveAndFlush(userAddress);
 	}
 
 	@Override

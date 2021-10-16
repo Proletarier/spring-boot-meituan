@@ -12,15 +12,15 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name="ums_user_login_log")
-public class UserLoginLog {
+public class AdminUserLoginLog {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
-    @Column(name="user_id")
-    private Integer userId;
+    @Column(name="admin_user_id")
+    private Integer adminUserId;
 
     @Column(name="ip")
     private String ip;

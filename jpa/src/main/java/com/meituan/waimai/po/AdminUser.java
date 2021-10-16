@@ -12,25 +12,34 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="cms_customer")
-public class Customer {
+@Table(name="ums_admin_user")
+public class AdminUser {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
-    @Column(name="customer_name")
-    private String userName;
+    @Column(name="username")
+    private String username;
 
-    @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
-    private Integer status;
+    @Column(name="name")
+    private String password;
 
-    @Column(name="phone",unique=true,nullable = false, length = 32)
+    @Column(name="nick_name")
+    private String nickName;
+
+    @Column(name="phone",unique = true)
     private String phone;
 
-    @Column(name="face",length = 100)
-    private String face;
+    @Column(name="email")
+    private String email;
+
+    @Column(name="note")
+    private String note;
+
+    @Column(name="status",columnDefinition="int(1) COMMENT '账号类型: 0->禁用；1->启用'")
+    private Integer status;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
