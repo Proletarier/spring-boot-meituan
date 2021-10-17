@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="ums_user_login_log")
+@Table(name="ums_admin_login_log")
 public class AdminLoginLog {
 
     @Id

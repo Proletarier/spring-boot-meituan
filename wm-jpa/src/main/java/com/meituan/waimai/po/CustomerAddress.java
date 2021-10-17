@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="ums_customer_address")
+@Table(name="cms_customer_address")
 public class CustomerAddress {
 
 	@Id

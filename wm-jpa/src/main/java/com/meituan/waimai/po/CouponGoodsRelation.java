@@ -26,8 +26,8 @@ public class CouponGoodsRelation {
     @Column(name="shop_id")
     private Integer shopId;
 
-    @Column(name="shop_id")
-    private Integer goods_Id;
+    @Column(name="goods_Id")
+    private Integer goodsId;
 
     @Column(name="goods_name")
     private String goodsName;

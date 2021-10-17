@@ -1,5 +1,6 @@
 package com.meituan.waimai.po;
 
+
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,22 +12,25 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="sms_shop")
-public class Shop {
+@Table(name="bms_resource")
+public class Resource {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
-    @Column(name="shop_name")
-    private String shopName;
+    @Column(name="name")
+    private String name;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="url")
+    private String url;
 
-    @Column(name="phone")
-    private String phone;
+    @Column(name="description")
+    private String description;
+
+    @Column(name="category_id")
+    private Integer categoryId;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
@@ -43,5 +47,4 @@ public class Shop {
     @LastModifiedBy
     @Column(name = "updated_by", length = 64)
     private String updatedBy;
-
 }

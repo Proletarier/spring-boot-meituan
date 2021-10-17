@@ -11,22 +11,25 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="sms_shop")
-public class Shop {
+@Table(name="bms_resource")
+public class Role {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
-    @Column(name="shop_name")
-    private String shopName;
+    @Column(name="name")
+    private String name;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="description")
+    private String description;
 
-    @Column(name="phone")
-    private String phone;
+    @Column(name="status")
+    private Integer status;
+
+    @Column(name="status")
+    private Integer sort;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
