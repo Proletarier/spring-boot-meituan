@@ -9,27 +9,25 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.util.Date;
 
+
 @Data
 @Entity
-@Table(name="sms_goods_tags")
-public class GoodsTags {
+@Table(name="sms_goods_menu_relation")
+public class GoodsMenuRelation {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
-    private Integer tagId;
+    private Integer id;
 
     @Column(name="shop_id")
     private Integer shopId;
 
-    @Column(name="name")
-    private String name;
+    @Column(name="menu_id")
+    private String menuId;
 
-    @Column(name="icon")
-    private String icon;
-
-    @Column(name="sort")
-    private Integer sort;
+    @Column(name="goods_id")
+    private String goodsId;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)

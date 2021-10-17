@@ -1,6 +1,5 @@
 package com.meituan.waimai.po;
 
-
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,40 +11,22 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="sms_goods")
-public class Goods {
+@Table(name="sms_goods_attribute_category")
+public class GoodsAttributeCategory {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
-    private Integer goodsId;
+    private Integer id;
 
     @Column(name="shop_id")
     private Integer shopId;
 
-    @Column(name="goods_type")
-    private Integer type;
+    @Column(name="select_type")
+    private String selectType;
 
-    @Column(name="name")
+    @Column(name="select_name")
     private String name;
-
-    @Column(name="tag_ids")
-    private String tagIds;
-
-    @Column(name="picture")
-    private String picture;
-
-    @Column(name="goods_desc")
-    private String goodsDesc;
-
-    @Column(name="sell_status")
-    private Integer sellStatus;
-
-    @Column(name="unit")
-    private String unit;
-
-    @Column(name="price")
-    private Integer price;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
@@ -62,4 +43,5 @@ public class Goods {
     @LastModifiedBy
     @Column(name = "updated_by", length = 64)
     private String updatedBy;
+
 }
