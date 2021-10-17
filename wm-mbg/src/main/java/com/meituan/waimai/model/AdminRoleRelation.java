@@ -1,6 +1,5 @@
 package com.meituan.waimai.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class AdminRoleRelation implements Serializable {
