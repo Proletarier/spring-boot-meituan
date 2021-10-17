@@ -1,6 +1,5 @@
 package com.meituan.waimai.po;
 
-
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,28 +11,40 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="ums_custoemr")
-public class Customer {
+@Table(name="sms_coupon")
+public class CouponHistory {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
 
+    @Column(name="coupon_id")
+    private Long couponId;
+
+    @Column(name="customer_id")
+    private Long customerId;
+
+    @Column(name="customer_code")
+    private String couponCode;
+
     @Column(name="customer_name")
     private String customerName;
 
-    @Column(name="status",columnDefinition="int(1) COMMENT '帐号启用状态:0->禁用；1->启用'")
-    private Integer status;
+    @Column(name="source")
+    private Integer source;
 
-    @Column(name="phone",unique=true,nullable = false, length = 32)
-    private String phone;
+    @Column(name="use_status")
+    private Integer useStatus;
 
-    @Column(name="face",length = 100)
-    private String face;
+    @Column(name="use_time")
+    private Date useTime;
 
-    @Column(name="is_member")
-    private Integer isMember;
+    @Column(name="order_id")
+    private Integer orderId;
+
+    @Column(name="order_sn")
+    private String orderSn;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
