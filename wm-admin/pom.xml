@@ -3,12 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.meituan</groupId>
-    <artifactId>admin</artifactId>
+    <artifactId>wm-admin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>admin</name>
+    <name>wm-admin</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -20,11 +19,11 @@
     <dependencies>
         <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>mbg</artifactId>
+            <artifactId>wm-mbg</artifactId>
         </dependency>
         <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>security</artifactId>
+            <artifactId>wm-security</artifactId>
         </dependency>
     </dependencies>
 

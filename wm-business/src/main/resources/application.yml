@@ -18,17 +18,8 @@ jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: republic-slave #JWT加解密使用的密钥
   expiration: 604800 #JWT的超期限时间(60*60*24*7)
-
-redis:
-  database: mall
-  key:
-    captcha: 'captcha'
-  expire:
-    common: 86400 # 24小时
-
-secure:
   ignored:
-    urls: #安全路径白名单
+    urls:
       - /swagger-ui.html
       - /swagger-resources/**
       - /swagger/**
@@ -39,8 +30,13 @@ secure:
       - /**/*.ico
       - /webjars/springfox-swagger-ui/**
       - /druid/**
-      - /admin/login
-      - /admin/register
-      - /admin/info
-      - /admin/logout
+      - /customer/login
+      - /customer/info
+      - /customer/logout
       - /upload/**
+redis:
+  database: customer
+  key:
+    captcha: 'captcha'
+  expire:
+    common: 86400 # 24小时

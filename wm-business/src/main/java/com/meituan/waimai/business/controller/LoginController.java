@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "登录")
 @RestController
-@RequestMapping("/")
+@RequestMapping("customer/")
 public class LoginController {
 
 	@Autowired
