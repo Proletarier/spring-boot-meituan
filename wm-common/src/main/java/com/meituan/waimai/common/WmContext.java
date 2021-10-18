@@ -6,7 +6,7 @@ import java.util.Map;
 public class WmContext {
 	private static final ThreadLocal<Map<String, Object>> CONTEXT_HOLDER = new ThreadLocal<>();
 	private static final String KEY_USER_ID = "user_id";
-	private static final String KEY_USER_ACCOUNT = "user_phone";
+	private static final String KEY_USER_ACCOUNT = "user_account";
 	private static final String KEY_USER_NAME = "user_name";
 	private static final String KEY_REQUEST_HEADER = "request_header";
 
