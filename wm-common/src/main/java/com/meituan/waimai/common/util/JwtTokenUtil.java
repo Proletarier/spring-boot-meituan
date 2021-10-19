@@ -6,6 +6,7 @@ import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.Map;
  * signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
  */
+@Component
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static final String CLAIM_KEY_USERNAME = "sub";
@@ -28,13 +30,13 @@ public class JwtTokenUtil {
     private String secret;
     @Value("${jwt.expiration}")
     private Long expiration;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
 
     /**
      * 根据负责生成JWT的token
      */
-    private String generateToken(Map<String, Object> claims) {
+    public String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
@@ -92,7 +94,7 @@ public class JwtTokenUtil {
         if(StrUtil.isEmpty(oldToken)){
             return null;
         }
-        String token = oldToken.substring(tokenHead.length());
+        String token = oldToken;
         if(StrUtil.isEmpty(token)){
             return null;
         }

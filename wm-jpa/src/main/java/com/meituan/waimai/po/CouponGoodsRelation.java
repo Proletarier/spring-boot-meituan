@@ -20,7 +20,7 @@ public class CouponGoodsRelation {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="id")
+    @Column(name="coupon_id")
     private Integer couponId;
 
     @Column(name="shop_id")

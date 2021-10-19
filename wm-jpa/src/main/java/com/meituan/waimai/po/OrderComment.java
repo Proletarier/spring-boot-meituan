@@ -36,7 +36,7 @@ public class OrderComment {
     @Column(name="pictures")
     private String pictures;
 
-    @Column(name="pictures")
+    @Column(name="score")
     private BigDecimal score;
 
     @Column(name="pack_score")

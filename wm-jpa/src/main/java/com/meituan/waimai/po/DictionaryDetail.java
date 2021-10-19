@@ -28,7 +28,7 @@ public class DictionaryDetail {
     @Column(name="detail_value")
     private String detailValue;
 
-    @Column(name="detail_value")
+    @Column(name="detail_desc")
     private String detailDesc;
 
     @Column(name="is_lock")

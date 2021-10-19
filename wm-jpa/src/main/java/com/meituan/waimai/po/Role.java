@@ -28,7 +28,7 @@ public class Role {
     @Column(name="status")
     private Integer status;
 
-    @Column(name="status")
+    @Column(name="sort")
     private Integer sort;
 
     @CreatedDate
