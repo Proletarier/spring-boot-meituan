@@ -54,11 +54,11 @@ public class CustomerServiceImpl implements CustomerService {
 		if (!StrUtil.isBlank(value)){
 			int count = mallCacheService.getSendCaptchaCount(phone);
 			if (count >= 5){
-				Asserts.fail("当日发送验证码次数达到上限");
+				Asserts.fail("当日发送验证码达到上限");
 			}
 			long lastTime = mallCacheService.getSendCaptchaLastTime(phone);
 			if (DateUtil.getCurrentSeconds() - lastTime < 100){
-				Asserts.fail("验证码发送太频繁");
+				Asserts.fail("频繁操作");
 			}
 		}
 		//TODO 验证码需要接入短信平台，暂时设置123456

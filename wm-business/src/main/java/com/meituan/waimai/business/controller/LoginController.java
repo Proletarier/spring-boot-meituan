@@ -6,14 +6,18 @@ import com.meituan.waimai.business.dto.form.CustomerLoginForm;
 import com.meituan.waimai.business.server.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "登录")
 @RestController
-@RequestMapping("customer/")
+@RequestMapping("/business/")
 public class LoginController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	private CustomerService customerService;
@@ -21,6 +25,7 @@ public class LoginController {
 	@ApiOperation(value = "登录以后返回token")
 	@PostMapping(value = "login")
 	public CommonResult login(@Validated @RequestBody CustomerLoginForm customerLoginForm)  {
+		LOGGER.info("loginForm={}",customerLoginForm);
 		String token = customerService.login(customerLoginForm);
 		if (token == null) {
 			return CommonResult.validateFailed("用户名或密码错误");
@@ -37,6 +42,7 @@ public class LoginController {
 	@ApiOperation(value = "获取短信验证码")
 	@GetMapping(value = "getCaptcha")
 	public CommonResult getCaptcha(@RequestParam("phone") String phone)  {
+		LOGGER.info("phone={}",phone);
 	    customerService.sendCaptcha(phone);
 		return CommonResult.success();
 	}
