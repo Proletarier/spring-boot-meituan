@@ -47,6 +47,7 @@
         <jpg.version>1.0-SNAPSHOT</jpg.version>
         <security.version>1.0-SNAPSHOT</security.version>
         <jpa.version>1.0-SNAPSHOT</jpa.version>
+        <fastjson.version>1.2.75</fastjson.version>
     </properties>
 
 
@@ -69,6 +70,10 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
@@ -89,31 +94,31 @@
             <!--common通用模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>wm-common</artifactId>
                 <version>${common.version}</version>
             </dependency>
             <!-- jpg模块 -->
             <dependency>
                 <groupId>com.meituan</groupId>
-                <artifactId>jpg</artifactId>
+                <artifactId>wm-jpa</artifactId>
                 <version>${jpg.version}</version>
             </dependency>
             <!--MBG生成模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
-                <artifactId>mbg</artifactId>
+                <artifactId>wm-mbg</artifactId>
                 <version>${mbg.version}</version>
             </dependency>
             <!--jpa生成模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
-                <artifactId>jpa</artifactId>
+                <artifactId>wm-jpa</artifactId>
                 <version>${jpa.version}</version>
             </dependency>
             <!--安全模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
-                <artifactId>security</artifactId>
+                <artifactId>wm-security</artifactId>
                 <version>${security.version}</version>
             </dependency>
             <dependency>
@@ -126,6 +131,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
             <!--集成druid连接池-->
             <dependency>
@@ -199,5 +210,19 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <target>${java.version}</target>
+                    <source>${java.version}</source>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
 
+            </plugin>
+        </plugins>
+    </build>
 </project>
