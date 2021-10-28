@@ -40,3 +40,6 @@ redis:
     captcha: 'captcha'
   expire:
     common: 86400 # 24小时
+
+amap:
+  key: 6af7985ab67e64b8c6d0c87eec1aa40a

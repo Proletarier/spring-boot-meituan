@@ -3,17 +3,25 @@ package com.meituan.waimai.amap.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public class AMapUrl {
+public interface AMapUrl {
 
-	public static final String API_DEFAULT_HOST_URL = "https://restapi.amap.com";
+	String API_DEFAULT_HOST_URL = "https://restapi.amap.com";
+
+	default String getUrl() {
+		return this.getPrefix() + getPath();
+	}
+
+	String getPath();
+
+	String getPrefix();
 
 	@AllArgsConstructor
 	@Getter
-	enum IP {
+	enum IP implements AMapUrl {
 		/**
 		 * ip定位
 		 */
-		IP_LOCATION(API_DEFAULT_HOST_URL,"/v5/ip");
+		IP_LOCATION(API_DEFAULT_HOST_URL, "/v5/ip");
 
 		private final String prefix;
 		private final String path;
@@ -21,15 +29,15 @@ public class AMapUrl {
 
 	@AllArgsConstructor
 	@Getter
-	enum Poi {
+	enum Poi implements AMapUrl {
 		/**
 		 * 周边搜索
 		 */
-		POI_AROUND_SEARCH(API_DEFAULT_HOST_URL,"/v3/place/around"),
+		POI_AROUND_SEARCH(API_DEFAULT_HOST_URL, "/v3/place/around"),
 		/**
 		 * 关键字搜索
 		 */
-		POI_KEYWORD_SEARCH(API_DEFAULT_HOST_URL,"/v3/place/text");
+		POI_KEYWORD_SEARCH(API_DEFAULT_HOST_URL, "/v3/place/text");
 
 		private final String prefix;
 		private final String path;
