@@ -1,7 +1,8 @@
 package com.meituan.waimai.amap.api;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.meituan.waimai.amap.bean.LocationRequest;
+import com.meituan.waimai.amap.error.AMapErrorException;
 
 public interface IPLocationService {
 
@@ -10,5 +11,5 @@ public interface IPLocationService {
 	 * @param param
 	 * @return
 	 */
-	JSONObject location(LocationRequest param);
+	JsonObject location(LocationRequest param) throws AMapErrorException;
 }

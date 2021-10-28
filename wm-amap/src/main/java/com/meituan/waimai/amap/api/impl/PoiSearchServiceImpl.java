@@ -1,6 +1,6 @@
 package com.meituan.waimai.amap.api.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.meituan.waimai.amap.api.PoiSearchService;
 import com.meituan.waimai.amap.bean.PoiSearchRequest;
 import org.springframework.stereotype.Service;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 public class PoiSearchServiceImpl implements PoiSearchService {
 
 	@Override
-	public JSONObject keywordSearch(PoiSearchRequest request) {
+	public JsonObject keywordSearch(PoiSearchRequest request) {
 		return null;
 	}
 
 	@Override
-	public JSONObject aroundSearch(PoiSearchRequest request) {
+	public JsonObject aroundSearch(PoiSearchRequest request) {
 		return null;
 	}
 }

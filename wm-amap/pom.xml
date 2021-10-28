@@ -25,10 +25,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.meituan</groupId>
-            <artifactId>wm-common</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

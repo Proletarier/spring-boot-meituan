@@ -1,7 +1,5 @@
 package com.meituan.waimai.amap.api;
 
-import com.google.gson.JsonObject;
-
 import java.util.Map;
 
 public interface AMapService {
