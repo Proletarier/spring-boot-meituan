@@ -28,6 +28,15 @@
             <groupId>com.meituan</groupId>
             <artifactId>wm-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.meituan</groupId>
+            <artifactId>wm-amap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
     </dependencies>
 
     <build>

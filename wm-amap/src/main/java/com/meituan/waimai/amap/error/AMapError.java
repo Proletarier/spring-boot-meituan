@@ -1,6 +1,6 @@
 package com.meituan.waimai.amap.error;
 
-import com.meituan.waimai.amap.json.GsonBuilder;
+import com.meituan.waimai.amap.util.json.GsonBuilder;
 import lombok.Builder;
 import lombok.Data;
 

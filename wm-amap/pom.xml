@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>amap</artifactId>
+    <artifactId>wm-amap</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,12 +18,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.meituan</groupId>
+            <artifactId>wm-common</artifactId>
         </dependency>
     </dependencies>
 
