@@ -1,12 +1,11 @@
 package com.meituan.waimai.amap.api.impl;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.meituan.waimai.amap.api.AMapService;
 import com.meituan.waimai.amap.api.IPLocationService;
-import com.meituan.waimai.amap.bean.LocationRequest;
+import com.meituan.waimai.amap.bean.LocationQuery;
+import com.meituan.waimai.amap.bean.PoiSearchQuery;
 import com.meituan.waimai.amap.error.AMapError;
 import com.meituan.waimai.amap.error.AMapErrorException;
 import com.meituan.waimai.common.util.json.GsonHelper;
@@ -27,7 +26,7 @@ public class IPLocationServiceImpl implements IPLocationService {
 	private String key;
 
 	@Override
-	public JsonObject location(LocationRequest param) throws AMapErrorException {
+	public JsonObject location(LocationQuery param) throws AMapErrorException {
 
 		param.setKey(key);
 		String json = aMapService.get(IP_LOCATION.getUrl(),GsonHelper.ObjectToMapString(param));
@@ -39,4 +38,5 @@ public class IPLocationServiceImpl implements IPLocationService {
 
 		return jsonObject;
 	}
+
 }

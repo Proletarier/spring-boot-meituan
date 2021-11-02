@@ -6,7 +6,7 @@ import lombok.*;
  * ip定位请求入参
  */
 @Data
-public class LocationRequest {
+public class LocationQuery {
 
 	/**
 	 * 高德Key
