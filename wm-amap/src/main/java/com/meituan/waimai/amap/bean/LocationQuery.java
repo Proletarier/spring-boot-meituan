@@ -6,12 +6,8 @@ import lombok.*;
  * ip定位请求入参
  */
 @Data
-public class LocationQuery {
+public class LocationQuery extends BaseQuery {
 
-	/**
-	 * 高德Key
-	 */
-	private String key;
 	/**
 	 * IP类型
 	 */

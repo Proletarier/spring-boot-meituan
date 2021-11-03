@@ -21,10 +21,8 @@ public class PoiSearchServiceImpl implements PoiSearchService {
 
 	@Override
 	public JsonObject keywordSearch(PoiSearchQuery request) throws AMapErrorException {
-
 		String json = aMapService.get(POI_KEYWORD_SEARCH.getUrl(), GsonHelper.ObjectToMapString(request));
 		JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-
 		if (!"1".equals(jsonObject.get("status").getAsString())) {
 			throw new AMapErrorException(AMapError.fromJson(json));
 		}
@@ -33,10 +31,8 @@ public class PoiSearchServiceImpl implements PoiSearchService {
 
 	@Override
 	public JsonObject aroundSearch(PoiSearchQuery request) throws AMapErrorException {
-
 		String json = aMapService.get(POI_AROUND_SEARCH.getUrl(), GsonHelper.ObjectToMapString(request));
 		JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-
 		if (!"1".equals(jsonObject.get("status").getAsString())) {
 			throw new AMapErrorException(AMapError.fromJson(json));
 		}

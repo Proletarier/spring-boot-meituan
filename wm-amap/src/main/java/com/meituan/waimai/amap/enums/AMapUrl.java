@@ -42,4 +42,14 @@ public interface AMapUrl {
 		private final String prefix;
 		private final String path;
 	}
+
+	@AllArgsConstructor
+	@Getter
+	enum District implements AMapUrl {
+
+		DISTRICT_SEARCH(API_DEFAULT_HOST_URL,"/v3/config/district");
+
+		private final String prefix;
+		private final String path;
+	}
 }

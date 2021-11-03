@@ -2,7 +2,9 @@ package com.meituan.waimai.business.controller;
 
 
 import com.google.gson.JsonObject;
+import com.meituan.waimai.amap.bean.DistrictQuery;
 import com.meituan.waimai.amap.bean.LocationQuery;
+import com.meituan.waimai.amap.bean.PoiSearchQuery;
 import com.meituan.waimai.business.server.MapService;
 import com.meituan.waimai.common.api.CommonResult;
 import io.swagger.annotations.Api;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "地理位置服务")
 @RestController
-@RequestMapping("/business/map/")
+@RequestMapping("/business/map")
 public class MapController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -25,9 +27,9 @@ public class MapController {
 	MapService mapService;
 
 	@ApiOperation(value = "通过ip获取定位")
-	@GetMapping(value = "ip/location")
+	@GetMapping(value = "/ip/location")
 	public CommonResult getCaptcha(LocationQuery request)  {
-		LOGGER.info("LocationQuery={}",request);
+		LOGGER.info("locationQuery={}",request);
 		JsonObject jsonObject = mapService.location(request);
 		if (jsonObject == null){
 			return CommonResult.failed();
@@ -36,10 +38,10 @@ public class MapController {
 	}
 
 	@ApiOperation(value = "根据关键字搜索地理位置信息")
-	@GetMapping(value = "poi/keywordSearch")
-	public CommonResult keywordSearch(LocationQuery request)  {
-		LOGGER.info("LocationQuery={}",request);
-		JsonObject jsonObject = mapService.location(request);
+	@GetMapping(value = "/poi/keyword")
+	public CommonResult keywordSearch(PoiSearchQuery request)  {
+		LOGGER.info("poiSearchQuery = {}",request);
+		JsonObject jsonObject = mapService.keywordSearch(request);
 		if (jsonObject == null){
 			return CommonResult.failed();
 		}
@@ -47,10 +49,21 @@ public class MapController {
 	}
 
 	@ApiOperation(value = "根据定位搜索信息")
-	@GetMapping(value = "poi/aroundSearch")
-	public CommonResult aroundSearch(LocationQuery request)  {
-		LOGGER.info("LocationQuery={}",request);
-		JsonObject jsonObject = mapService.location(request);
+	@GetMapping(value = "/poi/around")
+	public CommonResult aroundSearch(PoiSearchQuery request)  {
+		LOGGER.info("poiSearchQuery ={ }",request);
+		JsonObject jsonObject = mapService.aroundSearch(request);
+		if (jsonObject == null){
+			return CommonResult.failed();
+		}
+		return CommonResult.success(jsonObject.toString());
+	}
+
+	@ApiOperation(value = "行政区域查询")
+	@GetMapping(value = "/district")
+	public CommonResult districtSearch(DistrictQuery request)  {
+		LOGGER.info("districtQuery={}",request);
+		JsonObject jsonObject = mapService.districtSearch(request);
 		if (jsonObject == null){
 			return CommonResult.failed();
 		}

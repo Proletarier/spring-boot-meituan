@@ -6,12 +6,8 @@ import lombok.Data;
  * 关键字搜索、 周边搜索请求入参
  */
 @Data
-public class PoiSearchQuery {
+public class PoiSearchQuery extends BaseQuery {
 
-	/**
-	 * 高德Key
-	 */
-	private String key;
 	/**
 	 * IP类型
 	 */

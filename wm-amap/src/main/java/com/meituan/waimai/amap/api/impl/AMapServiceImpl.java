@@ -16,8 +16,6 @@ import java.util.Objects;
 @Service
 public  class AMapServiceImpl implements AMapService {
 
-
-
 	@Override
 	public String get(String url, Map<String, String> params) throws AMapErrorException {
 		HttpClientResult result = null;
@@ -26,10 +24,8 @@ public  class AMapServiceImpl implements AMapService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		if (Objects.isNull(result))
 		  throw new AMapErrorException("网络异常，请稍后重试");
-
 		return result.getContent();
 	}
 
