@@ -242,8 +242,6 @@
                     <target>${java.version}</target>
                     <source>${java.version}</source>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <fork>true</fork>
-                    <!--增加jvm参数-->
                 </configuration>
             </plugin>
         </plugins>

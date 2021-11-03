@@ -9,13 +9,13 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${log.pattern}</pattern>
-            <charset>UTF-8</charset>
+            <charset>GBK</charset>
         </encoder>
     </appender>
 
     <!-- 系统日志输出 -->
     <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/hm-bussiness.log</file>
+        <file>${log.path}/wm-bussiness.log</file>
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式-->
@@ -25,6 +25,7 @@
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <!-- 过滤的级别 只会打印debug不会有info日志-->
