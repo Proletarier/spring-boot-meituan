@@ -1,7 +1,7 @@
 package com.meituan.waimai.amap.api;
 
 import com.google.gson.JsonObject;
-import com.meituan.waimai.amap.bean.DistrictQuery;
+import com.meituan.waimai.amap.bean.District;
 import com.meituan.waimai.amap.error.AMapErrorException;
 
 public interface DistrictService {
@@ -12,6 +12,6 @@ public interface DistrictService {
 	 * @return
 	 * @throws AMapErrorException
 	 */
-	JsonObject districtSearch(DistrictQuery param) throws AMapErrorException;
+	JsonObject districtSearch(District param) throws Exception;
 
 }

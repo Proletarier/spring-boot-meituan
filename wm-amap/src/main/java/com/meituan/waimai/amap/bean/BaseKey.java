@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Data
 @ConfigurationProperties(prefix = "amap")
 @Component
-public class BaseQuery  {
+public class BaseKey {
 
 	/**
 	 * 请求服务权限标识

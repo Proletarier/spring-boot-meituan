@@ -52,4 +52,14 @@ public interface AMapUrl {
 		private final String prefix;
 		private final String path;
 	}
+
+	@AllArgsConstructor
+	@Getter
+	enum Coordinate implements AMapUrl{
+
+		COORDINATE_CONVERT(API_DEFAULT_HOST_URL,"/v3/assistant/coordinate/convert");
+
+		private final String prefix;
+		private final String path;
+	}
 }

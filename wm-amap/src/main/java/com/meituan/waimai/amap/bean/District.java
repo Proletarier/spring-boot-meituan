@@ -6,7 +6,7 @@ import lombok.Data;
  * 行政区域查询入参
  */
 @Data
-public class DistrictQuery extends  BaseQuery {
+public class District extends BaseKey {
 
 
 	/**

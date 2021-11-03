@@ -1,17 +1,20 @@
 package com.meituan.waimai.business.server;
 
 import com.google.gson.JsonObject;
-import com.meituan.waimai.amap.bean.DistrictQuery;
-import com.meituan.waimai.amap.bean.LocationQuery;
-import com.meituan.waimai.amap.bean.PoiSearchQuery;
+import com.meituan.waimai.amap.bean.Coordinate;
+import com.meituan.waimai.amap.bean.District;
+import com.meituan.waimai.amap.bean.Location;
+import com.meituan.waimai.amap.bean.PoiSearch;
 
 public interface MapService {
 
-	JsonObject location(LocationQuery param);
+	JsonObject location(Location param);
 
-	JsonObject keywordSearch(PoiSearchQuery param);
+	JsonObject keywordSearch(PoiSearch param);
 
-	JsonObject aroundSearch(PoiSearchQuery param);
+	JsonObject aroundSearch(PoiSearch param);
 
-	JsonObject districtSearch(DistrictQuery param);
+	JsonObject districtSearch(District param);
+
+	JsonObject convert(Coordinate coordinate);
 }

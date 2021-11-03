@@ -1,12 +1,14 @@
 package com.meituan.waimai.business.server.impl;
 
 import com.google.gson.JsonObject;
+import com.meituan.waimai.amap.api.CoordinateService;
 import com.meituan.waimai.amap.api.DistrictService;
 import com.meituan.waimai.amap.api.IPLocationService;
 import com.meituan.waimai.amap.api.PoiSearchService;
-import com.meituan.waimai.amap.bean.DistrictQuery;
-import com.meituan.waimai.amap.bean.LocationQuery;
-import com.meituan.waimai.amap.bean.PoiSearchQuery;
+import com.meituan.waimai.amap.bean.Coordinate;
+import com.meituan.waimai.amap.bean.District;
+import com.meituan.waimai.amap.bean.Location;
+import com.meituan.waimai.amap.bean.PoiSearch;
 import com.meituan.waimai.amap.error.AMapErrorException;
 import com.meituan.waimai.business.server.MapService;
 import com.meituan.waimai.common.util.RequestUtil;
@@ -28,51 +30,74 @@ public class MapServiceImpl implements MapService {
 	DistrictService districtService;
 
 	@Autowired
+	CoordinateService coordinateService;
+
+	@Autowired
 	HttpServletRequest request;
 
 	@Override
-	public JsonObject location(LocationQuery param) {
+	public JsonObject location(Location param) {
 		JsonObject jsonObject = null;
 		param.setIp(RequestUtil.getRequestIp(request));
 		try {
 			jsonObject = ipLocationService.location(param);
 		} catch (AMapErrorException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return jsonObject;
 	}
 
 	@Override
-	public JsonObject keywordSearch(PoiSearchQuery param) {
+	public JsonObject keywordSearch(PoiSearch param) {
 		JsonObject jsonObject = null;
 		try {
 			jsonObject = poiSearchService.keywordSearch(param);
 		} catch (AMapErrorException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return jsonObject;
 	}
 
 	@Override
-	public JsonObject aroundSearch(PoiSearchQuery param) {
+	public JsonObject aroundSearch(PoiSearch param) {
 		JsonObject jsonObject = null;
 		try {
 			jsonObject = poiSearchService.aroundSearch(param);
 		} catch (AMapErrorException e) {
 			e.printStackTrace();
-		}
-		return jsonObject;
-	}
-
-	@Override
-	public JsonObject districtSearch(DistrictQuery param) {
-		JsonObject jsonObject = null;
-		try {
-			jsonObject = districtService.districtSearch(param);
-		} catch (AMapErrorException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return jsonObject;
 	}
 
+	@Override
+	public JsonObject districtSearch(District param) {
+		JsonObject jsonObject = null;
+		try {
+			jsonObject = districtService.districtSearch(param);
+		} catch (AMapErrorException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jsonObject;
+	}
+
+	@Override
+	public JsonObject convert(Coordinate coordinate) {
+		JsonObject jsonObject = null;
+		try {
+			jsonObject = coordinateService.convert(coordinate);
+		} catch (AMapErrorException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jsonObject;
+	}
 }

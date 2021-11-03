@@ -1,7 +1,7 @@
 package com.meituan.waimai.amap.api;
 
 import com.google.gson.JsonObject;
-import com.meituan.waimai.amap.bean.LocationQuery;
+import com.meituan.waimai.amap.bean.Location;
 import com.meituan.waimai.amap.error.AMapErrorException;
 
 public interface IPLocationService {
@@ -11,6 +11,6 @@ public interface IPLocationService {
 	 * @param param
 	 * @return
 	 */
-	JsonObject location(LocationQuery param) throws AMapErrorException;
+	JsonObject location(Location param) throws AMapErrorException, Exception;
 
 }

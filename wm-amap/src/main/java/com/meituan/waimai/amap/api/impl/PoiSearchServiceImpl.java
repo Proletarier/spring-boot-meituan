@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.meituan.waimai.amap.api.AMapService;
 import com.meituan.waimai.amap.api.PoiSearchService;
-import com.meituan.waimai.amap.bean.PoiSearchQuery;
+import com.meituan.waimai.amap.bean.PoiSearch;
 import com.meituan.waimai.amap.error.AMapError;
 import com.meituan.waimai.amap.error.AMapErrorException;
 import com.meituan.waimai.common.util.json.GsonHelper;
@@ -20,7 +20,7 @@ public class PoiSearchServiceImpl implements PoiSearchService {
 	private AMapService aMapService;
 
 	@Override
-	public JsonObject keywordSearch(PoiSearchQuery request) throws AMapErrorException {
+	public JsonObject keywordSearch(PoiSearch request) throws Exception {
 		String json = aMapService.get(POI_KEYWORD_SEARCH.getUrl(), GsonHelper.ObjectToMapString(request));
 		JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 		if (!"1".equals(jsonObject.get("status").getAsString())) {
@@ -30,7 +30,7 @@ public class PoiSearchServiceImpl implements PoiSearchService {
 	}
 
 	@Override
-	public JsonObject aroundSearch(PoiSearchQuery request) throws AMapErrorException {
+	public JsonObject aroundSearch(PoiSearch request) throws Exception {
 		String json = aMapService.get(POI_AROUND_SEARCH.getUrl(), GsonHelper.ObjectToMapString(request));
 		JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 		if (!"1".equals(jsonObject.get("status").getAsString())) {
