@@ -2,7 +2,7 @@ package com.meituan.waimai.business.Interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.meituan.waimai.common.WmContext;
+import com.meituan.waimai.business.bean.CustomerContext;
 import com.meituan.waimai.common.api.ResultCode;
 import com.meituan.waimai.common.exception.AutoTokenException;
 import com.meituan.waimai.common.util.JwtTokenUtil;
@@ -45,7 +45,6 @@ public class ContextInterceptor implements HandlerInterceptor {
 				return true;
 			}
 		}
-
 		String authToken = request.getHeader(this.tokenHeader);
 		LOGGER.info("checking authHeader:{}", authToken);
 
@@ -55,9 +54,9 @@ public class ContextInterceptor implements HandlerInterceptor {
 				throw new AutoTokenException(ResultCode.UNAUTHORIZED);
 			}
 			JSONObject jsonObject = JSONObject.parseObject(claims.getSubject());
-			WmContext.setUserID(jsonObject.getInteger("id"));
-			WmContext.setUserAccount(jsonObject.getString("account"));
-			WmContext.setUserName(jsonObject.getString("userName"));
+			CustomerContext.setCustomerId(jsonObject.getInteger("id"));
+			CustomerContext.setKeyCustomerTelephone(jsonObject.getString("phone"));
+			CustomerContext.setKeyCustomerName(jsonObject.getString("customerName"));
 			return  true;
 		}
 		return false;

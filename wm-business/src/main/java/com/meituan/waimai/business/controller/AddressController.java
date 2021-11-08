@@ -1,6 +1,7 @@
 package com.meituan.waimai.business.controller;
 
 
+import com.meituan.waimai.business.bean.CustomerContext;
 import com.meituan.waimai.common.api.CommonResult;
 import com.meituan.waimai.business.dto.form.CustomerAddressForm;
 import com.meituan.waimai.business.server.CustomerAddressService;
@@ -21,10 +22,10 @@ public class AddressController {
 	@Autowired
 	CustomerAddressService addressService;
 
-	@ApiOperation(value = "地址列表")
+	@ApiOperation(value = "获取当前登录用户的地址列表")
 	@GetMapping(value = "/list")
-	public CommonResult listAddress(@RequestParam("customerId") Integer customerId)  {
-		log.info("------ listAddress param={}", customerId);
+	public CommonResult listAddress()  {
+		Integer customerId = CustomerContext.getCustomerId();
 		return CommonResult.success(addressService.listAddressByCustomerId(customerId));
 	}
 
