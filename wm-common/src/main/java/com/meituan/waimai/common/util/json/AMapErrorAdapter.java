@@ -2,6 +2,7 @@ package com.meituan.waimai.common.util.json;
 
 import com.google.gson.*;
 import com.meituan.waimai.common.error.AMapError;
+import com.meituan.waimai.common.error.AMapErrorMsgEnum;
 
 import java.lang.reflect.Type;
 
@@ -16,7 +17,7 @@ public class AMapErrorAdapter  implements JsonDeserializer<AMapError> {
 			errorBuilder.errorCode(errorJsonObject.get("infocode").getAsString());
 		}
 		if (errorJsonObject.get("info") != null && !errorJsonObject.get("info").isJsonNull()) {
-			errorBuilder.errorMsg(errorJsonObject.get("info").getAsString());
+			errorBuilder.errorMsg(AMapErrorMsgEnum.findMsgByCode(errorJsonObject.get("infocode").getAsString()));
 		}
 		errorBuilder.json(json.toString());
 		return errorBuilder.build();

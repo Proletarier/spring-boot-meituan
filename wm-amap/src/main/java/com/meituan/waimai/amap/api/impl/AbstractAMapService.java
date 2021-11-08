@@ -8,15 +8,25 @@ import com.meituan.waimai.amap.util.http.HttpClientResult;
 import com.meituan.waimai.common.error.AMapError;
 import com.meituan.waimai.common.error.AMapErrorMsgEnum;
 import com.meituan.waimai.common.exception.AMapErrorException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Map;
 import java.util.Objects;
 
 public abstract class AbstractAMapService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractAMapService.class);
+
+	@Value("${amap.key}")
+	private String key;
+
 	public JsonObject get(String url, Map<String, String> params) throws AMapErrorException {
 		HttpClientResult result = null;
+		params.put("key",key);
 		try {
+			LOGGER.info("------map-> get -> url = {},params = {}",url,params);
 			result = HttpClientPoolUtil.doGet(url,params,true);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -72,7 +72,7 @@ public class MapController {
 	}
 
 	@ApiOperation(value = "坐标转换")
-	@GetMapping(value = "/district")
+	@GetMapping(value = "/convert")
 	public CommonResult convert(Coordinate coordinate)  {
 		LOGGER.info("coordinate={}",coordinate);
 		JsonObject jsonObject = mapService.convert(coordinate);
