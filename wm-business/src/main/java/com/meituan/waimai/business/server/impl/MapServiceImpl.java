@@ -22,16 +22,12 @@ public class MapServiceImpl implements MapService {
 
 	@Autowired
 	PoiSearchService poiSearchService;
-
 	@Autowired
 	IPLocationService ipLocationService;
-
 	@Autowired
 	DistrictService districtService;
-
 	@Autowired
 	CoordinateService coordinateService;
-
 	@Autowired
 	HttpServletRequest request;
 

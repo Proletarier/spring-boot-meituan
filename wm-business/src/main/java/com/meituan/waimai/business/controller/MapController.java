@@ -2,6 +2,7 @@ package com.meituan.waimai.business.controller;
 
 
 import com.google.gson.JsonObject;
+import com.meituan.waimai.amap.bean.Coordinate;
 import com.meituan.waimai.amap.bean.District;
 import com.meituan.waimai.amap.bean.Location;
 import com.meituan.waimai.amap.bean.PoiSearch;
@@ -64,6 +65,17 @@ public class MapController {
 	public CommonResult districtSearch(District request)  {
 		LOGGER.info("districtQuery={}",request);
 		JsonObject jsonObject = mapService.districtSearch(request);
+		if (jsonObject == null){
+			return CommonResult.failed();
+		}
+		return CommonResult.success(jsonObject.toString());
+	}
+
+	@ApiOperation(value = "坐标转换")
+	@GetMapping(value = "/district")
+	public CommonResult convert(Coordinate coordinate)  {
+		LOGGER.info("coordinate={}",coordinate);
+		JsonObject jsonObject = mapService.convert(coordinate);
 		if (jsonObject == null){
 			return CommonResult.failed();
 		}

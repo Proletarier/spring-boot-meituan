@@ -1,13 +1,11 @@
 package com.meituan.waimai.amap.api.impl;
 
 import com.meituan.waimai.amap.api.AMapService;
-import com.meituan.waimai.amap.error.AMapErrorException;
 import com.meituan.waimai.amap.util.http.HttpClientPoolUtil;
 import com.meituan.waimai.amap.util.http.HttpClientResult;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Objects;
 
 
 @Service
