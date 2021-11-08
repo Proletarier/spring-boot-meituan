@@ -1,10 +1,7 @@
 package com.meituan.waimai.business.server;
 
 import com.google.gson.JsonObject;
-import com.meituan.waimai.amap.bean.Coordinate;
-import com.meituan.waimai.amap.bean.District;
-import com.meituan.waimai.amap.bean.Location;
-import com.meituan.waimai.amap.bean.PoiSearch;
+import com.meituan.waimai.amap.bean.*;
 
 public interface MapService {
 
@@ -17,4 +14,7 @@ public interface MapService {
 	JsonObject districtSearch(District param);
 
 	JsonObject convert(Coordinate coordinate);
+
+	JsonObject inputTips(InputTips inputTips);
+
 }

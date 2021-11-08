@@ -62,4 +62,14 @@ public interface AMapUrl {
 		private final String prefix;
 		private final String path;
 	}
+
+	@AllArgsConstructor
+	@Getter
+	enum Assistant implements AMapUrl{
+
+		ASSISTANT_INPUT_TIPS(API_DEFAULT_HOST_URL,"/v3/assistant/inputtips");
+
+		private final String prefix;
+		private final String path;
+	}
 }

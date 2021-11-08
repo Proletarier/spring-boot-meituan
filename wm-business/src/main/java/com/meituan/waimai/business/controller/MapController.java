@@ -2,10 +2,7 @@ package com.meituan.waimai.business.controller;
 
 
 import com.google.gson.JsonObject;
-import com.meituan.waimai.amap.bean.Coordinate;
-import com.meituan.waimai.amap.bean.District;
-import com.meituan.waimai.amap.bean.Location;
-import com.meituan.waimai.amap.bean.PoiSearch;
+import com.meituan.waimai.amap.bean.*;
 import com.meituan.waimai.business.server.MapService;
 import com.meituan.waimai.common.api.CommonResult;
 import io.swagger.annotations.Api;
@@ -76,6 +73,17 @@ public class MapController {
 	public CommonResult convert(Coordinate coordinate)  {
 		LOGGER.info("coordinate={}",coordinate);
 		JsonObject jsonObject = mapService.convert(coordinate);
+		if (jsonObject == null){
+			return CommonResult.failed();
+		}
+		return CommonResult.success(jsonObject.toString());
+	}
+
+	@ApiOperation(value = "输入提示")
+	@GetMapping(value = "/assistant/input_tips")
+	public CommonResult inputTips(InputTips inputTips)  {
+		LOGGER.info("inputTips={}",inputTips);
+		JsonObject jsonObject = mapService.inputTips(inputTips);
 		if (jsonObject == null){
 			return CommonResult.failed();
 		}

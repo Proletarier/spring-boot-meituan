@@ -1,14 +1,8 @@
 package com.meituan.waimai.business.server.impl;
 
 import com.google.gson.JsonObject;
-import com.meituan.waimai.amap.api.CoordinateService;
-import com.meituan.waimai.amap.api.DistrictService;
-import com.meituan.waimai.amap.api.IPLocationService;
-import com.meituan.waimai.amap.api.PoiSearchService;
-import com.meituan.waimai.amap.bean.Coordinate;
-import com.meituan.waimai.amap.bean.District;
-import com.meituan.waimai.amap.bean.Location;
-import com.meituan.waimai.amap.bean.PoiSearch;
+import com.meituan.waimai.amap.api.*;
+import com.meituan.waimai.amap.bean.*;
 import com.meituan.waimai.business.server.MapService;
 import com.meituan.waimai.common.exception.AMapErrorException;
 import com.meituan.waimai.common.util.RequestUtil;
@@ -32,6 +26,8 @@ public class MapServiceImpl implements MapService {
 	DistrictService districtService;
 	@Autowired
 	CoordinateService coordinateService;
+	@Autowired
+	AssistantService assistantService;
 	@Autowired
 	HttpServletRequest request;
 
@@ -85,6 +81,17 @@ public class MapServiceImpl implements MapService {
 		JsonObject jsonObject = null;
 		try {
 			jsonObject = coordinateService.convert(coordinate);
+		} catch (AMapErrorException e) {
+			LOGGER.error(e.getError().toString());
+		}
+		return jsonObject;
+	}
+
+	@Override
+	public JsonObject inputTips(InputTips inputTips) {
+		JsonObject jsonObject = null;
+		try {
+			jsonObject = assistantService.inputTips(inputTips);
 		} catch (AMapErrorException e) {
 			LOGGER.error(e.getError().toString());
 		}
