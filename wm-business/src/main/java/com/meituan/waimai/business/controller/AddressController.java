@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "地址管理")
 @RestController
-@RequestMapping("/business/customer/address")
+@RequestMapping("/business/customer_address")
 public class AddressController {
 
 	Logger log = LoggerFactory.getLogger(this.getClass());

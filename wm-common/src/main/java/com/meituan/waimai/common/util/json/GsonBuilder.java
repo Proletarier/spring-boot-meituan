@@ -1,4 +1,4 @@
-package com.meituan.waimai.amap.util.json;
+package com.meituan.waimai.common.util.json;
 
 import com.google.gson.Gson;
 import com.meituan.waimai.common.error.AMapError;

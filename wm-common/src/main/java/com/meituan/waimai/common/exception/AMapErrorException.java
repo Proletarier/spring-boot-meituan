@@ -1,9 +1,11 @@
-package com.meituan.waimai.amap.error;
+package com.meituan.waimai.common.exception;
 
+
+import com.meituan.waimai.common.error.AMapError;
 
 public class AMapErrorException extends Exception {
 
-	private final  AMapError error;
+	private final AMapError error;
 
 	private static final String DEFAULT_ERROR_CODE = "1000";
 

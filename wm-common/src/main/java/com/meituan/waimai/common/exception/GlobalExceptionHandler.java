@@ -17,4 +17,13 @@ public class GlobalExceptionHandler {
         }
         return CommonResult.failed(e.getMessage());
     }
+
+    @ResponseBody
+    @ExceptionHandler(value = AMapErrorException.class)
+    public CommonResult handle(AMapErrorException e) {
+        if (e.getError() != null) {
+            return CommonResult.failed(e.getError().getErrorMsg());
+        }
+        return CommonResult.failed(e.getMessage());
+    }
 }

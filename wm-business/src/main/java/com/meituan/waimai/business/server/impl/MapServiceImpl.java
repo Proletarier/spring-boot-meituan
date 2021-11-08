@@ -9,9 +9,11 @@ import com.meituan.waimai.amap.bean.Coordinate;
 import com.meituan.waimai.amap.bean.District;
 import com.meituan.waimai.amap.bean.Location;
 import com.meituan.waimai.amap.bean.PoiSearch;
-import com.meituan.waimai.amap.error.AMapErrorException;
 import com.meituan.waimai.business.server.MapService;
+import com.meituan.waimai.common.exception.AMapErrorException;
 import com.meituan.waimai.common.util.RequestUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class MapServiceImpl implements MapService {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(MapServiceImpl.class);
 
 	@Autowired
 	PoiSearchService poiSearchService;
@@ -38,9 +42,7 @@ public class MapServiceImpl implements MapService {
 		try {
 			jsonObject = ipLocationService.location(param);
 		} catch (AMapErrorException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(e.getError().toString());
 		}
 		return jsonObject;
 	}
@@ -51,9 +53,7 @@ public class MapServiceImpl implements MapService {
 		try {
 			jsonObject = poiSearchService.keywordSearch(param);
 		} catch (AMapErrorException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(e.getError().toString());
 		}
 		return jsonObject;
 	}
@@ -64,9 +64,7 @@ public class MapServiceImpl implements MapService {
 		try {
 			jsonObject = poiSearchService.aroundSearch(param);
 		} catch (AMapErrorException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(e.getError().toString());
 		}
 		return jsonObject;
 	}
@@ -77,9 +75,7 @@ public class MapServiceImpl implements MapService {
 		try {
 			jsonObject = districtService.districtSearch(param);
 		} catch (AMapErrorException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(e.getError().toString());
 		}
 		return jsonObject;
 	}
@@ -90,9 +86,7 @@ public class MapServiceImpl implements MapService {
 		try {
 			jsonObject = coordinateService.convert(coordinate);
 		} catch (AMapErrorException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(e.getError().toString());
 		}
 		return jsonObject;
 	}
