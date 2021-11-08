@@ -12,7 +12,10 @@ public enum ResultCode implements IErrorCode {
     FAILED("S9999", "操作失败"),
     VALIDATE_FAILED("S0001", "参数检验失败"),
     UNAUTHORIZED("S0002", "暂未登录或token已经过期"),
-    FORBIDDEN("S0003", "没有相关权限");
+    FORBIDDEN("S0003", "没有相关权限"),
+    VALIDATE_NULL("S0004", "请求的数据格式不符"),
+    SYSTEM_ERROR("S0005", "服务器内部错误");
+
 
 
     private String code;
