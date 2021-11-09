@@ -12,21 +12,23 @@ public class CustomerContext {
 	private static final String KEY_REQUEST_HEADER = "request_header";
 	private static final String KEY_is_member = "is_member";
 
-	private static synchronized Map<String, Object> getCurrentMap() {
+	private static Map<String, Object> getCurrentMap() {
 		Map<String, Object> map = CONTEXT_HOLDER.get();
 		if (map == null) {
-			map = new HashMap<>(16);
-			CONTEXT_HOLDER.set(map);
+			synchronized (CustomerContext.class){
+				map = new HashMap<>(16);
+				CONTEXT_HOLDER.set(map);
+			}
 		}
 		return map;
 	}
 
-	private static synchronized void put(String key, Object value) {
+	private static void put(String key, Object value) {
 		Map<String, Object> map = getCurrentMap();
 		map.put(key, value);
 	}
 
-	private static synchronized <T> T get(String key) {
+	private static <T> T get(String key) {
 		return (T) getCurrentMap().get(key);
 	}
 
