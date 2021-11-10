@@ -48,16 +48,17 @@ public class ContextInterceptor implements HandlerInterceptor {
 		String authToken = request.getHeader(this.tokenHeader);
 		LOGGER.info("checking authHeader:{}", authToken);
 
-		if (StrUtil.isNotBlank(authToken)){
-			Claims claims = jwtTokenUtil.getClaimsFromToken(authToken);
-			if (Objects.isNull(claims) || jwtTokenUtil.isTokenExpired(authToken)){
-				throw new AutoTokenException(ResultCode.UNAUTHORIZED);
-			}
-			CustomerContext.setCustomerId(claims.get("customerId",Integer.class));
-			CustomerContext.setKeyCustomerTelephone(claims.get("phone",String.class));
-			return  true;
+		if (StrUtil.isBlank(authToken)){
+			throw new AutoTokenException(ResultCode.UNAUTHORIZED);
 		}
-		return false;
+
+		Claims claims = jwtTokenUtil.getClaimsFromToken(authToken);
+		if (Objects.isNull(claims) || jwtTokenUtil.isTokenExpired(authToken)){
+			throw new AutoTokenException(ResultCode.UNAUTHORIZED);
+		}
+		CustomerContext.setCustomerId(claims.get("customerId",Integer.class));
+		CustomerContext.setKeyCustomerTelephone(claims.get("phone",String.class));
+		return  true;
 	}
 
 	@Override

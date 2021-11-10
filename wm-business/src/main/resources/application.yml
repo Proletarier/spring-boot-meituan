@@ -30,9 +30,10 @@ jwt:
       - /**/*.ico
       - /webjars/springfox-swagger-ui/**
       - /druid/**
-      - /customer/login
-      - /customer/info
-      - /customer/logout
+      - /business/login
+      - /business/info
+      - /business/logout
+      - /business/getCaptcha
       - /upload/**
 redis:
   database: customer

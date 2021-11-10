@@ -25,7 +25,7 @@ public class CustomerAddress {
 	@Column(name="name")
 	private String name;
 
-	@Column(name="gender")
+	@Column(name="gender",columnDefinition="int(1) COMMENT '帐号启用状态:0->女性；1->男性'")
 	private Integer gender;
 
 	@Column(name="phone")
