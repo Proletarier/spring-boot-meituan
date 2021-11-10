@@ -1,7 +1,6 @@
 package com.meituan.waimai.business.Interceptor;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.meituan.waimai.business.bean.CustomerContext;
 import com.meituan.waimai.common.api.ResultCode;
 import com.meituan.waimai.common.exception.AutoTokenException;
@@ -10,6 +9,7 @@ import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,10 +26,11 @@ public class ContextInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
+	@Autowired
+	@Qualifier("jwtIgnoredUrls")
+	private List<String> urls;
 	@Value("${jwt.tokenHeader}")
 	private String tokenHeader;
-	@Value("${jwt.ignored.urls}")
-	private List<String> urls = new ArrayList<>();
 
 
 	@Override
@@ -53,10 +53,8 @@ public class ContextInterceptor implements HandlerInterceptor {
 			if (Objects.isNull(claims) || jwtTokenUtil.isTokenExpired(authToken)){
 				throw new AutoTokenException(ResultCode.UNAUTHORIZED);
 			}
-			JSONObject jsonObject = JSONObject.parseObject(claims.getSubject());
-			CustomerContext.setCustomerId(jsonObject.getInteger("id"));
-			CustomerContext.setKeyCustomerTelephone(jsonObject.getString("phone"));
-			CustomerContext.setKeyCustomerName(jsonObject.getString("customerName"));
+			CustomerContext.setCustomerId(claims.get("customerId",Integer.class));
+			CustomerContext.setKeyCustomerTelephone(claims.get("phone",String.class));
 			return  true;
 		}
 		return false;

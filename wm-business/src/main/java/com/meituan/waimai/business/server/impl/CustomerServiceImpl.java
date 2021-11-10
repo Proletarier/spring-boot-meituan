@@ -2,7 +2,6 @@ package com.meituan.waimai.business.server.impl;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.meituan.waimai.common.exception.ApiException;
 import com.meituan.waimai.common.exception.Asserts;
 import com.meituan.waimai.common.util.DateUtil;
 import com.meituan.waimai.business.dto.form.CustomerLoginForm;
@@ -68,8 +67,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private String createToken(Customer customer){
 		Map<String, Object> claims =new HashMap<>();
-		claims.put("userId",customer.getId());
-		claims.put("account",customer.getPhone());
+		claims.put("customerId",customer.getId());
+		claims.put("phone",customer.getPhone());
 		return jwtTokenUtil.generateToken(claims);
 	}
 }
