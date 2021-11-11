@@ -20,13 +20,8 @@ public class CustomerAddressServiceImpl implements CustomerAddressService {
 	CustomerAddressRepository addressRepository;
 
 	@Override
-	public List<CustomerAddressVo> listAddressByCustomerId(Integer customerId) {
-		List<CustomerAddress> list = addressRepository.findByCustomerId(customerId);
-		return list.stream().map(address ->{
-			CustomerAddressVo vo=new CustomerAddressVo();
-			BeanUtil.copyProperties(address,vo);
-			return  vo;
-		}).collect(Collectors.toList());
+	public List<CustomerAddress> listAddressByCustomerId(Integer customerId) {
+		return addressRepository.findByCustomerId(customerId);
 	}
 
 	@Override
