@@ -45,10 +45,11 @@ public class AddressController {
 		return CommonResult.success();
 	}
 
-	@DeleteMapping("/{id}")
-	public CommonResult deleteAddress(@PathVariable("id") Integer addressId) {
-		log.info("------ deleteAddress param={}", addressId);
-		addressService.deleteAddress(addressId);
+	@ApiOperation(value = "删除当前登录用户的地址")
+	@DeleteMapping()
+	public CommonResult deleteAddress() {
+		log.info("------ deleteAddress param={}", CustomerContext.getCustomerId());
+		addressService.deleteAddress(CustomerContext.getCustomerId());
 		return CommonResult.success();
 	}
 
