@@ -1,9 +1,6 @@
 package com.meituan.waimai.business.server.impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.meituan.waimai.amap.api.PoiSearchService;
-import com.meituan.waimai.business.dto.form.CustomerAddressForm;
-import com.meituan.waimai.business.dto.vo.CustomerAddressVo;
+import com.meituan.waimai.business.bean.CustomerContext;
 import com.meituan.waimai.business.server.CustomerAddressService;
 import com.meituan.waimai.po.CustomerAddress;
 import com.meituan.waimai.repository.CustomerAddressRepository;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerAddressServiceImpl implements CustomerAddressService {
@@ -25,17 +21,14 @@ public class CustomerAddressServiceImpl implements CustomerAddressService {
 	}
 
 	@Override
-	public void saveAddress(CustomerAddressForm addressForm) {
-		CustomerAddress customerAddress =new CustomerAddress();
-		BeanUtil.copyProperties(addressForm, customerAddress);
-		addressRepository.save(customerAddress);
+	public void saveAddress(CustomerAddress address) {
+		address.setCustomerId(CustomerContext.getCustomerId());
+		addressRepository.save(address);
 	}
 
 	@Override
-	public void updateAddress(CustomerAddressForm addressForm) {
-		CustomerAddress customerAddress =new CustomerAddress();
-		BeanUtil.copyProperties(addressForm, customerAddress);
-		addressRepository.saveAndFlush(customerAddress);
+	public void updateAddress(CustomerAddress address) {
+		addressRepository.saveAndFlush(address);
 	}
 
 	@Override

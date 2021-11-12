@@ -1,7 +1,5 @@
 package com.meituan.waimai.business.server;
 
-import com.meituan.waimai.business.dto.form.CustomerAddressForm;
-import com.meituan.waimai.business.dto.vo.CustomerAddressVo;
 import com.meituan.waimai.po.CustomerAddress;
 
 import java.util.List;
@@ -10,9 +8,9 @@ public interface CustomerAddressService {
 
 	List<CustomerAddress>  listAddressByCustomerId(Integer customerId);
 
-	void saveAddress(CustomerAddressForm addressForm);
+	void saveAddress(CustomerAddress address);
 
-	void updateAddress(CustomerAddressForm addressForm);
+	void updateAddress(CustomerAddress address);
 
 	void deleteAddress(Integer addressId);
 }

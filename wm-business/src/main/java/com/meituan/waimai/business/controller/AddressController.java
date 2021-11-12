@@ -3,8 +3,8 @@ package com.meituan.waimai.business.controller;
 
 import com.meituan.waimai.business.bean.CustomerContext;
 import com.meituan.waimai.common.api.CommonResult;
-import com.meituan.waimai.business.dto.form.CustomerAddressForm;
 import com.meituan.waimai.business.server.CustomerAddressService;
+import com.meituan.waimai.po.CustomerAddress;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -31,17 +31,17 @@ public class AddressController {
 
 	@ApiOperation(value = "新增地址")
 	@PostMapping(value = "/save")
-	public CommonResult saveAddress(@RequestBody CustomerAddressForm addressForm)  {
-		log.info("------ saveAddress param={}", addressForm);
-		addressService.saveAddress(addressForm);
+	public CommonResult saveAddress(@RequestBody CustomerAddress address)  {
+		log.info("------ saveAddress param={}", address);
+		addressService.saveAddress(address);
 		return CommonResult.success();
 	}
 
 	@ApiOperation(value = "修改地址")
 	@PutMapping(value = "/update")
-	public CommonResult updateAddress(@RequestBody CustomerAddressForm addressForm)  {
-		log.info("------ updateAddress param={}", addressForm);
-		addressService.updateAddress(addressForm);
+	public CommonResult updateAddress(@RequestBody CustomerAddress address)  {
+		log.info("------ updateAddress param={}", address);
+		addressService.updateAddress(address);
 		return CommonResult.success();
 	}
 
