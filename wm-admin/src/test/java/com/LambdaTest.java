@@ -1,10 +1,7 @@
 package com;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.function.Consumer;
+import java.util.Arrays;
+import java.util.List;
 
 public class LambdaTest {
 
@@ -22,6 +19,9 @@ public class LambdaTest {
 //        System.out.println("你好，天上人间消费:" + args);
 //    }
 
+	public static void main(String[] args) {
+		System.out.println("123,42342,5345".toCharArray());
+	}
 }
 
 

@@ -4,7 +4,7 @@ package com.meituan.waimai.business.server.impl;
 import cn.hutool.core.util.StrUtil;
 import com.meituan.waimai.common.exception.Asserts;
 import com.meituan.waimai.common.util.DateUtil;
-import com.meituan.waimai.business.dto.form.CustomerLoginForm;
+import com.meituan.waimai.business.model.dto.CustomerLoginForm;
 import com.meituan.waimai.business.server.CustomerService;
 import com.meituan.waimai.business.server.BusinessCacheService;
 import com.meituan.waimai.common.util.JwtTokenUtil;

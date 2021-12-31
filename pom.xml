@@ -11,12 +11,12 @@
 
     <modules>
         <module>wm-admin</module>
-        <module>wm-common</module>
+        <module>common</module>
         <module>wm-mbg</module>
         <module>wm-security</module>
         <module>wm-jpa</module>
-        <module>wm-business</module>
-        <module>wm-amap</module>
+        <module>wm-mbg</module>
+        <module>wm-hub</module>
     </modules>
 
     <parent>
@@ -35,6 +35,7 @@
         <pagehelper.version>5.2.0</pagehelper.version>
         <mybatis-generator.version>1.4.0</mybatis-generator.version>
         <mybatis.version>3.5.5</mybatis.version>
+        <mybatis-push.version>3.4.3.4</mybatis-push.version>
         <mysql-connector.version>8.0.20</mysql-connector.version>
         <druid.version>1.1.23</druid.version>
         <swagger2.version>2.9.2</swagger2.version>
@@ -100,7 +101,7 @@
             <!--common通用模块-->
             <dependency>
                 <groupId>com.meituan</groupId>
-                <artifactId>wm-common</artifactId>
+                <artifactId>common</artifactId>
                 <version>${common.version}</version>
             </dependency>
             <!-- jpg模块 -->
@@ -167,23 +168,17 @@
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper-starter.version}</version>
             </dependency>
-            <!--MyBatis分页插件-->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>${pagehelper.version}</version>
-            </dependency>
-            <!-- MyBatis 生成器 -->
-            <dependency>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-core</artifactId>
-                <version>${mybatis-generator.version}</version>
-            </dependency>
             <!-- MyBatis-->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+            <!-- MyBatis-Plus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-push.version}</version>
             </dependency>
             <!--Mysql数据库驱动-->
             <dependency>

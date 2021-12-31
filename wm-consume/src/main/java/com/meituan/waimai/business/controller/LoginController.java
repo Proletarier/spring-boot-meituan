@@ -2,7 +2,7 @@ package com.meituan.waimai.business.controller;
 
 
 import com.meituan.waimai.common.api.CommonResult;
-import com.meituan.waimai.business.dto.form.CustomerLoginForm;
+import com.meituan.waimai.business.model.dto.CustomerLoginForm;
 import com.meituan.waimai.business.server.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

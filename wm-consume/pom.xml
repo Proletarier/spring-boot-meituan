@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-     <name>wm-business</name>
-    <artifactId>wm-business</artifactId>
+     <name>wm-consume</name>
+    <artifactId>wm-consume</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -21,21 +21,33 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-push.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>wm-common</artifactId>
+            <artifactId>common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.meituan</groupId>
             <artifactId>wm-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.meituan</groupId>
+            <groupId>com.meituan.hub</groupId>
             <artifactId>wm-amap</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.meituan</groupId>
+            <artifactId>wm-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

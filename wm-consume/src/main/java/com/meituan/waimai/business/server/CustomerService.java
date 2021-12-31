@@ -1,6 +1,6 @@
 package com.meituan.waimai.business.server;
 
-import com.meituan.waimai.business.dto.form.CustomerLoginForm;
+import com.meituan.waimai.business.model.dto.CustomerLoginForm;
 
 public interface CustomerService {
 
