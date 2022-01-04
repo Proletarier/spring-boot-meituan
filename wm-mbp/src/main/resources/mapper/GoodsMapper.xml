@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meituan.waimai.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.meituan.waimai.model.Goods">
+    <!--@mbg.generated-->
+    <!--@Table wm_goods-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="goods_desc" jdbcType="VARCHAR" property="goodsDesc" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="sell_status" jdbcType="INTEGER" property="sellStatus" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />
+    <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_date" jdbcType="TIMESTAMP" property="updatedDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, created_by, created_date, goods_desc, `name`, picture, price, sell_status, shop_id, 
+    tag_ids, goods_type, unit, updated_by, updated_date
+  </sql>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meituan.waimai.mapper.AdminUserMapper">
+  <resultMap id="BaseResultMap" type="com.meituan.waimai.model.AdminUser">
+    <!--@mbg.generated-->
+    <!--@Table wm_admin_user-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_date" jdbcType="TIMESTAMP" property="updatedDate" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, created_by, created_date, email, nick_name, note, `name`, phone, `status`, updated_by, 
+    updated_date, username
+  </sql>
+</mapper>

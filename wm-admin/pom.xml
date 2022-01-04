@@ -19,11 +19,15 @@
     <dependencies>
         <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>wm-mbg</artifactId>
+            <artifactId>wm-security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>wm-security</artifactId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.meituan</groupId>
+            <artifactId>wm-mbp</artifactId>
         </dependency>
     </dependencies>
 

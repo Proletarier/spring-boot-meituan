@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meituan.waimai.mapper.OrderCommentMapper">
+  <resultMap id="BaseResultMap" type="com.meituan.waimai.model.OrderComment">
+    <!--@mbg.generated-->
+    <!--@Table wm_order_comment-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="delivery_score" jdbcType="DECIMAL" property="deliveryScore" />
+    <result column="pack_score" jdbcType="DECIMAL" property="packScore" />
+    <result column="pictures" jdbcType="VARCHAR" property="pictures" />
+    <result column="quality_score" jdbcType="DECIMAL" property="qualityScore" />
+    <result column="score" jdbcType="DECIMAL" property="score" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_date" jdbcType="TIMESTAMP" property="updatedDate" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, comment_time, content, created_by, created_date, delivery_score, pack_score, 
+    pictures, quality_score, score, shop_id, updated_by, updated_date, user_id
+  </sql>
+</mapper>
