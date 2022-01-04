@@ -1,10 +1,10 @@
 package com.meituan.waimai.service;
 
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.meituan.waimai.model.Customer;
 import java.util.List;
 
-public interface CustomerService {
+public interface CustomerService extends IService<Customer> {
 
-    List<Customer> list(Integer pageNum, Integer pageSize);
 }

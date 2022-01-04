@@ -5,12 +5,13 @@ import cn.hutool.core.collection.CollUtil;
 import com.meituan.waimai.common.api.CommonPage;
 import com.meituan.waimai.common.api.CommonResult;
 import com.meituan.waimai.dto.AdminLoginParam;
-import com.meituan.waimai.model.Admin;
 import com.meituan.waimai.model.AdminRoleRelation;
+import com.meituan.waimai.model.AdminUser;
 import com.meituan.waimai.model.Role;
 import com.meituan.waimai.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
@@ -23,8 +24,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Api(tags = "后台用户管理")
-@RestController
-@RequestMapping("/admin")
+@RestController("/admin")
+@Slf4j
 public class AdminController {
 
     @Value("${jwt.tokenHeader}")
@@ -62,7 +63,7 @@ public class AdminController {
             return CommonResult.unauthorized(null);
         }
         String username = principal.getName();
-        Admin admin = adminService.getAdminByUsername(username);
+        AdminUser admin = adminService.getAdminByUsername(username);
         Map<String,Object> data= new HashMap<>();
         data.put("username",admin.getUsername());
         data.put("menus",adminService.getRoleMenuByAdminId(admin.getId()));
@@ -77,51 +78,38 @@ public class AdminController {
 
     @ApiOperation(value = "用户列表")
     @GetMapping(value = "/list")
-    public CommonResult<CommonPage<Admin>> list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+    public CommonResult<CommonPage<AdminUser>> list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                 @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                                 String keyword) {
-        List<Admin> list = adminService.list(pageNum, pageSize, keyword);
+        List<AdminUser> list = adminService.list(pageNum, pageSize, keyword);
         return CommonResult.success(CommonPage.restPage(list));
     }
 
     @ApiOperation(value = "创建新用户")
     @PutMapping(value = "/create")
-    public CommonResult create(@RequestBody Admin admin) {
-        int count = adminService.create(admin);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+    public CommonResult create(@RequestBody AdminUser admin) {
+        return  adminService.create(admin)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation(value = "修改用户信息")
     @PostMapping(value = "/update")
-    public CommonResult update(@RequestBody Admin admin) {
-        int count = adminService.update(admin);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+    public CommonResult update(@RequestBody AdminUser admin) {
+        return  adminService.updateById(admin)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation(value = "修改用户状态")
     @PostMapping(value = "/updateStatus")
     public CommonResult updateStatus(@RequestParam("id")Integer id, @RequestParam("status")Integer status) {
-        int count = adminService.updateStatus(id,status);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        AdminUser admin = new AdminUser();
+        admin.setStatus(status);
+        admin.setId(id);
+        return  adminService.updateById(admin)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation("获取用户信息")
     @GetMapping(value = "/{id}")
-    public CommonResult<Admin> getItem(@PathVariable Integer id) {
-        Admin admin = adminService.getItem(id);
-        return CommonResult.success(admin);
+    public CommonResult<AdminUser> getItem(@PathVariable Integer id) {
+        return CommonResult.success(adminService.getById(id));
     }
 
 

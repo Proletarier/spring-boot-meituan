@@ -1,12 +1,13 @@
 package com.meituan.waimai.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.meituan.waimai.model.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface AdminService {
+public interface AdminService extends IService<AdminUser> {
 
     /**
      * 登录
@@ -24,36 +25,14 @@ public interface AdminService {
      * @param keyword
      * @return
      */
-    List<Admin> list(Integer pageNum, Integer pageSize, String keyword);
-
-    /**
-     * 更新用户
-     * @param admin
-     * @return
-     */
-    int update(Admin admin);
+    List<AdminUser> list(Integer pageNum, Integer pageSize, String keyword);
 
     /**
      * 创建用户
      * @param admin
      * @return
      */
-    int create(Admin admin);
-
-    /**
-     * 获取用户信息
-     * @param id
-     * @return
-     */
-    Admin getItem(Integer id);
-
-    /**
-     * 设置账号启用状态
-     * @param id
-     * @param status
-     * @return
-     */
-    int updateStatus(Integer id, Integer status);
+    boolean create(AdminUser admin);
 
     /**
      * 更新密码
@@ -69,14 +48,14 @@ public interface AdminService {
      * @param id
      * @return
      */
-    int resetPassword(Integer id);
+    boolean resetPassword(Integer id);
 
     /**
      * 获取用户信息
      * @param username
      * @return
      */
-    Admin getAdminByUsername(String username);
+    AdminUser getAdminByUsername(String username);
 
     /**
      * 设置用户角色

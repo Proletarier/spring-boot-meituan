@@ -17,13 +17,13 @@ public class AdminUser {
     @ApiModelProperty(value="")
     private Integer id;
 
-    @TableField(value = "created_by")
+    @TableField(value = "username")
     @ApiModelProperty(value="")
-    private String createdBy;
+    private String username;
 
-    @TableField(value = "created_date")
+    @TableField(value = "password")
     @ApiModelProperty(value="")
-    private Date createdDate;
+    private String password;
 
     @TableField(value = "email")
     @ApiModelProperty(value="")
@@ -52,6 +52,14 @@ public class AdminUser {
     @ApiModelProperty(value="账号类型: 0->禁用；1->启用")
     private Integer status;
 
+    @TableField(value = "created_by")
+    @ApiModelProperty(value="")
+    private String createdBy;
+
+    @TableField(value = "created_date")
+    @ApiModelProperty(value="")
+    private Date createdDate;
+
     @TableField(value = "updated_by")
     @ApiModelProperty(value="")
     private String updatedBy;
@@ -60,7 +68,4 @@ public class AdminUser {
     @ApiModelProperty(value="")
     private Date updatedDate;
 
-    @TableField(value = "username")
-    @ApiModelProperty(value="")
-    private String username;
 }

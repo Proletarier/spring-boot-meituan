@@ -40,7 +40,7 @@ public class MallSecurityConfig extends SecurityConfig {
             @Override
             public Map<String, ConfigAttribute> loadDataSource() {
                 Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-                List<Resource> resourceList = resourceService.listAll();
+                List<Resource> resourceList = resourceService.list();
                 for (Resource resource : resourceList) {
                     map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
                 }

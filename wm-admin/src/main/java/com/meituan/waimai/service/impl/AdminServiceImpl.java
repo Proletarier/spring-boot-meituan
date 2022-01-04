@@ -2,12 +2,17 @@ package com.meituan.waimai.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.common.exception.Asserts;
+import com.meituan.waimai.common.util.RequestUtil;
+import com.meituan.waimai.constant.StatusEnum;
 import com.meituan.waimai.dao.AdminRoleDao;
 
-import com.meituan.waimai.mapper.AdminMapper;
+import com.meituan.waimai.mapper.AdminLoginLogMapper;
 import com.meituan.waimai.mapper.AdminRoleRelationMapper;
+import com.meituan.waimai.mapper.AdminUserMapper;
 import com.meituan.waimai.model.*;
 import com.meituan.waimai.security.util.JwtTokenUtil;
 import com.meituan.waimai.service.AdminCacheService;
@@ -24,14 +29,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends ServiceImpl<AdminUserMapper,AdminUser> implements AdminService {
 
 
     @Autowired
@@ -39,13 +46,13 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private AdminMapper adminMapper;
-    @Autowired
     private AdminRoleRelationMapper adminRoleRelationMapper;
     @Autowired
     private AdminRoleDao adminRoleDao;
     @Autowired
     private AdminCacheService adminCacheService;
+    @Autowired
+    private AdminLoginLogMapper loginLogMapper;
 
 
     @Override
@@ -71,63 +78,42 @@ public class AdminServiceImpl implements AdminService {
     }
 
     private void insertLoginLog(String username) {
-        Admin admin = getAdminByUsername(username);
+        AdminUser admin = getAdminByUsername(username);
         if (admin == null) return;
-//        UmsAdminLoginLog loginLog = new UmsAdminLoginLog();
-//        loginLog.setAdminId(admin.getId());
-//        loginLog.setCreateTime(new Date());
-//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        HttpServletRequest request = attributes.getRequest();
-//        loginLog.setIp(RequestUtil.getRequestIp(request));
-//        loginLogMapper.insert(loginLog);
+        AdminLoginLog loginLog = new AdminLoginLog();
+        loginLog.setAdminUserId(admin.getId());
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        loginLog.setIp(RequestUtil.getRequestIp(request));
+        loginLogMapper.insert(loginLog);
     }
 
     @Override
-    public List<Admin> list(Integer pageNum, Integer pageSize, String keyword) {
+    public List<AdminUser> list(Integer pageNum, Integer pageSize, String keyword) {
         PageHelper.startPage(pageNum, pageSize);
-        AdminExample example = new AdminExample();
-        AdminExample.Criteria criteria = example.createCriteria();
+        LambdaQueryWrapper<AdminUser> queryWrapper = new LambdaQueryWrapper();
         if (!StrUtil.isEmpty(keyword)) {
-            criteria.andNickNameLike("%" + keyword + "%");
-            example.or(example.createCriteria().andUsernameLike("%" + keyword + "%"));
+            queryWrapper.like(AdminUser::getNickName,keyword);
+            queryWrapper.or().like(AdminUser::getUsername,keyword);
         }
-        return adminMapper.selectByExample(example);
+        return list(queryWrapper);
     }
 
-    @Override
-    public int update(Admin admin) {
-        return adminMapper.updateByPrimaryKeySelective(admin);
-    }
 
     @Override
-    public int create(Admin admin) {
-        admin.setCreateTime(new Date());
-        admin.setStatus(1);
+    public boolean create(AdminUser admin) {
+        admin.setStatus(StatusEnum.INVALID.getCode());
         //查询是否有相同用户名的用户
-        AdminExample example = new AdminExample();
-        example.createCriteria().andUsernameEqualTo(admin.getUsername());
-        List<Admin> umsAdminList = adminMapper.selectByExample(example);
-        if (umsAdminList.size() > 0) {
+        LambdaQueryWrapper<AdminUser> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(AdminUser::getUsername,admin.getUsername());
+        List<AdminUser> adminUserList = list(queryWrapper);
+        if (adminUserList.size() > 0) {
             Asserts.fail("账号已存在");
         }
         //设置默认密码并加密
         String encodePassword = passwordEncoder.encode("123456");
         admin.setPassword(encodePassword);
-        adminMapper.insert(admin);
-        return 1;
-    }
-
-    @Override
-    public Admin getItem(Integer id) {
-        return adminMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int updateStatus(Integer id, Integer status) {
-        Admin admin = new Admin();
-        admin.setId(id);
-        admin.setStatus(status);
-        return adminMapper.updateByPrimaryKeySelective(admin);
+        return save(admin);
     }
 
     @Override
@@ -136,19 +122,19 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int resetPassword(Integer id) {
-        Admin admin = adminMapper.selectByPrimaryKey(id);
+    public boolean resetPassword(Integer id) {
+        AdminUser admin = getById(id);
         String password = passwordEncoder.encode("123456");
         admin.setPassword(password);
-        return adminMapper.updateByPrimaryKeySelective(admin);
+        return updateById(admin);
     }
 
     @Override
-    public Admin getAdminByUsername(String username) {
+    public AdminUser getAdminByUsername(String username) {
         //获取用户信息
-        AdminExample example = new AdminExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        List<Admin> adminList = adminMapper.selectByExample(example);
+        LambdaQueryWrapper<AdminUser> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(AdminUser::getUsername,username);
+        List<AdminUser> adminList = list(queryWrapper);
 
         if (adminList != null && adminList.size() > 0) {
             return adminList.get(0);
@@ -158,9 +144,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public int allotRole(Integer adminId, List<Integer> roleIds) {
-        AdminRoleRelationExample example = new AdminRoleRelationExample();
-        example.createCriteria().andAdminIdEqualTo(adminId);
-        adminRoleRelationMapper.deleteByExample(example);
+        LambdaQueryWrapper<AdminRoleRelation> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(AdminRoleRelation::getAdminId,adminId);
+        adminRoleRelationMapper.delete(queryWrapper);
 
         //添加
         for (int i = 0; i < roleIds.size(); i++) {
@@ -175,9 +161,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<AdminRoleRelation> getRole(Integer adminId) {
-        AdminRoleRelationExample example = new AdminRoleRelationExample();
-        example.createCriteria().andAdminIdEqualTo(adminId);
-        return adminRoleRelationMapper.selectByExample(example);
+        LambdaQueryWrapper<AdminRoleRelation> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(AdminRoleRelation::getAdminId,adminId);
+        return adminRoleRelationMapper.selectList(queryWrapper);
     }
 
     @Override
@@ -206,7 +192,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         //获取用户信息
-        Admin admin = getAdminByUsername(username);
+        AdminUser admin = getAdminByUsername(username);
         if (admin != null) {
             List<Resource> resourceList = getResourceList(admin.getId());
             List<GrantedAuthority> authorities = resourceList.stream().map(resource -> new SimpleGrantedAuthority(resource.getId() + ":" + resource.getName())).collect(Collectors.toList());

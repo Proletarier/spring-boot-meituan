@@ -1,5 +1,6 @@
 package com.meituan.waimai.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dto.MenuNode;
 import com.meituan.waimai.mapper.MenuMapper;
@@ -15,11 +16,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl extends ServiceImpl<MenuMapper,Menu> implements MenuService {
 
     @Autowired
     private MenuMapper menuMapper;
-
 
     @Override
     public List<Menu> list(Integer pageNum, Integer pageSize, Integer parentId) {
