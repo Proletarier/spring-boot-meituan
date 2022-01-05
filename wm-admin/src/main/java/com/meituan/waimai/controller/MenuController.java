@@ -41,31 +41,20 @@ public class MenuController {
     @ApiOperation(value = "获取菜单详情")
     @GetMapping(value = "/{id}")
     public CommonResult<Menu> getRole(@PathVariable Integer id) {
-        Menu menu = menuService.getMenu(id);
+        Menu menu = menuService.getById(id);
         return CommonResult.success(menu);
     }
 
     @ApiOperation(value = "菜单添加")
     @PutMapping(value = "/create")
     public CommonResult create(@RequestBody Menu menu) {
-        int count = menuService.create(menu);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
-
+        return menuService.create(menu)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation(value = "菜单修改")
     @PostMapping(value = "/update")
     public CommonResult update(@RequestBody Menu menu) {
-        int count = menuService.update(menu);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        return  menuService.updateById(menu) ? CommonResult.success(): CommonResult.failed();
     }
 
 }

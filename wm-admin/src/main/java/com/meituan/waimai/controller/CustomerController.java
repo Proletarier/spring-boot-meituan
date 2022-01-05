@@ -28,7 +28,7 @@ public class CustomerController {
     @GetMapping("list")
     public CommonResult<CommonPage<Customer>> list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        List<Customer> customerList = customerService.list(pageNum, pageSize);
+        List<Customer> customerList = customerService.list();
         return CommonResult.success(CommonPage.restPage(customerList));
     }
 }

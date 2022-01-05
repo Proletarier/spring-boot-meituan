@@ -10,12 +10,7 @@ public interface MenuService extends IService<Menu> {
 
     List<Menu> list(Integer pageNum, Integer pageSize, Integer parentId);
 
-    int create(Menu menu);
-
-    int update(Menu  menu);
-
-    Menu getMenu(Integer id);
-
+    boolean create(Menu menu);
     /**
      * 查询菜单结构
      * @return
