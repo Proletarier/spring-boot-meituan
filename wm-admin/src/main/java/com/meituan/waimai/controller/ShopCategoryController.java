@@ -33,41 +33,27 @@ public class ShopCategoryController {
     @ApiOperation("创建分类")
     @PutMapping("/create")
     public CommonResult create(@RequestBody ShopCategory shopCategory) {
-        int count = categoryService.createShopCategory(shopCategory);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        return  categoryService.createShopCategory(shopCategory)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation("修改分类")
     @PostMapping("/update")
     public CommonResult update(@RequestBody ShopCategory shopCategory) {
-        int count = categoryService.updateShopCategory(shopCategory);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        return categoryService.updateById(shopCategory) ? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation("修改状态")
     @PostMapping("/update/status")
     public CommonResult updateStatus(@RequestParam("cateId") Integer cateId, @RequestParam("status") Integer status) {
-        int count = categoryService.updateStatus(cateId, status);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        ShopCategory shopCategory = new ShopCategory();
+        shopCategory.setId(cateId);
+        return categoryService.updateById(shopCategory) ? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation("根据id查询分类")
     @GetMapping("/{cateId}")
     public CommonResult<ShopCategory> getShopCategory(@PathVariable Integer cateId) {
-        ShopCategory category = categoryService.getShopCategory(cateId);
-        return CommonResult.success(category);
+        return CommonResult.success(categoryService.getById(cateId));
     }
 
     @ApiOperation("查询分类及子类")

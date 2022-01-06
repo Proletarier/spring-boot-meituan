@@ -1,7 +1,7 @@
-package com.meituan.waimai.business.Interceptor;
+package com.meituan.waimai.consume.Interceptor;
 
 import cn.hutool.core.util.StrUtil;
-import com.meituan.waimai.business.bean.CustomerContext;
+import com.meituan.waimai.consume.bean.CustomerContext;
 import com.meituan.waimai.common.api.ResultCode;
 import com.meituan.waimai.common.exception.AutoTokenException;
 import com.meituan.waimai.common.util.JwtTokenUtil;

@@ -1,4 +1,4 @@
-package com.meituan.waimai.business.bean;
+package com.meituan.waimai.consume.bean;
 
 
 import java.util.HashMap;

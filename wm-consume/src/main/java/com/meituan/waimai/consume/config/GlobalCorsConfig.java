@@ -1,4 +1,4 @@
-package com.meituan.waimai.business.config;
+package com.meituan.waimai.consume.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

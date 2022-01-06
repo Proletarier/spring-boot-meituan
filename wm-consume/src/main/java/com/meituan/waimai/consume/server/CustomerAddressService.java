@@ -1,16 +1,12 @@
-package com.meituan.waimai.business.server;
+package com.meituan.waimai.consume.server;
 
-import com.meituan.waimai.po.CustomerAddress;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.meituan.waimai.model.CustomerAddress;
 
-import java.util.List;
 
-public interface CustomerAddressService {
 
-	List<CustomerAddress>  listAddressByCustomerId(Integer customerId);
+public interface CustomerAddressService extends IService<CustomerAddress> {
 
 	void saveAddress(CustomerAddress address);
 
-	void updateAddress(CustomerAddress address);
-
-	void deleteAddress(Integer addressId);
 }

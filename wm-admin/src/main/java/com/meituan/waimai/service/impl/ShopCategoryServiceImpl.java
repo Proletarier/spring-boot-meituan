@@ -1,12 +1,13 @@
 package com.meituan.waimai.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dao.ShopCategoryDao;
 import com.meituan.waimai.dto.ShopCategoryQueryParam;
 import com.meituan.waimai.dto.ShopCategoryWithChildrenItem;
 import com.meituan.waimai.mapper.ShopCategoryMapper;
 import com.meituan.waimai.model.ShopCategory;
-import com.meituan.waimai.model.ShopCategoryExample;
 import com.meituan.waimai.service.ShopCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ShopCategoryServiceImpl implements ShopCategoryService {
-
-    @Autowired
-    private ShopCategoryMapper shopCategoryMapper;
+public class ShopCategoryServiceImpl extends ServiceImpl<ShopCategoryMapper,ShopCategory> implements ShopCategoryService {
 
     @Autowired
     private ShopCategoryDao shopCategoryDao;
@@ -25,37 +23,17 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
     @Override
     public List<ShopCategory> list(ShopCategoryQueryParam param, Integer pageSize, Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
-        ShopCategoryExample example = new ShopCategoryExample();
-        ShopCategoryExample.Criteria criteria = example.createCriteria();
+        LambdaQueryWrapper<ShopCategory> queryWrapper = new LambdaQueryWrapper();
         if (param.getParentId() != null) {
-            criteria.andParentIdEqualTo(param.getParentId());
+            queryWrapper.eq(ShopCategory::getParentId,param.getParentId());
         }
-        return shopCategoryMapper.selectByExample(example);
+        return list(queryWrapper);
     }
 
     @Override
-    public int createShopCategory(ShopCategory shopCategory) {
-        shopCategory.setCount(0);
+    public boolean createShopCategory(ShopCategory shopCategory) {
         setCategoryLevel(shopCategory);
-        return shopCategoryMapper.insertSelective(shopCategory);
-    }
-
-    @Override
-    public int updateShopCategory(ShopCategory shopCategory) {
-        return shopCategoryMapper.updateByPrimaryKeySelective(shopCategory);
-    }
-
-    @Override
-    public int updateStatus(Integer cateId, Integer status) {
-        ShopCategory shopCategory = new ShopCategory();
-        shopCategory.setStatus(status);
-        shopCategory.setId(cateId);
-        return shopCategoryMapper.updateByPrimaryKeySelective(shopCategory);
-    }
-
-    @Override
-    public ShopCategory getShopCategory(Integer cateId) {
-        return shopCategoryMapper.selectByPrimaryKey(cateId);
+        return save(shopCategory);
     }
 
     @Override
@@ -67,7 +45,7 @@ public class ShopCategoryServiceImpl implements ShopCategoryService {
         if (shopCategory.getParentId() == 0) {
             shopCategory.setLevel(1);
         } else {
-            ShopCategory parentCategory = shopCategoryMapper.selectByPrimaryKey(shopCategory.getParentId());
+            ShopCategory parentCategory = getById(shopCategory.getParentId());
             if (parentCategory != null) {
                 shopCategory.setLevel(parentCategory.getLevel() + 1);
             } else {

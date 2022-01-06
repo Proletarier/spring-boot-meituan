@@ -35,12 +35,7 @@ public class ShopController {
     @ApiOperation("更新商家信息")
     @PostMapping("/update")
     public CommonResult updateShop(@RequestBody ShopInfo shopInfo) {
-        int count = shopService.updateShop(shopInfo);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+       return CommonResult.success();
     }
 
 

@@ -33,42 +33,29 @@ public class RoleController {
     @ApiOperation(value = "获取用户详情")
     @GetMapping(value = "/{id}")
     public CommonResult<Role> getRole(@PathVariable Integer id) {
-        Role role = roleService.getRole(id);
+        Role role = roleService.getById(id);
         return CommonResult.success(role);
     }
 
     @ApiOperation(value = "角色添加")
     @PutMapping(value = "/create")
     public CommonResult create(@RequestBody Role role) {
-        int count = roleService.create(role);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
-
+        return  roleService.save(role)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation(value = "角色修改")
     @PostMapping(value = "/update")
     public CommonResult update(@RequestBody Role role) {
-        int count = roleService.update(role);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        return  roleService.updateById(role)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation(value = "修改状态")
     @PostMapping(value = "/updateStatus")
     public CommonResult updateStatus(@RequestParam("id") Integer id, @RequestParam("status") Integer status) {
-        int count = roleService.updateStatus(id, status);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        Role role = new Role();
+        role.setId(id);
+        role.setStatus(status);
+        return roleService.updateById(role)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation(value = "角色与菜单对应关系")

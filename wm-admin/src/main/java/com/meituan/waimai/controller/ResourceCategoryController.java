@@ -17,35 +17,24 @@ import java.util.List;
 public class ResourceCategoryController {
 
     @Autowired
-    private ResourceCategoryService service;
+    private ResourceCategoryService categoryService;
 
     @ApiOperation("创建资源分类")
     @PutMapping("/create")
     public CommonResult create(@RequestBody ResourceCategory resource) {
-        int count = service.create(resource);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        return categoryService.save(resource) ? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation("更新资源分类")
     @PostMapping("/update")
     public CommonResult update(@RequestBody ResourceCategory resource) {
-        int count = service.update(resource);
-        if (count > 0) {
-            return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
-        }
+        return categoryService.updateById(resource)? CommonResult.success(): CommonResult.failed();
     }
 
     @ApiOperation("列表")
     @GetMapping("/list")
     public CommonResult<CommonPage<ResourceCategory>> list() {
-        List<ResourceCategory> list = service.listAll();
-        return CommonResult.success(CommonPage.restPage(list));
+        return CommonResult.success(CommonPage.restPage(categoryService.list()));
     }
 
 

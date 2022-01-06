@@ -1,7 +1,7 @@
-package com.meituan.waimai.business.server;
+package com.meituan.waimai.consume.server;
 
 
-public interface BusinessCacheService {
+public interface ConsumeCacheService {
 
 	/**
 	 * 获取用户缓存短信验证码

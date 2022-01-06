@@ -1,4 +1,4 @@
-package com.meituan.waimai.business.controller;
+package com.meituan.waimai.consume.controller;
 
 
 import com.google.gson.JsonObject;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/business/map")
 public class MapController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
 
 	@Autowired
 	MapService mapService;

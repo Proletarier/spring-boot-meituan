@@ -1,9 +1,9 @@
-package com.meituan.waimai.business.controller;
+package com.meituan.waimai.consume.controller;
 
 
 import com.meituan.waimai.common.api.CommonResult;
-import com.meituan.waimai.business.model.dto.CustomerLoginForm;
-import com.meituan.waimai.business.server.CustomerService;
+import com.meituan.waimai.consume.model.dto.CustomerLoginForm;
+import com.meituan.waimai.consume.server.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

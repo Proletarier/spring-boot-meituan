@@ -17,14 +17,6 @@ public class GoodsMenu {
     @ApiModelProperty(value="")
     private Integer id;
 
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
-
     @TableField(value = "icon")
     @ApiModelProperty(value="")
     private String icon;
@@ -40,6 +32,19 @@ public class GoodsMenu {
     @TableField(value = "sort")
     @ApiModelProperty(value="")
     private Integer sort;
+
+    @TableField(value = "status")
+    @ApiModelProperty(value="")
+    private Integer status;
+
+    @TableField(value = "created_by")
+    @ApiModelProperty(value="")
+    private String createdBy;
+
+    @TableField(value = "created_date")
+    @ApiModelProperty(value="")
+    private Date createdDate;
+
 
     @TableField(value = "updated_by")
     @ApiModelProperty(value="")

@@ -1,8 +1,8 @@
-package com.meituan.waimai.business.server.impl;
+package com.meituan.waimai.consume.server.impl;
 
 import com.meituan.waimai.common.service.RedisService;
 import com.meituan.waimai.common.util.DateUtil;
-import com.meituan.waimai.business.server.BusinessCacheService;
+import com.meituan.waimai.consume.server.ConsumeCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 @Service
-public class BusinessCacheServiceImpl implements BusinessCacheService {
+public class ConsumeCacheServiceImpl implements ConsumeCacheService {
 
 	@Autowired
 	private RedisService redisService;

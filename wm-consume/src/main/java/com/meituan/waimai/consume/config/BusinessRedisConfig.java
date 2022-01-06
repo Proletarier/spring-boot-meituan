@@ -1,4 +1,4 @@
-package com.meituan.waimai.business.config;
+package com.meituan.waimai.consume.config;
 
 import com.meituan.waimai.common.config.BaseRedisConfig;
 import org.springframework.cache.annotation.EnableCaching;

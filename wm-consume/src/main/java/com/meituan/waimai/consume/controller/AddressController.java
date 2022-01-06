@@ -1,23 +1,21 @@
-package com.meituan.waimai.business.controller;
+package com.meituan.waimai.consume.controller;
 
 
-import com.meituan.waimai.business.bean.CustomerContext;
+import com.meituan.waimai.consume.bean.CustomerContext;
 import com.meituan.waimai.common.api.CommonResult;
-import com.meituan.waimai.business.server.CustomerAddressService;
-import com.meituan.waimai.po.CustomerAddress;
+import com.meituan.waimai.consume.server.CustomerAddressService;
+import com.meituan.waimai.model.CustomerAddress;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "地址管理")
 @RestController
 @RequestMapping("/consume/address")
+@Slf4j
 public class AddressController {
-
-	Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	CustomerAddressService addressService;
@@ -26,7 +24,7 @@ public class AddressController {
 	@GetMapping(value = "/list")
 	public CommonResult listAddress()  {
 		Integer customerId = CustomerContext.getCustomerId();
-		return CommonResult.success(addressService.listAddressByCustomerId(customerId));
+		return CommonResult.success(addressService.getById(customerId));
 	}
 
 	@ApiOperation(value = "新增地址")
@@ -41,16 +39,14 @@ public class AddressController {
 	@PutMapping(value = "/update")
 	public CommonResult updateAddress(@RequestBody CustomerAddress address)  {
 		log.info("------ updateAddress param={}", address);
-		addressService.updateAddress(address);
-		return CommonResult.success();
+		return CommonResult.success(addressService.updateById(address));
 	}
 
 	@ApiOperation(value = "删除当前登录用户的地址")
 	@DeleteMapping("/{id}")
 	public CommonResult deleteAddress(@PathVariable("id") Integer addressId) {
 		log.info("------ deleteAddress param={}", addressId);
-		addressService.deleteAddress(addressId);
-		return CommonResult.success();
+		return CommonResult.success(addressService.removeById(addressId));
 	}
 
 }

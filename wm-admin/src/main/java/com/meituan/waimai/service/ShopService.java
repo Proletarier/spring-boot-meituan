@@ -1,12 +1,13 @@
 package com.meituan.waimai.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.meituan.waimai.dto.ShopInfo;
 import com.meituan.waimai.model.Shop;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface ShopService {
+public interface ShopService extends IService<Shop> {
 
     /**
      * 创建商家
@@ -24,7 +25,7 @@ public interface ShopService {
      * @return
      */
     @Transactional
-    int updateShop(ShopInfo shop);
+    void updateShop(ShopInfo shop);
 
     /**
      * 分页查询

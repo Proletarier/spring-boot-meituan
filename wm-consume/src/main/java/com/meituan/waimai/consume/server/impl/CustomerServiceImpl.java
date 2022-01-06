@@ -1,16 +1,18 @@
-package com.meituan.waimai.business.server.impl;
+package com.meituan.waimai.consume.server.impl;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.meituan.waimai.common.exception.Asserts;
 import com.meituan.waimai.common.util.DateUtil;
-import com.meituan.waimai.business.model.dto.CustomerLoginForm;
-import com.meituan.waimai.business.server.CustomerService;
-import com.meituan.waimai.business.server.BusinessCacheService;
 import com.meituan.waimai.common.util.JwtTokenUtil;
-import com.meituan.waimai.po.Customer;
-import com.meituan.waimai.repository.CustomerAddressRepository;
-import com.meituan.waimai.repository.CustomerRepository;
+import com.meituan.waimai.consume.model.dto.CustomerLoginForm;
+import com.meituan.waimai.consume.server.CustomerService;
+import com.meituan.waimai.mapper.CustomerAddressMapper;
+import com.meituan.waimai.mapper.CustomerMapper;
+import com.meituan.waimai.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +21,12 @@ import java.util.Map;
 import java.util.Objects;
 
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> implements CustomerService {
 
 	@Autowired
-	CustomerRepository customerRepository;
+	CustomerAddressMapper addressRepository;
 	@Autowired
-	CustomerAddressRepository addressRepository;
-	@Autowired
-	BusinessCacheService mallCacheService;
+	ConsumeCacheServiceImpl mallCacheService;
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
 
@@ -36,13 +36,13 @@ public class CustomerServiceImpl implements CustomerService {
 	 if (StrUtil.isBlank(loginForm.getCaptcha()) || !loginForm.getCaptcha().equals(captchaCode)){
 		 Asserts.fail("验证码验证失败");
 	 }
-	 Customer customer = customerRepository.findByPhone(loginForm.getPhone());
+	 Customer customer = getOne(new QueryWrapper<Customer>().lambda().eq(Customer::getPhone,loginForm.getPhone()));
 	 if (Objects.isNull(customer)){
 	 	customer = new Customer();
 	 	customer.setPhone(loginForm.getPhone());
 	 	customer.setStatus(1);
 	 	customer.setCustomerName(loginForm.getPhone());
-	 	customerRepository.save(customer);
+	 	save(customer);
 	 }
 	 return createToken(customer);
 	}

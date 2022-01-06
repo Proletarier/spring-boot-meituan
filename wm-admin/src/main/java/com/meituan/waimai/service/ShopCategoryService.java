@@ -1,12 +1,13 @@
 package com.meituan.waimai.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.meituan.waimai.dto.ShopCategoryQueryParam;
 import com.meituan.waimai.dto.ShopCategoryWithChildrenItem;
 import com.meituan.waimai.model.ShopCategory;
 
 import java.util.List;
 
-public interface ShopCategoryService {
+public interface ShopCategoryService extends IService<ShopCategory> {
 
     /**
      * 分页查询分类
@@ -24,32 +25,7 @@ public interface ShopCategoryService {
      * @param shopCategory
      * @return
      */
-    int createShopCategory(ShopCategory shopCategory);
-
-    /**
-     * 修改分类
-     *
-     * @param shopCategory
-     * @return
-     */
-    int updateShopCategory(ShopCategory shopCategory);
-
-    /**
-     * 修改商家分类状态
-     *
-     * @param cateId
-     * @param status
-     * @return
-     */
-    int updateStatus(Integer cateId, Integer status);
-
-    /**
-     * 查询分类详情
-     *
-     * @param cateId
-     * @return
-     */
-    ShopCategory getShopCategory(Integer cateId);
+    boolean createShopCategory(ShopCategory shopCategory);
 
     /**
      * 查询分类及子类

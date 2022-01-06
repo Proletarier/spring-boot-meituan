@@ -1,4 +1,4 @@
-package com.meituan.waimai.business.server;
+package com.meituan.waimai.consume.server;
 
 import com.google.gson.JsonObject;
 import com.meituan.waimai.amap.bean.*;

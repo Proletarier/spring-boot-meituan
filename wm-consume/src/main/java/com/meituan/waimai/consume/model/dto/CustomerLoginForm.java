@@ -1,4 +1,4 @@
-package com.meituan.waimai.business.model.dto;
+package com.meituan.waimai.consume.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

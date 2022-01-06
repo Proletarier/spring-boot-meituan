@@ -1,6 +1,8 @@
 package com.meituan.waimai.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dao.AdminRoleDao;
 import com.meituan.waimai.mapper.RoleMapper;
@@ -10,14 +12,10 @@ import com.meituan.waimai.model.*;
 import com.meituan.waimai.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class RoleServiceImpl implements RoleService {
-
-    @Autowired
-    private RoleMapper roleMapper;
+public class RoleServiceImpl extends ServiceImpl<RoleMapper,Role> implements RoleService {
 
     @Autowired
     private RoleResourceRelationMapper resourceRelationMapper;
@@ -31,57 +29,33 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> list(Integer pageNum, Integer pageSize, String keyword) {
         PageHelper.startPage(pageNum, pageSize);
-        RoleExample example = new RoleExample();
-        if (!StrUtil.isEmpty(keyword)) {
-            example.createCriteria().andNameLike("%" + keyword + "%");
+        LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper();
+        if (StrUtil.isNotBlank(keyword)){
+            queryWrapper.like(Role::getName,keyword);
         }
-        return roleMapper.selectByExample(example);
-    }
-
-    @Override
-    public Role getRole(Integer id) {
-        return roleMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int create(Role role) {
-        role.setCreateTime(new Date());
-        return roleMapper.insert(role);
-    }
-
-    @Override
-    public int update(Role role) {
-        return roleMapper.updateByPrimaryKeySelective(role);
-    }
-
-    @Override
-    public int updateStatus(Integer id, Integer status) {
-        Role role = new Role();
-        role.setId(id);
-        role.setStatus(status);
-        return roleMapper.updateByPrimaryKeySelective(role);
+        return list(queryWrapper);
     }
 
     @Override
     public List<RoleMenuRelation> listRoleMenuRelation(Integer roleId) {
-        RoleMenuRelationExample example = new RoleMenuRelationExample();
-        example.createCriteria().andRoleIdEqualTo(roleId);
-        return menuRelationMapper.selectByExample(example);
+        LambdaQueryWrapper<RoleMenuRelation> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(RoleMenuRelation::getRoleId,roleId);
+        return menuRelationMapper.selectList(queryWrapper);
     }
 
     @Override
     public List<RoleResourceRelation> listRoleResourceRelation(Integer roleId) {
-        RoleResourceRelationExample example=new RoleResourceRelationExample();
-        example.createCriteria().andRoleIdEqualTo(roleId);
-        return  resourceRelationMapper.selectByExample(example);
+        LambdaQueryWrapper<RoleResourceRelation> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(RoleResourceRelation::getRoleId,roleId);
+        return  resourceRelationMapper.selectList(queryWrapper);
     }
 
     @Override
     public int allocMenu(Integer roleId, List<Integer> menuIds) {
         //先删除原来关系
-        RoleMenuRelationExample example = new RoleMenuRelationExample();
-        example.createCriteria().andRoleIdEqualTo(roleId);
-        menuRelationMapper.deleteByExample(example);
+        LambdaQueryWrapper<RoleMenuRelation> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(RoleMenuRelation::getRoleId,roleId);
+        menuRelationMapper.delete(queryWrapper);
         //添加对应关系
         for (int i = 0; i < menuIds.size(); i++) {
             RoleMenuRelation relation=new RoleMenuRelation();
@@ -95,9 +69,9 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int allocResource(Integer roleId, List<Integer> resourceIds) {
         //先删除原来关系
-        RoleResourceRelationExample example=new RoleResourceRelationExample();
-        example.createCriteria().andRoleIdEqualTo(roleId);
-        resourceRelationMapper.deleteByExample(example);
+        LambdaQueryWrapper<RoleResourceRelation> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(RoleResourceRelation::getRoleId,roleId);
+        resourceRelationMapper.delete(queryWrapper);
         // 添加对应关系
         for(int i=0; i<resourceIds.size(); i++){
             RoleResourceRelation relation=new RoleResourceRelation();
