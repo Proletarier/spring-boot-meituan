@@ -11,10 +11,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-RoleMenuRelation")
 @Data
 @TableName(value = "wm_role_menu_relation")
-public class RoleMenuRelation {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class RoleMenuRelation extends AbstractEntity {
 
     @TableField(value = "role_id")
     @ApiModelProperty(value="")

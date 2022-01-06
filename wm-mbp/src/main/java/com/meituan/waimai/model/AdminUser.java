@@ -12,10 +12,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-AdminUser")
 @Data
 @TableName(value = "wm_admin_user")
-public class AdminUser {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class AdminUser extends AbstractEntity   {
 
     @TableField(value = "username")
     @ApiModelProperty(value="")
@@ -51,21 +48,5 @@ public class AdminUser {
     @TableField(value = "`status`")
     @ApiModelProperty(value="账号类型: 0->禁用；1->启用")
     private Integer status;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
-
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 
 }

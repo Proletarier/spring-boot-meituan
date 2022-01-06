@@ -12,11 +12,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-Role")
 @Data
 @TableName(value = "wm_role")
-public class Role {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
-
+public class Role extends AbstractEntity {
     /**
      * 名称
      */
@@ -38,12 +34,6 @@ public class Role {
     @ApiModelProperty(value="后台用户数量")
     private Integer adminCount;
 
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    @ApiModelProperty(value="创建时间")
-    private Date createTime;
 
     /**
      * 启用状态：0->禁用；1->启用

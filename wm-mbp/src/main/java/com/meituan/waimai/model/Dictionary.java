@@ -12,22 +12,11 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-Dictionary")
 @Data
 @TableName(value = "wm_dictionary")
-public class Dictionary {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class Dictionary extends AbstractEntity {
 
     @TableField(value = "choice")
     @ApiModelProperty(value="")
     private Integer choice;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
 
     @TableField(value = "dic_desc")
     @ApiModelProperty(value="")
@@ -56,11 +45,4 @@ public class Dictionary {
     @ApiModelProperty(value="帐号启用状态:0->禁用；1->启用")
     private Integer status;
 
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 }

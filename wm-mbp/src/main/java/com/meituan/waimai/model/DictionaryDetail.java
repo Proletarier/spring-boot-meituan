@@ -13,17 +13,6 @@ import lombok.Data;
 @Data
 @TableName(value = "wm_dictionary_detail")
 public class DictionaryDetail {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
 
     @TableField(value = "detail_desc")
     @ApiModelProperty(value="")
@@ -56,11 +45,4 @@ public class DictionaryDetail {
     @ApiModelProperty(value="帐号启用状态:0->禁用；1->启用")
     private Integer status;
 
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 }

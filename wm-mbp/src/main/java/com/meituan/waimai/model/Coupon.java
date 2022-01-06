@@ -1,8 +1,6 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,10 +10,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-Coupon")
 @Data
 @TableName(value = "wm_coupon")
-public class Coupon {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class Coupon extends AbstractEntity  {
 
     @TableField(value = "amount")
     @ApiModelProperty(value="")
@@ -28,14 +23,6 @@ public class Coupon {
     @TableField(value = "`count`")
     @ApiModelProperty(value="")
     private Integer count;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
 
     @TableField(value = "enable_time")
     @ApiModelProperty(value="")
@@ -81,13 +68,6 @@ public class Coupon {
     @ApiModelProperty(value="")
     private Date startTime;
 
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 
     @TableField(value = "use_count")
     @ApiModelProperty(value="")

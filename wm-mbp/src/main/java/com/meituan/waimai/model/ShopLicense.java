@@ -13,9 +13,6 @@ import lombok.Data;
 @Data
 @TableName(value = "wm_shop_license")
 public class ShopLicense {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
 
     @TableField(value = "address")
     @ApiModelProperty(value="")
@@ -32,14 +29,6 @@ public class ShopLicense {
     @TableField(value = "company_owner")
     @ApiModelProperty(value="")
     private String companyOwner;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
 
     @TableField(value = "enroll_time")
     @ApiModelProperty(value="")
@@ -69,11 +58,4 @@ public class ShopLicense {
     @ApiModelProperty(value="")
     private Integer shopId;
 
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 }

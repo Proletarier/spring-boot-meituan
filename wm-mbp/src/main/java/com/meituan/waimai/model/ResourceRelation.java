@@ -12,18 +12,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-ResourceRelation")
 @Data
 @TableName(value = "wm_resource_relation")
-public class ResourceRelation {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
+public class ResourceRelation extends AbstractEntity {
 
     @TableField(value = "menu_id")
     @ApiModelProperty(value="")
@@ -32,14 +21,6 @@ public class ResourceRelation {
     @TableField(value = "role_id")
     @ApiModelProperty(value="")
     private Integer roleId;
-
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 
     @TableField(value = "resource_id")
     @ApiModelProperty(value="")
