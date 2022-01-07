@@ -3,8 +3,8 @@ package com.meituan.waimai.consume.controller;
 
 import com.google.gson.JsonObject;
 import com.meituan.waimai.amap.bean.*;
-import com.meituan.waimai.business.server.MapService;
 import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.consume.server.MapService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
