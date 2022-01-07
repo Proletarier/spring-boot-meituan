@@ -37,4 +37,8 @@ public class ShopCategory  extends AbstractEntity{
     @ApiModelProperty(value="")
     private Integer priority;
 
+    @TableField(value = "is_home")
+    @ApiModelProperty(value="")
+    private Integer isHome;
+
 }

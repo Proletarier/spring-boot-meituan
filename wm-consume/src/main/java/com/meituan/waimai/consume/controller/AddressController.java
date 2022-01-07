@@ -12,9 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "地址管理")
-@RestController
-@RequestMapping("/consume/address")
 @Slf4j
+@RestController("/consume/address")
 public class AddressController {
 
 	@Autowired
