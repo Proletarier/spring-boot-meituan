@@ -13,10 +13,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-OrderComment")
 @Data
 @TableName(value = "wm_order_comment")
-public class OrderComment {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class OrderComment extends AbstractEntity{
 
     @TableField(value = "comment_time")
     @ApiModelProperty(value="")
@@ -25,14 +22,6 @@ public class OrderComment {
     @TableField(value = "content")
     @ApiModelProperty(value="")
     private String content;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
 
     @TableField(value = "delivery_score")
     @ApiModelProperty(value="")
@@ -57,14 +46,6 @@ public class OrderComment {
     @TableField(value = "shop_id")
     @ApiModelProperty(value="")
     private Integer shopId;
-
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 
     @TableField(value = "user_id")
     @ApiModelProperty(value="")

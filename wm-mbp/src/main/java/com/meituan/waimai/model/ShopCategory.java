@@ -12,22 +12,10 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-ShopCategory")
 @Data
 @TableName(value = "wm_shop_category")
-public class ShopCategory {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
-
+public class ShopCategory  extends AbstractEntity{
     @TableField(value = "`all`")
     @ApiModelProperty(value="")
     private Integer all;
-
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
 
     @TableField(value = "icon")
     @ApiModelProperty(value="")
@@ -49,11 +37,4 @@ public class ShopCategory {
     @ApiModelProperty(value="")
     private Integer priority;
 
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 }

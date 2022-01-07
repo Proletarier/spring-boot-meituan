@@ -21,14 +21,6 @@ public class Resource {
     @ApiModelProperty(value="")
     private Integer categoryId;
 
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
-
     @TableField(value = "description")
     @ApiModelProperty(value="")
     private String description;
@@ -36,14 +28,6 @@ public class Resource {
     @TableField(value = "`name`")
     @ApiModelProperty(value="")
     private String name;
-
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 
     @TableField(value = "url")
     @ApiModelProperty(value="")

@@ -12,10 +12,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-GoodsMenu")
 @Data
 @TableName(value = "wm_goods_menu")
-public class GoodsMenu {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class GoodsMenu extends AbstractEntity {
 
     @TableField(value = "icon")
     @ApiModelProperty(value="")
@@ -37,20 +34,4 @@ public class GoodsMenu {
     @ApiModelProperty(value="")
     private Integer status;
 
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
-
-
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 }

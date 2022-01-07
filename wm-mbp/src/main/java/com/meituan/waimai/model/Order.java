@@ -11,8 +11,5 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-Order")
 @Data
 @TableName(value = "wm_order")
-public class Order {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class Order extends AbstractEntity {
 }

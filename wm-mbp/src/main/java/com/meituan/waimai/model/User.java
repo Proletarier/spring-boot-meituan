@@ -1,8 +1,6 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,13 +11,6 @@ import lombok.Data;
 @Data
 @TableName(value = "wm_user")
 public class User {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
-
-    @TableField(value = "create_time")
-    @ApiModelProperty(value="")
-    private Date createTime;
 
     @TableField(value = "email")
     @ApiModelProperty(value="")

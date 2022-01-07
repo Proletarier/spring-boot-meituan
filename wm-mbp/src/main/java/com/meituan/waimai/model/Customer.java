@@ -12,10 +12,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-Customer")
 @Data
 @TableName(value = "wm_customer")
-public class Customer {
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value="")
-    private Integer id;
+public class Customer extends AbstractEntity {
 
     @TableField(value = "face")
     @ApiModelProperty(value="")
@@ -36,23 +33,8 @@ public class Customer {
     @ApiModelProperty(value="")
     private String customerName;
 
-    @TableField(value = "created_by")
-    @ApiModelProperty(value="")
-    private String createdBy;
-
-    @TableField(value = "created_date")
-    @ApiModelProperty(value="")
-    private Date createdDate;
-
     @TableField(value = "is_member")
     @ApiModelProperty(value="")
     private Integer isMember;
 
-    @TableField(value = "updated_by")
-    @ApiModelProperty(value="")
-    private String updatedBy;
-
-    @TableField(value = "updated_date")
-    @ApiModelProperty(value="")
-    private Date updatedDate;
 }
