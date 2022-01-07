@@ -14,7 +14,9 @@ public enum ResultCode implements IErrorCode {
     UNAUTHORIZED("S0002", "暂未登录或token已经过期"),
     FORBIDDEN("S0003", "没有相关权限"),
     VALIDATE_NULL("S0004", "请求的数据格式不符"),
-    SYSTEM_ERROR("S0005", "服务器内部错误");
+    SYSTEM_ERROR("S0005", "服务器内部错误"),
+    REPEAT_SUBMIT("S0006", "请勿重复提交");
+
 
 
 
