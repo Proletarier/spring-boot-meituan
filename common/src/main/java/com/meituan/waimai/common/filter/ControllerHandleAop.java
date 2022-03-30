@@ -24,8 +24,7 @@ public class ControllerHandleAop {
 
 	private final static Set<String> KEY = new ConcurrentSkipListSet<>();
 
-	@Pointcut("public * com.meituan.waimai.*.controller.*.*(..)" +
-	"|| public * com.meituan.waimai.*.controller.*.*(..)")
+	@Pointcut("execution(public * com.meituan.waimai.*.controller.*.*(..))")
 	public  void executeService(){
 	}
 

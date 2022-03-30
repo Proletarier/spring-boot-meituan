@@ -35,6 +35,15 @@ public class GlobalExceptionHandler {
         return CommonResult.failed(e.getMessage());
     }
 
+    @ResponseBody
+    @ExceptionHandler(value = AutoTokenException.class)
+    public CommonResult handle(AutoTokenException e) {
+        if (e.getErrorCode() != null) {
+            return CommonResult.failed(e.getErrorCode());
+        }
+        return CommonResult.failed(e.getMessage());
+    }
+
     /**
      * 处理空指针的异常
      * @param req
