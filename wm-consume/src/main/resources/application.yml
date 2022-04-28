@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mall
+    name: consume
   profiles:
     active: dev #默认为开发环境
   servlet:
@@ -30,10 +30,10 @@ jwt:
       - /**/*.ico
       - /webjars/springfox-swagger-ui/**
       - /druid/**
-      - /business/login
-      - /business/info
-      - /business/logout
-      - /business/getCaptcha
+      - /login
+      - /info
+      - /logout
+      - /captcha
       - /upload/**
 redis:
   database: customer

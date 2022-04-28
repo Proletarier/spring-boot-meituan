@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = "地理位置服务")
-@RestController("/business/map")
+@RestController("/map")
 public class MapController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);

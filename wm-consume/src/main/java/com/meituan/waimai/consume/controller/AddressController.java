@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "地址管理")
 @Slf4j
-@RestController("/consume/address")
+@RestController("/address")
 public class AddressController {
 
 	@Autowired
 	CustomerAddressService addressService;
 
 	@ApiOperation(value = "获取当前登录用户的地址列表")
-	@GetMapping(value = "/list")
+	@GetMapping()
 	public CommonResult listAddress()  {
 		Integer customerId = CustomerContext.getCustomerId();
 		return CommonResult.success(addressService.getById(customerId));

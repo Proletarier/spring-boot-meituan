@@ -12,7 +12,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-DictionaryDetail")
 @Data
 @TableName(value = "wm_dictionary_detail")
-public class DictionaryDetail {
+public class DictionaryDetail extends AbstractEntity{
 
     @TableField(value = "detail_desc")
     @ApiModelProperty(value="")

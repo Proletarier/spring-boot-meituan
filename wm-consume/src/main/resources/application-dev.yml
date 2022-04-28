@@ -1,11 +1,13 @@
 server:
   port: 8010
   file_url: http://localhost:8010
+  servlet:
+    context-path: /
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/waimai?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: 123456
     druid:
       initizl-size: 5 #连接池初始化大小
       min-idle: 10 #最小空闲连接数\

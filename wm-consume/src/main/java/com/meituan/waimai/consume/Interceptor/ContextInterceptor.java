@@ -60,9 +60,4 @@ public class ContextInterceptor implements HandlerInterceptor {
 		CustomerContext.setKeyCustomerTelephone(claims.get("phone",String.class));
 		return  true;
 	}
-
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
-	}
 }

@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "登录")
-@RestController("/business")
+@RestController("/")
 public class LoginController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -22,7 +22,7 @@ public class LoginController {
 	private CustomerService customerService;
 
 	@ApiOperation(value = "登录以后返回token")
-	@PostMapping(value = "/login")
+	@PostMapping(value = "login")
 	public CommonResult login(@Validated @RequestBody CustomerLoginForm customerLoginForm)  {
 		LOGGER.info("loginForm={}",customerLoginForm);
 		String token = customerService.login(customerLoginForm);
@@ -33,13 +33,13 @@ public class LoginController {
 	}
 
 	@ApiOperation(value = "登出")
-	@PostMapping(value = "/logout")
+	@PostMapping(value = "logout")
 	public CommonResult logout() {
 		return CommonResult.success(null);
 	}
 
 	@ApiOperation(value = "获取短信验证码")
-	@GetMapping(value = "/getCaptcha")
+	@GetMapping(value = "captcha")
 	public CommonResult getCaptcha(@RequestParam("phone") String phone)  {
 		LOGGER.info("phone={}",phone);
 	    customerService.sendCaptcha(phone);

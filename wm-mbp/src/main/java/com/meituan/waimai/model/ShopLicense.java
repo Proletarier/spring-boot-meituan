@@ -12,7 +12,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-ShopLicense")
 @Data
 @TableName(value = "wm_shop_license")
-public class ShopLicense {
+public class ShopLicense  extends AbstractEntity {
 
     @TableField(value = "address")
     @ApiModelProperty(value="")

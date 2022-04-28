@@ -6,6 +6,7 @@ import com.meituan.waimai.common.api.IErrorCode;
 import com.meituan.waimai.common.api.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,7 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)
+
     public CommonResult handle(ApiException e) {
         if (e.getErrorCode() != null) {
             return CommonResult.failed(e.getErrorCode());
@@ -42,6 +44,12 @@ public class GlobalExceptionHandler {
             return CommonResult.failed(e.getErrorCode());
         }
         return CommonResult.failed(e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = MissingServletRequestParameterException.class)
+    public CommonResult handle(MissingServletRequestParameterException e) {
+        return CommonResult.failed(ResultCode.VALIDATE_NULL,e.getMessage());
     }
 
     /**
