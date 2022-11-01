@@ -1,6 +1,9 @@
 package com.meituan.waimai.consume.config;
 
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.meituan.waimai.consume.handler.CustomMetaObjectHandler;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -8,4 +11,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan({"com.meituan.waimai.mapper", "com.meituan.waimai.dao"})
 public class MyBatisConfig {
+
+    @Bean
+    public MetaObjectHandler customMetaObjectHandler() {
+        return new CustomMetaObjectHandler();
+    }
+
 }

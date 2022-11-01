@@ -2,7 +2,6 @@ package com.meituan.waimai.consume.server.impl;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.meituan.waimai.common.exception.Asserts;
@@ -10,6 +9,7 @@ import com.meituan.waimai.common.util.DateUtil;
 import com.meituan.waimai.common.util.JwtTokenUtil;
 import com.meituan.waimai.consume.model.dto.CustomerLoginForm;
 import com.meituan.waimai.consume.server.CustomerService;
+import com.meituan.waimai.enums.CustomerEnum;
 import com.meituan.waimai.mapper.CustomerAddressMapper;
 import com.meituan.waimai.mapper.CustomerMapper;
 import com.meituan.waimai.model.Customer;
@@ -26,13 +26,13 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 	@Autowired
 	CustomerAddressMapper addressRepository;
 	@Autowired
-	ConsumeCacheServiceImpl mallCacheService;
+	ConsumeCacheServiceImpl cacheService;
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
 
 	@Override
 	public String login(CustomerLoginForm loginForm) {
-	 String captchaCode = mallCacheService.getCaptcha(loginForm.getPhone());
+	 String captchaCode = cacheService.getCaptcha(loginForm.getPhone());
 	 if (StrUtil.isBlank(loginForm.getCaptcha()) || !loginForm.getCaptcha().equals(captchaCode)){
 		 Asserts.fail("验证码验证失败");
 	 }
@@ -40,7 +40,8 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 	 if (Objects.isNull(customer)){
 	 	customer = new Customer();
 	 	customer.setPhone(loginForm.getPhone());
-	 	customer.setStatus(1);
+	 	customer.setStatus(CustomerEnum.valid);
+	 	customer.setIsMember(CustomerEnum.no_member);
 	 	customer.setCustomerName(loginForm.getPhone());
 	 	save(customer);
 	 }
@@ -49,20 +50,20 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 
 	@Override
 	public void sendCaptcha(String phone) {
-		String value = mallCacheService.getCaptcha(phone);
+		String value = cacheService.getCaptcha(phone);
 		if (!StrUtil.isBlank(value)){
-			int count = mallCacheService.getSendCaptchaCount(phone);
+			int count = cacheService.getSendCaptchaCount(phone);
 			if (count >= 5){
 				Asserts.fail("当日发送验证码达到上限");
 			}
-			long lastTime = mallCacheService.getSendCaptchaLastTime(phone);
+			long lastTime = cacheService.getSendCaptchaLastTime(phone);
 			if (DateUtil.getCurrentSeconds() - lastTime < 100){
 				Asserts.fail("频繁操作");
 			}
 		}
 		//TODO 验证码需要接入短信平台，暂时设置123456
 		String captcha = "123456";
-		mallCacheService.setCaptcha(phone,captcha);
+		cacheService.setCaptcha(phone,captcha);
 	}
 
 	private String createToken(Customer customer){

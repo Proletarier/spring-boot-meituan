@@ -90,6 +90,10 @@ public class CommonResult<T> {
         return failed(ResultCode.FAILED);
     }
 
+    public static <T> CommonResult<T> serverFailed() {
+        return failed(ResultCode.SYSTEM_ERROR);
+    }
+
     /**
      * 参数验证失败返回结果
      */

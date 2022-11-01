@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value =NullPointerException.class)
     @ResponseBody
     public CommonResult exceptionHandler(HttpServletRequest req, NullPointerException e){
-        logger.error("发生空指针异常！原因是:",e);
+        logger.error("null point exception！cause:",e);
         return CommonResult.failed(ResultCode.VALIDATE_NULL);
     }
 
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value =Exception.class)
     @ResponseBody
     public CommonResult exceptionHandler(HttpServletRequest req, Exception e){
-        logger.error("未知异常！原因是:",e);
+        logger.error("other exception！cause:",e);
         return CommonResult.failed(ResultCode.SYSTEM_ERROR);
     }
 }

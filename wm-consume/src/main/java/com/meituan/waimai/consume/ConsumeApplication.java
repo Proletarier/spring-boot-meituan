@@ -1,7 +1,6 @@
 package com.meituan.waimai.consume;
 
 
-import com.meituan.waimai.consume.controller.LoginController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

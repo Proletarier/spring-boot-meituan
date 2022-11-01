@@ -5,16 +5,18 @@ import com.meituan.waimai.consume.bean.CustomerContext;
 import com.meituan.waimai.consume.server.CustomerAddressService;
 import com.meituan.waimai.mapper.CustomerAddressMapper;
 import com.meituan.waimai.model.CustomerAddress;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
+@Slf4j
 @Service
 public class CustomerAddressServiceImpl extends ServiceImpl<CustomerAddressMapper,CustomerAddress> implements CustomerAddressService {
 
 	@Override
-	public void saveAddress(CustomerAddress address) {
+	public boolean saveAddress(CustomerAddress address) {
 		address.setCustomerId(CustomerContext.getCustomerId());
-		save(address);
+		return save(address);
 	}
 
 }

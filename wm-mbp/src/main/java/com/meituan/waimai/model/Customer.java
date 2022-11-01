@@ -1,17 +1,14 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 import lombok.Data;
 
-@ApiModel(value="com-meituan-waimai-model-Customer")
+@ApiModel(value="com-meituan-waimai-model-CustomerEnum")
 @Data
-@TableName(value = "wm_customer")
+@TableName(value = "_customer")
 public class Customer extends AbstractEntity {
 
     @TableField(value = "face")
@@ -19,12 +16,9 @@ public class Customer extends AbstractEntity {
     private String face;
 
     @TableField(value = "phone")
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="电话")
     private String phone;
 
-    /**
-     * 帐号启用状态:0->禁用；1->启用
-     */
     @TableField(value = "`status`")
     @ApiModelProperty(value="帐号启用状态:0->禁用；1->启用")
     private Integer status;
@@ -34,7 +28,7 @@ public class Customer extends AbstractEntity {
     private String customerName;
 
     @TableField(value = "is_member")
-    @ApiModelProperty(value="")
+    @ApiModelProperty(value="是否是会员")
     private Integer isMember;
 
 }
