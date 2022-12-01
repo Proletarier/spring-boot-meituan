@@ -1,8 +1,8 @@
 package com.meituan.waimai.controller;
 
 
-import com.meituan.waimai.common.api.CommonPage;
-import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.common.model.entity.CommonPage;
+import com.meituan.waimai.common.model.entity.CommonResult;
 import com.meituan.waimai.model.Customer;
 import com.meituan.waimai.service.CustomerService;
 import io.swagger.annotations.Api;

@@ -1,6 +1,6 @@
 package com.meituan.waimai.dto;
 
-import com.meituan.waimai.common.api.PageQuery;
+import com.meituan.waimai.common.model.entity.PageQuery;
 import lombok.Data;
 
 @Data

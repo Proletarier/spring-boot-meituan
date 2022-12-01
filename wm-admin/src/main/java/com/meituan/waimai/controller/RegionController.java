@@ -1,6 +1,6 @@
 package com.meituan.waimai.controller;
 
-import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.common.model.entity.CommonResult;
 import com.meituan.waimai.dto.RegionWithChildrenItem;
 import com.meituan.waimai.service.RegionService;
 import io.swagger.annotations.Api;

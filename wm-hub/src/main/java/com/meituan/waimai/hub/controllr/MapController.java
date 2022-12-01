@@ -4,12 +4,14 @@ package com.meituan.waimai.hub.controllr;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.common.model.entity.CommonResult;
 import com.meituan.waimai.common.exception.AMapErrorException;
 import com.meituan.waimai.common.util.IpUtils;
 import com.meituan.waimai.common.util.RequestUtil;
 import com.meituan.waimai.hub.api.map.*;
+import com.meituan.waimai.hub.enums.PoiCode;
 import com.meituan.waimai.hub.model.dto.map.*;
+import com.meituan.waimai.hub.model.vo.AddressInfo;
 import com.meituan.waimai.hub.model.vo.MapAroundAddressInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -126,14 +128,28 @@ public class MapController {
 
 	@ApiOperation(value = "输入提示")
 	@GetMapping(value = "/assistant/input_tips")
-	public CommonResult inputTips(InputTips inputTips)  {
+	public CommonResult<List<AddressInfo>> inputTips(InputTips inputTips)  {
 		LOGGER.info("inputTips: {}",inputTips);
 		try {
-			JsonObject	jsonObject = assistantService.inputTips(inputTips);
-			return CommonResult.success(jsonObject.toString());
+			inputTips.setType(PoiCode.getAllCode("|"));
+			JsonObject	result = assistantService.inputTips(inputTips);
+			JsonArray tips = result.getAsJsonArray("tips");
+			List<AddressInfo> addressInfos = Lists.newArrayList();
+			if(tips != null && tips.size() >1 ){
+				tips.forEach(element ->{
+					AddressInfo  addressInfo = new AddressInfo();
+					JsonObject item = element.getAsJsonObject();
+					addressInfo.setAddress(item.get("address").getAsString());
+					addressInfo.setLocation(item.get("location").getAsString());
+					addressInfo.setName(item.get("name").getAsString());
+					addressInfo.setDistrict(item.get("district").getAsString());
+					addressInfos.add(addressInfo);
+				});
+			}
+			return CommonResult.success(addressInfos);
 		} catch (AMapErrorException e) {
 			LOGGER.error("inputTips: error:{}",e.getError());
-			return CommonResult.failed();
+			return CommonResult.serverFailed();
 		}
 	}
 }

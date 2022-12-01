@@ -2,7 +2,7 @@ package com.meituan.waimai.consume.Interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.meituan.waimai.consume.bean.CustomerContext;
-import com.meituan.waimai.common.api.ResultCode;
+import com.meituan.waimai.common.model.entity.ResultCode;
 import com.meituan.waimai.common.exception.AutoTokenException;
 import com.meituan.waimai.common.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;

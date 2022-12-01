@@ -3,11 +3,14 @@ package com.meituan.waimai.consume.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.meituan.waimai.common.api.ResultCode;
+import com.meituan.waimai.common.model.entity.ObjectKeyConstants;
+import com.meituan.waimai.common.model.entity.ResultCode;
 import com.meituan.waimai.consume.bean.CustomerContext;
-import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.common.model.entity.CommonResult;
 import com.meituan.waimai.consume.server.CustomerAddressService;
+import com.meituan.waimai.mapper.ObjectKeyMapper;
 import com.meituan.waimai.model.CustomerAddress;
+import com.meituan.waimai.model.ObjectKey;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +27,9 @@ public class CustomerAddressController {
 
 	@Autowired
 	CustomerAddressService addressService;
+
+	@Autowired
+	ObjectKeyMapper objectKeyMapper;
 
 	@ApiOperation(value = "获取当前登录用户的地址列表")
 	@GetMapping(value = "/getAddress")
@@ -88,6 +94,17 @@ public class CustomerAddressController {
 			return CommonResult.failed(ResultCode.SYSTEM_ERROR);
 		}
 		return CommonResult.success();
+	}
+
+	@ApiOperation(value = "获取地址")
+	@GetMapping("/getCityList")
+	public CommonResult<Object>  getCityList() {
+		ObjectKey objectKey = objectKeyMapper.selectOne(new QueryWrapper<ObjectKey>().lambda().eq(ObjectKey::getObjectKey, ObjectKeyConstants.CITY_LIST));
+		if(objectKey == null){
+			return CommonResult.success();
+		}else {
+			return CommonResult.success(objectKey.getObjectValue());
+		}
 	}
 
 }

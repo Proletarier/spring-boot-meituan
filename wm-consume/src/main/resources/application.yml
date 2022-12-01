@@ -40,6 +40,7 @@ jwt:
       - /logout
       - /captcha
       - /upload/**
+      - /home/**
 redis:
   database: customer
   key:

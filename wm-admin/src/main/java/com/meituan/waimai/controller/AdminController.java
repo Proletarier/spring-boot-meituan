@@ -2,8 +2,8 @@ package com.meituan.waimai.controller;
 
 
 import cn.hutool.core.collection.CollUtil;
-import com.meituan.waimai.common.api.CommonPage;
-import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.common.model.entity.CommonPage;
+import com.meituan.waimai.common.model.entity.CommonResult;
 import com.meituan.waimai.dto.AdminLoginParam;
 import com.meituan.waimai.model.AdminRoleRelation;
 import com.meituan.waimai.model.AdminUser;

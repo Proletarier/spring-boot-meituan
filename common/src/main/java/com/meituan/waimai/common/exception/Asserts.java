@@ -1,6 +1,6 @@
 package com.meituan.waimai.common.exception;
 
-import com.meituan.waimai.common.api.IErrorCode;
+import com.meituan.waimai.common.model.entity.IErrorCode;
 
 public class Asserts  {
 

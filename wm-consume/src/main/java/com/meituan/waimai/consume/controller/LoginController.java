@@ -2,7 +2,7 @@ package com.meituan.waimai.consume.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.common.model.entity.CommonResult;
 import com.meituan.waimai.consume.model.dto.CustomerInfo;
 import com.meituan.waimai.consume.model.dto.CustomerLoginForm;
 import com.meituan.waimai.consume.server.CustomerService;

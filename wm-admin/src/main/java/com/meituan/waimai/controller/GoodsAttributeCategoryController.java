@@ -1,8 +1,8 @@
 package com.meituan.waimai.controller;
 
 
-import com.meituan.waimai.common.api.CommonPage;
-import com.meituan.waimai.common.api.CommonResult;
+import com.meituan.waimai.common.model.entity.CommonPage;
+import com.meituan.waimai.common.model.entity.CommonResult;
 import com.meituan.waimai.dto.GoodsAttributeCategoryResult;
 import com.meituan.waimai.model.GoodsAttributeCategory;
 import com.meituan.waimai.service.GoodsAttributeCategoryService;

@@ -11,8 +11,4 @@ public interface HomeService  {
 	 * @return
 	 */
 	List<GoodsCategoryVo>  listGoodsCategory();
-
-	/**
-	 * 附近商家
-	 */
 }

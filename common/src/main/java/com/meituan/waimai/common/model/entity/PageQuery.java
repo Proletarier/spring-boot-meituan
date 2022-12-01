@@ -1,4 +1,4 @@
-package com.meituan.waimai.common.api;
+package com.meituan.waimai.common.model.entity;
 
 import lombok.Data;
 
