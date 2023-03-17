@@ -1,18 +1,15 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 import lombok.Data;
 
 @ApiModel(value="com-meituan-waimai-model-ShopCategory")
 @Data
 @TableName(value = "wm_shop_category")
-public class ShopCategory  extends AbstractEntity{
+public class ShopCategory  extends BaseEntity {
     @TableField(value = "`all`")
     @ApiModelProperty(value="")
     private Integer all;

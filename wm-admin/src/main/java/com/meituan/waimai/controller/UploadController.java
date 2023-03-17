@@ -3,7 +3,7 @@ package com.meituan.waimai.controller;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import com.meituan.waimai.common.model.entity.CommonResult;
+import com.meituan.waimai.common.domain.CommonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;

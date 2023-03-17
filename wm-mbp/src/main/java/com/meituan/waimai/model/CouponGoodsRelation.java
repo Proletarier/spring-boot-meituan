@@ -9,7 +9,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-CouponGoodsRelation")
 @Data
 @TableName(value = "wm_coupon_goods_relation")
-public class CouponGoodsRelation extends AbstractEntity  {
+public class CouponGoodsRelation extends BaseEntity {
 
     @TableField(value = "coupon_id")
     @ApiModelProperty(value="")

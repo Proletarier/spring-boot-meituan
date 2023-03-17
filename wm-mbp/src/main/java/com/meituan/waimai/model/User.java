@@ -10,7 +10,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-User")
 @Data
 @TableName(value = "wm_user")
-public class User extends AbstractEntity {
+public class User extends BaseEntity {
 
     @TableField(value = "email")
     @ApiModelProperty(value="")

@@ -1,30 +1,41 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 import lombok.Data;
 
-@ApiModel(value="com-meituan-waimai-model-Shop")
 @Data
-@TableName(value = "wm_shop")
-public class Shop extends AbstractEntity {
+@TableName(value = "_shop")
+public class Shop extends BaseEntity {
 
 
-    @TableField(value = "email")
-    @ApiModelProperty(value="")
-    private String email;
+    @TableField(value = "user_id")
+    private Long userId;
+
+    @TableField(value = "category_id")
+    private Long categoryId;
+
+    @TableField(value = "pic_url")
+    private String picUrl;
 
     @TableField(value = "phone")
-    @ApiModelProperty(value="")
     private String phone;
 
     @TableField(value = "shop_name")
-    @ApiModelProperty(value="")
     private String shopName;
 
+    @TableField(value = "bulletin")
+    private String bulletin;
+
+    @TableField(value = "address",typeHandler= FastjsonTypeHandler.class)
+    private JSONObject address;
+
+    @TableField(value = "remark",typeHandler= FastjsonTypeHandler.class)
+    private JSONObject remark;
+
+    @TableField(value = "delivering",typeHandler= FastjsonTypeHandler.class)
+    private JSONObject delivering;
 }
+

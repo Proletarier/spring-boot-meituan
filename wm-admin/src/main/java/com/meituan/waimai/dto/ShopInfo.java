@@ -5,8 +5,6 @@ import com.meituan.waimai.model.Shop;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ShopInfo extends Shop {

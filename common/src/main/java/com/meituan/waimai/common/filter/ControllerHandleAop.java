@@ -1,7 +1,7 @@
 package com.meituan.waimai.common.filter;
 
-import com.meituan.waimai.common.model.entity.CommonResult;
-import com.meituan.waimai.common.model.entity.ResultCode;
+import com.meituan.waimai.common.domain.CommonResult;
+import com.meituan.waimai.common.domain.ResultCode;
 import com.meituan.waimai.common.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

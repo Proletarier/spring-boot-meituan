@@ -8,7 +8,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-CustomerAddress")
 @Data
 @TableName(value = "_customer_address")
-public class CustomerAddress  extends AbstractEntity{
+public class CustomerAddress  extends BaseEntity {
 
     @TableField(value = "customer_id")
     private Integer customerId;

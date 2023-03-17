@@ -9,7 +9,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-CustomerEnum")
 @Data
 @TableName(value = "_customer")
-public class Customer extends AbstractEntity {
+public class Customer extends BaseEntity {
 
     @TableField(value = "face")
     @ApiModelProperty(value="")

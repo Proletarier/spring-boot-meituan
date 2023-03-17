@@ -1,18 +1,15 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 import lombok.Data;
 
 @ApiModel(value="com-meituan-waimai-model-CouponProductCategoryRelation")
 @Data
 @TableName(value = "wm_coupon_product_category_relation")
-public class CouponProductCategoryRelation extends AbstractEntity {
+public class CouponProductCategoryRelation extends BaseEntity {
 
     @TableField(value = "coupon_id")
     @ApiModelProperty(value="")

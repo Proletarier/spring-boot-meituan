@@ -1,8 +1,8 @@
 package com.meituan.waimai.controller;
 
 
-import com.meituan.waimai.common.model.entity.CommonPage;
-import com.meituan.waimai.common.model.entity.CommonResult;
+import com.meituan.waimai.common.domain.CommonPage;
+import com.meituan.waimai.common.domain.CommonResult;
 import com.meituan.waimai.dto.ResourceQueryParam;
 import com.meituan.waimai.model.Resource;
 import com.meituan.waimai.service.ResourceService;

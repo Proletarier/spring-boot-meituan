@@ -1,18 +1,15 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 import lombok.Data;
 
 @ApiModel(value="com-meituan-waimai-model-AdminLoginLog")
 @Data
 @TableName(value = "wm_admin_login_log")
-public class AdminLoginLog extends AbstractEntity {
+public class AdminLoginLog extends BaseEntity {
 
     @TableField(value = "address")
     @ApiModelProperty(value="")

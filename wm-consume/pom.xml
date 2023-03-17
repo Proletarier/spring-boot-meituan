@@ -26,10 +26,6 @@
         </dependency>
         <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>wm-hub</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.meituan</groupId>
             <artifactId>wm-mbp</artifactId>
         </dependency>
         <dependency>

@@ -1,8 +1,6 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +10,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-ShopLicense")
 @Data
 @TableName(value = "wm_shop_license")
-public class ShopLicense  extends AbstractEntity {
+public class ShopLicense  extends BaseEntity {
 
     @TableField(value = "address")
     @ApiModelProperty(value="")

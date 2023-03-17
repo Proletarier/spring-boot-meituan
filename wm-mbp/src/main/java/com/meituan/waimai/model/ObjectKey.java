@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 
 @TableName(value = "_object_key",autoResultMap = true)
-public class ObjectKey  extends AbstractEntity{
+public class ObjectKey  extends BaseEntity {
 
     @TableField(value = "object_key")
     private String objectKey;

@@ -1,8 +1,8 @@
 package com.meituan.waimai.common.exception;
 
 
-import com.meituan.waimai.common.model.entity.CommonResult;
-import com.meituan.waimai.common.model.entity.ResultCode;
+import com.meituan.waimai.common.domain.CommonResult;
+import com.meituan.waimai.common.domain.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.MissingServletRequestParameterException;

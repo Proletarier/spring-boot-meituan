@@ -1,7 +1,7 @@
 package com.meituan.waimai.security.component;
 
 import cn.hutool.json.JSONUtil;
-import com.meituan.waimai.common.model.entity.CommonResult;
+import com.meituan.waimai.common.domain.CommonResult;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 

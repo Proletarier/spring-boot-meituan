@@ -9,7 +9,7 @@ import lombok.Data;
 @ApiModel(value="com-meituan-waimai-model-AdminRoleRelation")
 @Data
 @TableName(value = "wm_admin_role_relation")
-public class AdminRoleRelation extends AbstractEntity {
+public class AdminRoleRelation extends BaseEntity {
 
     @TableField(value = "admin_id")
     @ApiModelProperty(value="")

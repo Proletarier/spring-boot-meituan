@@ -1,18 +1,15 @@
 package com.meituan.waimai.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
 import lombok.Data;
 
 @ApiModel(value="com-meituan-waimai-model-DictionaryDetail")
 @Data
 @TableName(value = "wm_dictionary_detail")
-public class DictionaryDetail extends AbstractEntity{
+public class DictionaryDetail extends BaseEntity {
 
     @TableField(value = "detail_desc")
     @ApiModelProperty(value="")
