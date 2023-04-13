@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import com.meituan.waimai.common.service.RedisService;
-import com.meituan.waimai.common.service.impl.RedisServiceImpl;
+import com.meituan.waimai.common.api.RedisService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -58,6 +57,6 @@ public class BaseRedisConfig {
 
     @Bean
     public RedisService redisService(){
-        return new RedisServiceImpl();
+        return new RedisService();
     }
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meituan.waimai.dao.GoodsAttributeCategoryDao">
     <resultMap id="productAttributeCategoryMap" type="com.meituan.waimai.dto.GoodsAttributeCategoryResult"
-               extends="com.meituan.waimai.mapper.ProductAttributeCategoryMapper.BaseResultMap">
+               extends="com.meituan.waimai.mapper2.ProductAttributeCategoryMapper.BaseResultMap">
         <collection property="productAttributeList" column="{productAttributeCategoryId=id}"
                     select="selectProductAttr"/>
     </resultMap>
@@ -11,7 +11,7 @@
         select * from product_attribute_category where shop_id=#{shopId}
     </select>
 
-    <select id="selectProductAttr" resultMap="com.meituan.waimai.mapper.ProductAttributeMapper.BaseResultMap">
+    <select id="selectProductAttr" resultMap="com.meituan.waimai.mapper2.ProductAttributeMapper.BaseResultMap">
         select * from product_attribute where product_attribute_category_id=#{productAttributeCategoryId}
     </select>
 </mapper>

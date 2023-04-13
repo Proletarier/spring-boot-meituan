@@ -10,9 +10,9 @@ import com.meituan.waimai.common.util.RequestUtil;
 import com.meituan.waimai.constant.StatusEnum;
 import com.meituan.waimai.dao.AdminRoleDao;
 
-import com.meituan.waimai.mapper.AdminLoginLogMapper;
-import com.meituan.waimai.mapper.AdminRoleRelationMapper;
-import com.meituan.waimai.mapper.AdminUserMapper;
+import com.meituan.waimai.mapper2.AdminLoginLogMapper;
+import com.meituan.waimai.mapper2.AdminRoleRelationMapper;
+import com.meituan.waimai.mapper2.AdminUserMapper;
 import com.meituan.waimai.model.*;
 import com.meituan.waimai.security.util.JwtTokenUtil;
 import com.meituan.waimai.service.AdminCacheService;

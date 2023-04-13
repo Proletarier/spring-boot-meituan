@@ -5,7 +5,6 @@ import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dao.ShopDao;
 import com.meituan.waimai.dto.ShopInfo;
 
-import com.meituan.waimai.mapper.ShopMapper;
 import com.meituan.waimai.model.*;
 import com.meituan.waimai.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;

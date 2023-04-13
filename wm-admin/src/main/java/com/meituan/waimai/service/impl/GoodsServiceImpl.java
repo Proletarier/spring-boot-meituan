@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dao.GoodsDao;
 import com.meituan.waimai.dto.GoodsInfo;
-import com.meituan.waimai.mapper.GoodsMapper;
+import com.meituan.waimai.mapper2.GoodsMapper;
 import com.meituan.waimai.model.Goods;
 import com.meituan.waimai.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;

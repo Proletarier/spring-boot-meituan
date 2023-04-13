@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meituan.waimai.dao.AdminRoleDao">
     <resultMap id="adminRoleResourceMap" type="com.meituan.waimai.model.Resource"
-               extends="com.meituan.waimai.mapper.ResourceMapper.BaseResultMap">
+               extends="com.meituan.waimai.mapper2.ResourceMapper.BaseResultMap">
     </resultMap>
 
 	<resultMap id="adminRoleMenuMap" type="com.meituan.waimai.model.Menu"
-			   extends="com.meituan.waimai.mapper.MenuMapper.BaseResultMap">
+			   extends="com.meituan.waimai.mapper2.MenuMapper.BaseResultMap">
 	</resultMap>
 
 	<resultMap id="roleListMap" type="com.meituan.waimai.model.Role"
-			   extends="com.meituan.waimai.mapper.RoleMapper.BaseResultMap">
+			   extends="com.meituan.waimai.mapper2.RoleMapper.BaseResultMap">
 	</resultMap>
 
 	<select id="getRoleList" resultMap="roleListMap">

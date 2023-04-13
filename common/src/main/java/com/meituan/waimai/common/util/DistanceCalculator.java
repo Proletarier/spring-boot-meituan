@@ -1,4 +1,5 @@
 package com.meituan.waimai.common.util;
+
 import static java.lang.Math.*;
 
 public class DistanceCalculator {

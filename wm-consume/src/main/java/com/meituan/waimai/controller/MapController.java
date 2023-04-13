@@ -8,7 +8,7 @@ import com.meituan.waimai.common.domain.CommonResult;
 import com.meituan.waimai.common.exception.AMapErrorException;
 import com.meituan.waimai.common.model.enums.PoiCode;
 import com.meituan.waimai.common.model.map.*;
-import com.meituan.waimai.common.service.map.*;
+import com.meituan.waimai.common.api.MapService;
 import com.meituan.waimai.common.util.IpUtils;
 import com.meituan.waimai.common.util.RequestUtil;
 
@@ -32,15 +32,7 @@ public class MapController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
 
 	@Autowired
-	PoiSearchService poiSearchService;
-	@Autowired
-	IPLocationService ipLocationService;
-	@Autowired
-	DistrictService districtService;
-	@Autowired
-	CoordinateService coordinateService;
-	@Autowired
-	AssistantService assistantService;
+	MapService mapService;
 	@Autowired
 	HttpServletRequest request;
 
@@ -53,7 +45,7 @@ public class MapController {
 			param.setIp(requestIp);
 		}
 		try {
-			JsonObject jsonObject = ipLocationService.location(param);
+			JsonObject jsonObject = mapService.location(param);
 			return CommonResult.success(jsonObject);
 		} catch (AMapErrorException e) {
 			LOGGER.error("locationQuery:/ip/location error:{}",e.getError());
@@ -66,7 +58,7 @@ public class MapController {
 	public CommonResult<JsonObject> keywordSearch(PoiSearch request)  {
 		LOGGER.info("keywordSearch = {}",request);
 		try {
-			JsonObject 	jsonObject = poiSearchService.keywordSearch(request);
+			JsonObject 	jsonObject = mapService.keywordSearch(request);
 			return CommonResult.success(jsonObject);
 		} catch (AMapErrorException e) {
 			LOGGER.error("keywordSearch:/poi/keyword error:{}",e.getError());
@@ -79,7 +71,7 @@ public class MapController {
 	public CommonResult<List<MapAroundAddressInfo>> aroundSearch(PoiSearch request)  {
 		LOGGER.info("poiSearchQuery ={}",request);
 		try {
-			JsonObject jsonObject = poiSearchService.aroundSearch(request);
+			JsonObject jsonObject = mapService.aroundSearch(request);
 			JsonArray pois = jsonObject.getAsJsonArray("pois");
 			List<MapAroundAddressInfo> aroundAddressInfos = Lists.newArrayList();
 			if(pois != null && pois.size() >1 ){
@@ -103,7 +95,7 @@ public class MapController {
 	public CommonResult<JsonObject> districtSearch(District request)  {
 		LOGGER.info("districtSearch={}",request);
 		try {
-			JsonObject jsonObject = districtService.districtSearch(request);
+			JsonObject jsonObject = mapService.districtSearch(request);
 			return CommonResult.success(jsonObject);
 		} catch (AMapErrorException e) {
 			LOGGER.error("districtSearch: error:{}",e.getError());
@@ -117,7 +109,7 @@ public class MapController {
 		LOGGER.info("coordinate={}",coordinate);
 		JsonObject jsonObject = null;
 		try {
-			jsonObject = coordinateService.convert(coordinate);
+			jsonObject = mapService.convert(coordinate);
 			return 	CommonResult.success(jsonObject);
 		} catch (AMapErrorException e) {
 			LOGGER.error("coordinate: error:{}",e.getError());
@@ -131,7 +123,7 @@ public class MapController {
 		LOGGER.info("inputTips: {}",inputTips);
 		try {
 			inputTips.setType(PoiCode.getAllCode("|"));
-			JsonObject	result = assistantService.inputTips(inputTips);
+			JsonObject	result = mapService.inputTips(inputTips);
 			JsonArray tips = result.getAsJsonArray("tips");
 			List<AddressInfo> addressInfos = Lists.newArrayList();
 			if(tips != null && tips.size() >1 ){

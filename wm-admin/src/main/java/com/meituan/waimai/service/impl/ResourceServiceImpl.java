@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dto.ResourceQueryParam;
 
-import com.meituan.waimai.mapper.ResourceMapper;
+import com.meituan.waimai.mapper2.ResourceMapper;
 import com.meituan.waimai.model.Resource;
 import com.meituan.waimai.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;

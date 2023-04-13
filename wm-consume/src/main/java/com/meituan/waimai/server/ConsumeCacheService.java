@@ -1,6 +1,6 @@
 package com.meituan.waimai.server;
 
-import com.meituan.waimai.common.service.RedisService;
+import com.meituan.waimai.common.api.RedisService;
 import com.meituan.waimai.common.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

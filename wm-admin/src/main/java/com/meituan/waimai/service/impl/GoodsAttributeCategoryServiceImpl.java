@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dao.GoodsAttributeCategoryDao;
 import com.meituan.waimai.dto.GoodsAttributeCategoryResult;
-import com.meituan.waimai.mapper.GoodsAttributeCategoryMapper;
+import com.meituan.waimai.mapper2.GoodsAttributeCategoryMapper;
 import com.meituan.waimai.model.GoodsAttributeCategory;
 import com.meituan.waimai.service.GoodsAttributeCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

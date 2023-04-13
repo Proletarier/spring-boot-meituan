@@ -3,7 +3,7 @@ package com.meituan.waimai.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.meituan.waimai.common.domain.CommonResult;
 import com.meituan.waimai.common.domain.ObjectKeyConstants;
-import com.meituan.waimai.model.dto.ShopSearch;
+import com.meituan.waimai.model.dto.ShopFilter;
 import com.meituan.waimai.model.vo.GoodsCategoryVo;
 import com.meituan.waimai.model.vo.ShopVo;
 import com.meituan.waimai.server.HomeService;
@@ -53,7 +53,7 @@ public class HomeController {
 	}
 
 	@GetMapping(value = "/getShops")
-	public CommonResult<List<ShopVo>> getShops(@RequestBody ShopSearch shopSearch){
-		return  CommonResult.success(homeService.getNearShop(shopSearch));
+	public CommonResult<List<ShopVo>> getShops(ShopFilter shopFilter){
+		return  CommonResult.success(homeService.getNearShop(shopFilter));
 	}
 }

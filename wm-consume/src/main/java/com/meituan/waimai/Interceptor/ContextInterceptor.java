@@ -46,7 +46,7 @@ public class ContextInterceptor implements HandlerInterceptor {
 			}
 		}
 		String authToken = request.getHeader(this.tokenHeader);
-		LOGGER.info("checking authHeader:{}", authToken);
+		LOGGER.debug("checking authHeader:{}", authToken);
 
 		if (StrUtil.isBlank(authToken)){
 			throw new AutoTokenException(ResultCode.UNAUTHORIZED);

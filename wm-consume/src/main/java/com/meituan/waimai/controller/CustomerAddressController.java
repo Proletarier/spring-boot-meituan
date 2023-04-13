@@ -34,7 +34,7 @@ public class CustomerAddressController {
 	@ApiOperation(value = "获取当前登录用户的地址列表")
 	@GetMapping(value = "/getAddress")
 	public CommonResult<List<CustomerAddress>> getAddress()  {
-		log.info("[CustomerAddressController]: getAddress");
+		log.debug("[CustomerAddressController]: getAddress");
 		Integer customerId = CustomerContext.getCustomerId();
 		List<CustomerAddress>  addressList = addressService.list(new QueryWrapper<CustomerAddress>().lambda().eq(CustomerAddress::getCustomerId,customerId));
 		return CommonResult.success(addressList);
@@ -43,7 +43,7 @@ public class CustomerAddressController {
 	@ApiOperation(value = "新增地址")
 	@PostMapping(value = "/save")
 	public CommonResult<Void> saveAddress(@RequestBody CustomerAddress address)  {
-		log.info("------ saveAddress param={}", address);
+		log.debug("------ saveAddress param={}", address);
 		if(addressService.saveAddress(address)){
 			return CommonResult.success();
 		}else{
@@ -54,7 +54,7 @@ public class CustomerAddressController {
 	@ApiOperation(value = "修改地址")
 	@PutMapping(value = "/update")
 	public CommonResult<Void> updateAddress(@RequestBody CustomerAddress address)  {
-		log.info("------ updateAddress param={}", address);
+		log.debug("------ updateAddress param={}", address);
 		Integer customerId = CustomerContext.getCustomerId();
 
 		if(address.getId() == null){
@@ -79,7 +79,7 @@ public class CustomerAddressController {
 	@ApiOperation(value = "删除当前登录用户的地址")
 	@DeleteMapping("/{id}")
 	public CommonResult<Void> deleteAddress(@PathVariable("id") Integer addressId) {
-		log.info("------ deleteAddress param={}", addressId);
+		log.debug("------ deleteAddress param={}", addressId);
 		Integer customerId = CustomerContext.getCustomerId();
 		LambdaQueryWrapper<CustomerAddress> queryWrapper = new LambdaQueryWrapper();
 		queryWrapper.eq(CustomerAddress::getCustomerId,customerId);
@@ -94,6 +94,15 @@ public class CustomerAddressController {
 			return CommonResult.failed(ResultCode.SYSTEM_ERROR);
 		}
 		return CommonResult.success();
+	}
+
+	@GetMapping("/{id}")
+	public CommonResult<CustomerAddress> getAddress(@PathVariable("id") Integer addressId) {
+		Integer customerId = CustomerContext.getCustomerId();
+		LambdaQueryWrapper<CustomerAddress> queryWrapper = new LambdaQueryWrapper();
+		queryWrapper.eq(CustomerAddress::getCustomerId,customerId);
+		queryWrapper.eq(CustomerAddress::getId,addressId);
+		return CommonResult.success(addressService.getOne(queryWrapper));
 	}
 
 	@ApiOperation(value = "获取地址")

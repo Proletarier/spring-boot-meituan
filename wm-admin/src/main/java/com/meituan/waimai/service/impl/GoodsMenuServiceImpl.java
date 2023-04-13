@@ -3,7 +3,7 @@ package com.meituan.waimai.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
-import com.meituan.waimai.mapper.GoodsMenuMapper;
+import com.meituan.waimai.mapper2.GoodsMenuMapper;
 import com.meituan.waimai.model.GoodsMenu;
 import com.meituan.waimai.service.GoodsMenuService;
 import org.springframework.stereotype.Service;
