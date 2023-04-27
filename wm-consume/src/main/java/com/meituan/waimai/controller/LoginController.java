@@ -3,6 +3,7 @@ package com.meituan.waimai.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.meituan.waimai.common.domain.CommonResult;
+import com.meituan.waimai.common.exception.ApiException;
 import com.meituan.waimai.model.dto.CustomerInfo;
 import com.meituan.waimai.model.dto.CustomerLoginForm;
 import com.meituan.waimai.server.CustomerService;
@@ -14,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
 public class LoginController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -48,8 +50,11 @@ public class LoginController {
 		LOGGER.info("phone={}",phone);
 		try {
 			customerService.sendCaptcha(phone);
+		}catch (ApiException e){
+			LOGGER.error("phone={}:{}",phone,e);
+			return CommonResult.failed(e.getMessage());
 		}catch (Exception e){
-			LOGGER.error("phone={}",phone);
+			LOGGER.error("phone={}:{}",phone,e);
 			return CommonResult.serverFailed();
 		}
 		return CommonResult.success();

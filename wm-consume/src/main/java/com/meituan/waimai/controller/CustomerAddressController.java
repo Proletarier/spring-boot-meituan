@@ -22,7 +22,7 @@ import java.util.List;
 @Api(tags = "地址管理")
 @Slf4j
 @RestController
-@RequestMapping("/customer/address")
+@RequestMapping("/api/customer/address")
 public class CustomerAddressController {
 
 	@Autowired

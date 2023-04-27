@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.meituan.waimai.bean.GeoPoint;
 import com.meituan.waimai.handler.GeometryTypeHandler;
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-@ApiModel(value="com-meituan-waimai-model-CustomerAddress")
 @Data
-@TableName(value = "_customer_address")
+@TableName(autoResultMap = true,value = "_customer_address")
 public class CustomerAddress  extends BaseEntity {
 
     @TableField(value = "customer_id")
@@ -30,7 +28,7 @@ public class CustomerAddress  extends BaseEntity {
     @TableField(value = "shipping_address")
     private String shippingAddress;
 
-    @TableField(value = "location",typeHandler= GeometryTypeHandler.class)
+    @TableField(value = "location", typeHandler= GeometryTypeHandler.class)
     private GeoPoint location;
 
 }

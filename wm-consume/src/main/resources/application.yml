@@ -35,10 +35,10 @@ jwt:
       - /**/*.ico
       - /webjars/springfox-swagger-ui/**
       - /druid/**
-      - /login
+      - /api/login
       - /info
-      - /logout
-      - /captcha
+      - /api/logout
+      - /api/captcha
       - /upload/**
       - /home/**
 redis:
@@ -50,3 +50,6 @@ redis:
 
 amap:
   key: 6af7985ab67e64b8c6d0c87eec1aa40a
+
+location:
+  header: Location

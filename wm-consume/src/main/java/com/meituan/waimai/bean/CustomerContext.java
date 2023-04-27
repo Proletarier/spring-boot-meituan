@@ -7,6 +7,7 @@ import java.util.Map;
 public class CustomerContext {
 	private static final ThreadLocal<Map<String, Object>> CONTEXT_HOLDER = new ThreadLocal<>();
 	private static final String KEY_CUSTOMER_ID = "customer_id";
+	private static final String KEY_LOCATION = "location";
 	private static final String KEY_CUSTOMER_TELEPHONE = "customer_telephone";
 	private static final String KEY_CUSTOMER_NAME = "customer_name";
 	private static final String KEY_REQUEST_HEADER = "request_header";
@@ -88,6 +89,24 @@ public class CustomerContext {
 	 */
 	public static String getCustomerName() {
 		return CustomerContext.get(CustomerContext.KEY_CUSTOMER_NAME);
+	}
+
+	/**
+	 * 设置当前用户定位信息
+	 *
+	 * @param account
+	 */
+	public static void setKeyLocation(GeoPoint point) {
+		CustomerContext.put(CustomerContext.KEY_LOCATION, point);
+	}
+
+	/**
+	 * 获取设置当前用户定位信息
+	 *
+	 * @param account
+	 */
+	public static GeoPoint getKeyLocation() {
+		return CustomerContext.get(CustomerContext.KEY_LOCATION);
 	}
 
 	/**

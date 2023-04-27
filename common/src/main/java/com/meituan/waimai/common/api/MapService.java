@@ -25,7 +25,7 @@ import static com.meituan.waimai.common.model.enums.AMapUrl.Poi.POI_AROUND_SEARC
 import static com.meituan.waimai.common.model.enums.AMapUrl.Poi.POI_KEYWORD_SEARCH;
 
 @Service
-public class MapService {
+public class  MapService {
 
     @Value("${amap.key}")
     private String key;

@@ -1,7 +1,9 @@
 package com.meituan.waimai.Interceptor;
 
 import cn.hutool.core.util.StrUtil;
+
 import com.meituan.waimai.bean.CustomerContext;
+import com.meituan.waimai.bean.GeoPoint;
 import com.meituan.waimai.common.domain.ResultCode;
 import com.meituan.waimai.common.exception.AutoTokenException;
 import com.meituan.waimai.common.util.JwtTokenUtil;
@@ -31,6 +33,8 @@ public class ContextInterceptor implements HandlerInterceptor {
 	private List<String> urls;
 	@Value("${jwt.tokenHeader}")
 	private String tokenHeader;
+	@Value("${location.header}")
+	private String locationHeader;
 
 
 	@Override
@@ -56,8 +60,18 @@ public class ContextInterceptor implements HandlerInterceptor {
 		if (Objects.isNull(claims) || jwtTokenUtil.isTokenExpired(authToken)){
 			throw new AutoTokenException(ResultCode.UNAUTHORIZED);
 		}
+
 		CustomerContext.setCustomerId(claims.get("customerId",Integer.class));
 		CustomerContext.setKeyCustomerTelephone(claims.get("phone",String.class));
+		String pointString = request.getHeader(this.locationHeader);
+		if(StrUtil.isNotEmpty(pointString)){
+			String []pointObj = pointString.split(",");
+			GeoPoint point = new GeoPoint();
+			point.setLat(Double.parseDouble(pointObj[0]));
+			point.setLng(Double.parseDouble(pointObj[1]));
+			CustomerContext.setKeyLocation(point);
+		}
+
 		return  true;
 	}
 }

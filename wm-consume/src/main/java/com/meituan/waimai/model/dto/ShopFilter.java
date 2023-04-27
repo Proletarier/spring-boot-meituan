@@ -1,19 +1,30 @@
 package com.meituan.waimai.model.dto;
 
+import com.meituan.waimai.bean.GeoPoint;
+
+import java.util.List;
+
 public class ShopFilter {
 
-    private Integer limit  = 10;
+    private Integer limit  = 5;
     private Integer nextStartIndex = 1;
-    private String location;
-
+    private GeoPoint location;
     private ShopSort ruleSort;
-    private Boolean distanceSort;
-    private Boolean salesSort;
-
+    private List<ShopFeature> feature;
     private Boolean exclusiveDelivery;
-    private String feature;
+
     private String averagePrice;
     private String activity;
+    private Integer categoryId;
+
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getActivity() {
         return activity;
@@ -31,13 +42,6 @@ public class ShopFilter {
         this.averagePrice = averagePrice;
     }
 
-    public String getFeature() {
-        return feature;
-    }
-
-    public void setFeature(String feature) {
-        this.feature = feature;
-    }
 
     public Boolean getExclusiveDelivery() {
         return exclusiveDelivery;
@@ -55,27 +59,11 @@ public class ShopFilter {
         this.ruleSort = ruleSort;
     }
 
-    public Boolean getDistanceSort() {
-        return distanceSort;
-    }
-
-    public void setDistanceSort(Boolean distanceSort) {
-        this.distanceSort = distanceSort;
-    }
-
-    public Boolean getSalesSort() {
-        return salesSort;
-    }
-
-    public void setSalesSort(Boolean salesSort) {
-        this.salesSort = salesSort;
-    }
-
-    public String getLocation() {
+    public GeoPoint getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(GeoPoint location) {
         this.location = location;
     }
 
@@ -95,13 +83,24 @@ public class ShopFilter {
         this.limit = limit;
     }
 
+    public List<ShopFeature> getFeature() {
+        return feature;
+    }
+
+    public void setFeature(List<ShopFeature> feature) {
+        this.feature = feature;
+    }
+
     enum ShopSort {
         score,
         speed,
+        distance,
+        sales,
         min_shipping_fee,
         min_price,
         min_average_price,
-        max_average_price;
+        max_average_price,
+        synthesize
     }
 
     enum ShopFeature {

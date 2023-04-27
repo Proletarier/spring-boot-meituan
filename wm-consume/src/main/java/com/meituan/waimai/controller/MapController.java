@@ -26,7 +26,7 @@ import java.util.List;
 
 @Api(tags = "地理位置服务")
 @RestController
-@RequestMapping("map")
+@RequestMapping("/api/map")
 public class MapController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MapController.class);
