@@ -5,8 +5,8 @@
                extends="com.meituan.waimai.mapper2.ResourceMapper.BaseResultMap">
     </resultMap>
 
-	<resultMap id="adminRoleMenuMap" type="com.meituan.waimai.model.Menu"
-			   extends="com.meituan.waimai.mapper2.MenuMapper.BaseResultMap">
+	<resultMap id="adminRoleMenuMap" type="com.meituan.waimai.model.SystemMenu"
+			   extends="com.meituan.waimai.mapper2.SystemMenuMapper.BaseResultMap">
 	</resultMap>
 
 	<resultMap id="roleListMap" type="com.meituan.waimai.model.Role"
@@ -61,7 +61,7 @@
 		m.title
 	FROM
 		role_menu_relation rmr,
-		menu m,
+		systemMenu m,
 		role r,
 		admin_role_relation arr,
 		admin a

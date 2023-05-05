@@ -1,7 +1,7 @@
-package com.meituan.waimai.mapper2;
+package com.meituan.waimai.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.meituan.waimai.model.Product;
 
-public interface GoodsMapper extends BaseMapper<Product> {
+public interface ProductMapper extends BaseMapper<Product> {
 }

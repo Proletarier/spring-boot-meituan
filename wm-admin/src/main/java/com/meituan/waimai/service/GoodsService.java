@@ -1,14 +1,14 @@
 package com.meituan.waimai.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.meituan.waimai.dto.GoodsInfo;
-import com.meituan.waimai.model.Goods;
+import com.meituan.waimai.dto.ProductInfo;
+import com.meituan.waimai.model.Product;
 
 import java.util.List;
 
-public interface GoodsService extends IService<Goods> {
+public interface GoodsService extends IService<Product> {
 
-    List<Goods> listGoods(Integer pageNum, Integer pageSize, Integer shopId, String name);
+    List<Product> listGoods(Integer pageNum, Integer pageSize, Integer shopId, String name);
 
-    GoodsInfo getGoodsInfo(Integer id);
+    ProductInfo getGoodsInfo(Integer id);
 }

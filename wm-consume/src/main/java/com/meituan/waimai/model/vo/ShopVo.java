@@ -1,6 +1,5 @@
 package com.meituan.waimai.model.vo;
 
-import com.meituan.waimai.model.Discount;
 import lombok.Data;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 @Data
 public class ShopVo {
 
-    private Long id;
+    private Integer id;
     private String shopName;
     private String picUrl;
     private Float shopScore;
@@ -18,5 +17,5 @@ public class ShopVo {
     private String  minPriceTip;
     private String  shippingFeeTip;
     private String  averagePriceTip;
-    private List<Discount> discountList;
+    private List<Activity> activityList;
 }

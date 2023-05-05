@@ -9,11 +9,9 @@ import com.meituan.waimai.bean.CustomerContext;
 import com.meituan.waimai.bean.GeoPoint;
 import com.meituan.waimai.common.util.DistanceCalculator;
 import com.meituan.waimai.mapper.CategoryMapper;
-import com.meituan.waimai.mapper.DiscountMapper;
 
 import com.meituan.waimai.mapper.NearShopMapper;
 import com.meituan.waimai.model.Category;
-import com.meituan.waimai.model.Discount;
 
 import com.meituan.waimai.model.Shop;
 import com.meituan.waimai.model.dto.ShopFilter;
@@ -26,6 +24,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 @Slf4j
 @Service
 public class ShopServer {
@@ -33,10 +32,9 @@ public class ShopServer {
     @Autowired
     NearShopMapper shopMapper;
     @Autowired
-    DiscountMapper discountMapper;
-    @Autowired
     CategoryMapper categoryMapper;
-
+    @Autowired
+    ActivityService activityService;
 
     public NearShops getNearShop(ShopFilter shopFilter) {
         int offSet = (shopFilter.getNextStartIndex() - 1) * shopFilter.getLimit();
@@ -81,9 +79,8 @@ public class ShopServer {
                 }
                 shop.setMonthSalesTip(value + "+");
             }
-            LambdaQueryWrapper<Discount> queryWrapper = new LambdaQueryWrapper();
-            queryWrapper.eq(Discount::getShopId, shop.getId());
-            shop.setDiscountList(discountMapper.selectList(queryWrapper));
+
+            shop.setActivityList(activityService.getActivity(shop.getId()));
         });
         nearShops.setShopVoList(shops);
 
@@ -101,7 +98,7 @@ public class ShopServer {
             shopInfo.setShopAddress(shop.getAddress());
             shopInfo.setDeliveryType(shop.getExclusiveDelivery());
 
-            if(StrUtil.isNotEmpty(shop.getPhone())){
+            if (StrUtil.isNotEmpty(shop.getPhone())) {
                 shopInfo.setShopPhone(shop.getPhone().split(","));
             }
             JSONObject saleData = shop.getSale();
@@ -110,7 +107,7 @@ public class ShopServer {
             }
 
             JSONArray shippingTime = shop.getShippingTime();
-            if (shippingTime!=null && !shippingTime.isEmpty()) {
+            if (shippingTime != null && !shippingTime.isEmpty()) {
                 StringBuilder time = new StringBuilder();
                 for (int i = 0; i < shippingTime.size(); i++) {
                     if (i > 0) {
@@ -132,19 +129,7 @@ public class ShopServer {
                     shopInfo.setDistance(df.format(meter / 1000));
                 }
             }
-
-            LambdaQueryWrapper<Discount> queryWrapper = new LambdaQueryWrapper();
-            queryWrapper.eq(Discount::getShopId, shop.getId());
-            List<Discount> discounts = discountMapper.selectList(queryWrapper);
-            if (!discounts.isEmpty()) {
-                List<Activity> activityList = discounts.stream().map(item -> {
-                    Activity activity = new Activity();
-                    activity.setActType(item.getPromotionType());
-                    activity.setActDesc(item.getInfo());
-                    return activity;
-                }).collect(Collectors.toList());
-                shopInfo.setActivityList(activityList);
-            }
+            shopInfo.setActivityList(activityService.getActivity(shop.getId()));
         }
         return shopInfo;
     }

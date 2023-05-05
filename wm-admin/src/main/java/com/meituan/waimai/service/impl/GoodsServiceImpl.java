@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.meituan.waimai.dao.GoodsDao;
-import com.meituan.waimai.dto.GoodsInfo;
+import com.meituan.waimai.dto.ProductInfo;
 import com.meituan.waimai.mapper2.GoodsMapper;
-import com.meituan.waimai.model.Goods;
+import com.meituan.waimai.model.Product;
 import com.meituan.waimai.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements GoodsService {
+public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Product> implements GoodsService {
 
 
     @Autowired
@@ -24,21 +24,21 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
 
     @Override
-    public List<Goods> listGoods(Integer pageNum, Integer pageSize, Integer shopId, String name) {
+    public List<Product> listGoods(Integer pageNum, Integer pageSize, Integer shopId, String name) {
         PageHelper.startPage(pageNum, pageSize);
-        LambdaQueryWrapper<Goods> queryWrapper=new LambdaQueryWrapper();
+        LambdaQueryWrapper<Product> queryWrapper=new LambdaQueryWrapper();
         if (Objects.nonNull(shopId)){
-            queryWrapper.eq(Goods::getShopId,shopId);
+            queryWrapper.eq(Product::getShopId,shopId);
         }
         if (StrUtil.isNotBlank(name)){
-            queryWrapper.eq(Goods::getName,name);
+            queryWrapper.eq(Product::getName,name);
         }
         return list(queryWrapper);
     }
 
 
 //    @Override
-//    public int create(GoodsInfo goodsInfo) {
+//    public int create(ProductInfo goodsInfo) {
 //        productMapper.insertSelective(goodsInfo);
 //        Integer productId = goodsInfo.getId();
 //        updateOrAddProductDetail(productId, goodsInfo.getDetailList());
@@ -48,7 +48,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 //    }
 
     @Override
-    public GoodsInfo getGoodsInfo(Integer id) {
+    public ProductInfo getGoodsInfo(Integer id) {
         return goodsDao.getGoodsInfo(id);
     }
 

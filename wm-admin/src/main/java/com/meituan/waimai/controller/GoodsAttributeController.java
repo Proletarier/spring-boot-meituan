@@ -2,7 +2,7 @@ package com.meituan.waimai.controller;
 
 import com.meituan.waimai.common.domain.CommonPage;
 import com.meituan.waimai.common.domain.CommonResult;
-import com.meituan.waimai.model.GoodsAttribute;
+import com.meituan.waimai.model.ProductAttribute;
 import com.meituan.waimai.service.GoodsAttributeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,23 +21,23 @@ public class GoodsAttributeController {
 
     @ApiOperation("商品属性列表")
     @GetMapping("list")
-    public CommonResult<CommonPage<GoodsAttribute>> list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                                         @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
-                                                         @RequestParam Integer cateId) {
-        List<GoodsAttribute> list = attributeService.list(pageNum, pageSize, cateId);
+    public CommonResult<CommonPage<ProductAttribute>> list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                           @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+                                                           @RequestParam Integer cateId) {
+        List<ProductAttribute> list = attributeService.list(pageNum, pageSize, cateId);
         return CommonResult.success(CommonPage.restPage(list));
     }
 
 
     @ApiOperation("创建商品属性")
     @PutMapping("/create")
-    public CommonResult create(@RequestBody GoodsAttribute productAttribute) {
+    public CommonResult create(@RequestBody ProductAttribute productAttribute) {
         return  attributeService.save(productAttribute)? CommonResult.success():CommonResult.failed();
     }
 
     @ApiOperation("修改商品属性")
     @PostMapping("/update")
-    public CommonResult update(@RequestBody GoodsAttribute goodsAttribute) {
+    public CommonResult update(@RequestBody ProductAttribute goodsAttribute) {
         return attributeService.updateById(goodsAttribute)? CommonResult.success():CommonResult.failed();
     }
 

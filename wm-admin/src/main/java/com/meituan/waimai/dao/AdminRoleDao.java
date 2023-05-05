@@ -1,7 +1,7 @@
 package com.meituan.waimai.dao;
 
 
-import com.meituan.waimai.model.Menu;
+import com.meituan.waimai.model.SystemMenu;
 import com.meituan.waimai.model.Resource;
 import com.meituan.waimai.model.Role;
 
@@ -22,7 +22,7 @@ public interface AdminRoleDao {
       * @param adminId
       * @return
       */
-     List<Menu> getAdminRoleMenuList(Integer adminId);
+     List<SystemMenu> getAdminRoleMenuList(Integer adminId);
 
 
      /**

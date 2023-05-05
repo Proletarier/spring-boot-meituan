@@ -111,10 +111,10 @@ CREATE TABLE `customer`  (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for menu
+-- Table structure for systemMenu
 -- ----------------------------
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE `menu`  (
+DROP TABLE IF EXISTS `systemMenu`;
+CREATE TABLE `systemMenu`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NULL DEFAULT NULL COMMENT '父级ID',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
@@ -128,17 +128,17 @@ CREATE TABLE `menu`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of menu
+-- Records of systemMenu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, 0, '2021-05-01 15:21:02', '商家', 0, 0, 'sms', 'shop', 0);
-INSERT INTO `menu` VALUES (2, 1, '2021-05-01 15:31:55', '商家列表', 1, 0, 'shop', 'shop-list', 0);
-INSERT INTO `menu` VALUES (3, 0, '2021-05-01 17:11:09', '权限', 0, 0, 'ams', 'permission', 0);
-INSERT INTO `menu` VALUES (4, 3, '2021-05-01 17:15:51', '用户', 1, 0, 'admin', 'admin', 0);
-INSERT INTO `menu` VALUES (5, 3, '2021-05-01 17:16:16', '角色', 1, 0, 'role', 'role', 0);
-INSERT INTO `menu` VALUES (6, 3, '2021-05-01 17:16:35', '菜单', 1, 0, 'menu', 'menu', 0);
-INSERT INTO `menu` VALUES (7, 3, '2021-05-01 17:16:54', '资源', 1, 0, 'resource', 'resource', 0);
-INSERT INTO `menu` VALUES (8, 1, '2021-05-01 17:17:31', '商家分类', 1, 0, 'shopCate', 'shop-cate', 0);
-INSERT INTO `menu` VALUES (11, 0, '2021-05-03 22:30:09', '客户', 0, 0, 'cms', 'user', 0);
+INSERT INTO `systemMenu` VALUES (1, 0, '2021-05-01 15:21:02', '商家', 0, 0, 'sms', 'shop', 0);
+INSERT INTO `systemMenu` VALUES (2, 1, '2021-05-01 15:31:55', '商家列表', 1, 0, 'shop', 'shop-list', 0);
+INSERT INTO `systemMenu` VALUES (3, 0, '2021-05-01 17:11:09', '权限', 0, 0, 'ams', 'permission', 0);
+INSERT INTO `systemMenu` VALUES (4, 3, '2021-05-01 17:15:51', '用户', 1, 0, 'admin', 'admin', 0);
+INSERT INTO `systemMenu` VALUES (5, 3, '2021-05-01 17:16:16', '角色', 1, 0, 'role', 'role', 0);
+INSERT INTO `systemMenu` VALUES (6, 3, '2021-05-01 17:16:35', '菜单', 1, 0, 'systemMenu', 'systemMenu', 0);
+INSERT INTO `systemMenu` VALUES (7, 3, '2021-05-01 17:16:54', '资源', 1, 0, 'resource', 'resource', 0);
+INSERT INTO `systemMenu` VALUES (8, 1, '2021-05-01 17:17:31', '商家分类', 1, 0, 'shopCate', 'shop-cate', 0);
+INSERT INTO `systemMenu` VALUES (11, 0, '2021-05-03 22:30:09', '客户', 0, 0, 'cms', 'user', 0);
 
 -- ----------------------------
 -- Table structure for order_comments
@@ -4287,7 +4287,7 @@ CREATE TABLE `resource`  (
 -- ----------------------------
 INSERT INTO `resource` VALUES (1, '2021-05-02 14:22:07', '商家管理', '/shop/**', NULL, 1);
 INSERT INTO `resource` VALUES (2, '2021-05-02 14:42:41', '商家分类管理', '/shopCategory/**', NULL, 1);
-INSERT INTO `resource` VALUES (3, '2021-05-02 14:44:20', '菜单管理', '/menu/**', NULL, 2);
+INSERT INTO `resource` VALUES (3, '2021-05-02 14:44:20', '菜单管理', '/systemMenu/**', NULL, 2);
 INSERT INTO `resource` VALUES (4, '2021-05-02 14:44:55', '用户管理', '/admin/**', NULL, 2);
 INSERT INTO `resource` VALUES (5, '2021-05-02 14:45:11', '角色管理', '/role/**', NULL, 2);
 INSERT INTO `resource` VALUES (6, '2021-05-02 14:45:29', '资源管理', '/resource/**', NULL, 2);

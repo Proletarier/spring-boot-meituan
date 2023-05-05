@@ -4,13 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.meituan.waimai.handler.JsonArrayTypeHandler;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
 
 @Data
-@TableName(value = "_shop_license")
+@TableName(autoResultMap = true, value = "_shop_license")
 public class ShopLicense  extends BaseEntity {
 
     @TableField(value = "shop_id")

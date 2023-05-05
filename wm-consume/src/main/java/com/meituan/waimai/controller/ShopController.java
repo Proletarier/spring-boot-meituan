@@ -3,7 +3,6 @@ package com.meituan.waimai.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.meituan.waimai.common.domain.CommonResult;
 import com.meituan.waimai.mapper.ShopLicenseMapper;
-import com.meituan.waimai.model.Discount;
 import com.meituan.waimai.model.ShopLicense;
 import com.meituan.waimai.model.vo.ShopInfo;
 import com.meituan.waimai.server.ShopServer;

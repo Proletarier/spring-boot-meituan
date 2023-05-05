@@ -89,7 +89,7 @@ public interface AdminService extends IService<AdminUser> {
      * @param adminId
      * @return
      */
-    List<Menu>  getRoleMenuByAdminId(Integer adminId);
+    List<SystemMenu>  getRoleMenuByAdminId(Integer adminId);
 
 
     UserDetails loadUserByUsername(String username);

@@ -2,11 +2,11 @@ package com.meituan.waimai.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.meituan.waimai.model.GoodsMenu;
+import com.meituan.waimai.model.Menu;
 
 import java.util.List;
 
-public interface GoodsMenuService  extends IService<GoodsMenu> {
+public interface GoodsMenuService  extends IService<Menu> {
 
-    List<GoodsMenu> list(Integer pageNum, Integer pageSize, Integer shopId);
+    List<Menu> list(Integer pageNum, Integer pageSize, Integer shopId);
 }

@@ -185,7 +185,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminUserMapper,AdminUser> imp
     }
 
     @Override
-    public List<Menu> getRoleMenuByAdminId(Integer adminId) {
+    public List<SystemMenu> getRoleMenuByAdminId(Integer adminId) {
         return adminRoleDao.getAdminRoleMenuList(adminId);
     }
 

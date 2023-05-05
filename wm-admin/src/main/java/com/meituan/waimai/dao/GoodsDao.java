@@ -1,9 +1,9 @@
 package com.meituan.waimai.dao;
 
-import com.meituan.waimai.dto.GoodsInfo;
+import com.meituan.waimai.dto.ProductInfo;
 
 public interface GoodsDao {
 
 
-    GoodsInfo getGoodsInfo(Integer id);
+    ProductInfo getGoodsInfo(Integer id);
 }

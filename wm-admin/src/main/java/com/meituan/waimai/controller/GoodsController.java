@@ -3,8 +3,8 @@ package com.meituan.waimai.controller;
 
 import com.meituan.waimai.common.domain.CommonPage;
 import com.meituan.waimai.common.domain.CommonResult;
-import com.meituan.waimai.dto.GoodsInfo;
-import com.meituan.waimai.model.Goods;
+import com.meituan.waimai.dto.ProductInfo;
+import com.meituan.waimai.model.Product;
 import com.meituan.waimai.service.GoodsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,28 +23,28 @@ public class GoodsController {
 
     @ApiOperation("食物列表")
     @GetMapping("/list")
-    public CommonResult<CommonPage<Goods>> listGoods(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+    public CommonResult<CommonPage<Product>> listGoods(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                        @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                                        @RequestParam(value = "shopId") Integer shopId, String name) {
 
-        List<Goods> list = goodsService.listGoods(pageNum, pageSize, shopId, name);
+        List<Product> list = goodsService.listGoods(pageNum, pageSize, shopId, name);
         return CommonResult.success(CommonPage.restPage(list));
     }
 
     @ApiOperation("商品详情")
     @GetMapping("/{id}")
-    public CommonResult<GoodsInfo> getInfo(@PathVariable Integer id) {
-        GoodsInfo info = goodsService.getGoodsInfo(id);
+    public CommonResult<ProductInfo> getInfo(@PathVariable Integer id) {
+        ProductInfo info = goodsService.getGoodsInfo(id);
         return CommonResult.success(info);
     }
 
     @ApiOperation("修改商品信息")
     @PostMapping("/update")
-    public void update(@RequestBody GoodsInfo goodsInfo) {
+    public void update(@RequestBody ProductInfo goodsInfo) {
     }
 
     @ApiOperation("添加商品")
     @PutMapping("/create")
-    public void create(@RequestBody GoodsInfo goodsInfo) {
+    public void create(@RequestBody ProductInfo goodsInfo) {
     }
 }

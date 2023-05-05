@@ -1,7 +1,7 @@
 package com.meituan.waimai.mapper2;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.meituan.waimai.model.GoodsAttributeValue;
+import com.meituan.waimai.model.ProductAttributeValue;
 
-public interface GoodsAttributeValueMapper extends BaseMapper<GoodsAttributeValue> {
+public interface GoodsAttributeValueMapper extends BaseMapper<ProductAttributeValue> {
 }

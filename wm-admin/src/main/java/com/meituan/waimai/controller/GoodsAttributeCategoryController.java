@@ -3,8 +3,8 @@ package com.meituan.waimai.controller;
 
 import com.meituan.waimai.common.domain.CommonPage;
 import com.meituan.waimai.common.domain.CommonResult;
-import com.meituan.waimai.dto.GoodsAttributeCategoryResult;
-import com.meituan.waimai.model.GoodsAttributeCategory;
+import com.meituan.waimai.dto.ProductAttributeCategoryResult;
+import com.meituan.waimai.model.ProductAttributeCategory;
 import com.meituan.waimai.service.GoodsAttributeCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,30 +23,30 @@ public class GoodsAttributeCategoryController {
 
     @ApiOperation("商品属性分类查询")
     @GetMapping("/list")
-    public CommonResult<CommonPage<GoodsAttributeCategory>> list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                                                 @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
-                                                                 @RequestParam Integer shopId) {
-        List<GoodsAttributeCategory> list = categoryService.list(pageSize, pageNum, shopId);
+    public CommonResult<CommonPage<ProductAttributeCategory>> list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                                   @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+                                                                   @RequestParam Integer shopId) {
+        List<ProductAttributeCategory> list = categoryService.list(pageSize, pageNum, shopId);
         return CommonResult.success(CommonPage.restPage(list));
     }
 
     @ApiOperation("查询商品属性分类及规格")
     @GetMapping("/listAll")
-    public CommonResult<List<GoodsAttributeCategoryResult>> listAll(@RequestParam Integer shopId) {
-        List<GoodsAttributeCategoryResult> list = categoryService.listProductAttrCate(shopId);
+    public CommonResult<List<ProductAttributeCategoryResult>> listAll(@RequestParam Integer shopId) {
+        List<ProductAttributeCategoryResult> list = categoryService.listProductAttrCate(shopId);
         return CommonResult.success(list);
     }
 
     @ApiOperation("创建商品属性分类")
     @PutMapping("/create")
-    public CommonResult create(@RequestBody GoodsAttributeCategory category) {
+    public CommonResult create(@RequestBody ProductAttributeCategory category) {
         return categoryService.save(category)? CommonResult.success(): CommonResult.failed();
     }
 
 
     @ApiOperation("修改商品属性分类")
     @PostMapping("/update")
-    public CommonResult update(@RequestBody GoodsAttributeCategory category) {
+    public CommonResult update(@RequestBody ProductAttributeCategory category) {
         return categoryService.updateById(category)?CommonResult.success():CommonResult.failed();
     }
 

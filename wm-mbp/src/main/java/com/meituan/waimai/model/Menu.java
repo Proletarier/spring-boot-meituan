@@ -2,49 +2,25 @@ package com.meituan.waimai.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel(value="com-meituan-waimai-model-Menu")
 @Data
-@TableName(value = "wm_menu")
-public class Menu  extends BaseEntity {
+@TableName(value = "wm_goods_menu")
+public class Menu extends BaseEntity {
 
-    @TableField(value = "hidden")
-    @ApiModelProperty(value="")
-    private Integer hidden;
+    @TableField(value = "shop_id")
+    private Integer shopId;
 
     @TableField(value = "icon")
-    @ApiModelProperty(value="")
     private String icon;
 
-    @TableField(value = "`level`")
-    @ApiModelProperty(value="")
-    private Integer level;
+    @TableField(value = "`menu_name`")
+    private String menuName;
 
-    @TableField(value = "`name`")
-    @ApiModelProperty(value="")
-    private String name;
-
-    @TableField(value = "parent_id")
-    @ApiModelProperty(value="")
-    private Integer parentId;
-
-    @TableField(value = "`position`")
-    @ApiModelProperty(value="")
-    private Integer position;
+    @TableField(value = "status")
+    private Integer status;
 
     @TableField(value = "sort")
-    @ApiModelProperty(value="")
     private Integer sort;
-
-    @TableField(value = "title")
-    @ApiModelProperty(value="")
-    private String title;
-
-    @TableField(value = "`type`")
-    @ApiModelProperty(value="")
-    private Integer type;
 
 }
