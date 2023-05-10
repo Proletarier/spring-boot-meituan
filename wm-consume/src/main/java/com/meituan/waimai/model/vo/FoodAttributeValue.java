@@ -6,5 +6,5 @@ import lombok.Data;
 public class FoodAttributeValue {
 
     private Integer attrId;
-    private Integer attrValue;
+    private String attrValue;
 }

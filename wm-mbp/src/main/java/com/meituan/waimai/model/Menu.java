@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName(value = "wm_goods_menu")
+@TableName(value = "_menu")
 public class Menu extends BaseEntity {
 
     @TableField(value = "shop_id")

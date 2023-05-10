@@ -10,9 +10,12 @@ import com.meituan.waimai.bean.GeoPoint;
 import com.meituan.waimai.common.util.DistanceCalculator;
 import com.meituan.waimai.mapper.CategoryMapper;
 
+import com.meituan.waimai.mapper.FoodMapper;
+import com.meituan.waimai.mapper.MenuMapper;
 import com.meituan.waimai.mapper.NearShopMapper;
 import com.meituan.waimai.model.Category;
 
+import com.meituan.waimai.model.Menu;
 import com.meituan.waimai.model.Shop;
 import com.meituan.waimai.model.dto.ShopFilter;
 import com.meituan.waimai.model.vo.*;
@@ -35,6 +38,10 @@ public class ShopServer {
     CategoryMapper categoryMapper;
     @Autowired
     ActivityService activityService;
+    @Autowired
+    MenuMapper menuMapper;
+    @Autowired
+    FoodMapper foodMapper;
 
     public NearShops getNearShop(ShopFilter shopFilter) {
         int offSet = (shopFilter.getNextStartIndex() - 1) * shopFilter.getLimit();
@@ -134,5 +141,37 @@ public class ShopServer {
         return shopInfo;
     }
 
+
+    public List<FoodCategory> getFood(Integer shopId) {
+
+        LambdaQueryWrapper<Menu> menuWrapper = new LambdaQueryWrapper();
+        menuWrapper.eq(Menu::getShopId, shopId).eq(Menu::getStatus, Boolean.TRUE);
+        List<Menu> menuList = menuMapper.selectList(menuWrapper);
+        if (!menuList.isEmpty()) {
+            List<Integer> menuIds = menuList.stream().map(Menu::getId).collect(Collectors.toList());
+            List<Food> foodList = foodMapper.selectProductByMenuId(menuIds);
+
+            List<FoodCategory> categories = menuList.stream().map(menu -> {
+                FoodCategory foodCategory = new FoodCategory();
+                foodCategory.setCategoryName(menu.getMenuName());
+                foodCategory.setIconUrl(menu.getIcon());
+
+                List<Food> subList = Lists.newLinkedList();
+                foodList.forEach(food -> {
+                    if (food.getMenuId().equals(menu.getId())) {
+                        subList.add(food);
+                    }
+                    food.setSpuAttrList(foodMapper.selectFoodAttribute(food.getFoodId()));
+                    activityService.setActivityInfo(food);
+                });
+                foodCategory.setSpuList(subList);
+                foodList.removeAll(subList);
+                return foodCategory;
+            }).collect(Collectors.toList());
+
+            return categories;
+        }
+        return new ArrayList<>(0);
+    }
 
 }

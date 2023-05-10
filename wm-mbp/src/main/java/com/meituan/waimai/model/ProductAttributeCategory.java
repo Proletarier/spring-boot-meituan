@@ -11,7 +11,7 @@ public class ProductAttributeCategory extends BaseEntity {
     @TableField(value = "shop_id")
     private Integer shopId;
 
-    @TableField(value = "name")
+    @TableField(value = "category_name")
     private String categoryName;
 
 }

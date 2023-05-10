@@ -14,6 +14,6 @@ public class LoginTestInfo {
 
     @Test
     public  void  getCaptcha(){
-        loginController.getCaptcha("18780027522");
+        loginController.getCaptcha("13888888888");
     }
 }

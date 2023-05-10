@@ -1,6 +1,7 @@
 package com.meituan.waimai.model.dto;
 
 import com.meituan.waimai.bean.GeoPoint;
+import com.meituan.waimai.enums.ShopCharacteristicsEnum;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class ShopFilter {
     private Integer nextStartIndex = 1;
     private GeoPoint location;
     private ShopSort ruleSort;
-    private List<ShopFeature> feature;
+    private List<ShopCharacteristicsEnum> feature;
     private Boolean exclusiveDelivery;
 
     private String averagePrice;
@@ -83,11 +84,11 @@ public class ShopFilter {
         this.limit = limit;
     }
 
-    public List<ShopFeature> getFeature() {
+    public List<ShopCharacteristicsEnum> getFeature() {
         return feature;
     }
 
-    public void setFeature(List<ShopFeature> feature) {
+    public void setFeature(List<ShopCharacteristicsEnum> feature) {
         this.feature = feature;
     }
 
@@ -103,13 +104,4 @@ public class ShopFilter {
         synthesize
     }
 
-    enum ShopFeature {
-        free_average_price,
-        not_limit_delivery,
-        new_shop,
-        brand_shop,
-        high_mark,
-        reserve,
-        invoice
-    }
 }

@@ -2,8 +2,6 @@ package com.meituan.waimai.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -15,8 +13,5 @@ public class ProductAttribute extends BaseEntity {
 
     @TableField(value = "`name`")
     private String name;
-
-    @TableField(value = "`status`")
-    private Integer status;
 
 }

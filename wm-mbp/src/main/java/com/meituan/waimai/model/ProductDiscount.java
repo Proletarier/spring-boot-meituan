@@ -17,6 +17,9 @@ public class ProductDiscount  extends BaseEntity  {
     @TableField(value = "count")
     private  Integer count;
 
+    @TableField(value = "min_purchase_num")
+    private  Integer minPurchaseNum;
+
     @TableField(value = "discount")
     private  Double discount;
 

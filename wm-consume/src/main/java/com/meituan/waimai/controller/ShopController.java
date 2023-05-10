@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.meituan.waimai.common.domain.CommonResult;
 import com.meituan.waimai.mapper.ShopLicenseMapper;
 import com.meituan.waimai.model.ShopLicense;
+import com.meituan.waimai.model.vo.FoodCategory;
 import com.meituan.waimai.model.vo.ShopInfo;
 import com.meituan.waimai.server.ShopServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -20,7 +23,6 @@ public class ShopController {
 
     @Autowired
     private  ShopServer shopServer;
-
     @Autowired
     private ShopLicenseMapper shopLicenseMapper;
 
@@ -34,5 +36,11 @@ public class ShopController {
         LambdaQueryWrapper<ShopLicense> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.eq(ShopLicense::getShopId,shopId);
         return CommonResult.success(shopLicenseMapper.selectOne(queryWrapper));
+    }
+
+    @GetMapping(value = "/getFood/{shopId}")
+    public CommonResult<List<FoodCategory>> getFood(@PathVariable("shopId") Integer shopId) {
+        List<FoodCategory> categoryList = shopServer.getFood(shopId);
+        return CommonResult.success(categoryList);
     }
 }

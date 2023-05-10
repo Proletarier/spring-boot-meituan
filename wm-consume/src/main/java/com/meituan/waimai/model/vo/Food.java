@@ -9,6 +9,7 @@ import java.util.List;
 public class Food {
 
     private Integer foodId;
+    private Integer menuId;
     private String spuName;
     private String unit;
     private String spuDesc;
@@ -16,11 +17,13 @@ public class Food {
     private Double originPrice;
     private Double currentPrice;
     private Double boxFee;
-    private String saleVolumeDecoded;
-    private String praiseNumDecoded;
+    private String saleVolume;
+    private String praiseNum;
     private Integer sellStatus;
     private Integer activityType;
     private String spuPromotionInfo;
+    private Boolean must;
 
+    private List<String> labelList;
     private List<FoodAttribute> spuAttrList;
 }

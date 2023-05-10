@@ -23,10 +23,10 @@ public class Product extends BaseEntity {
     private String introduce;
 
     @TableField(value = "price")
-    private Integer price;
+    private Double price;
 
     @TableField(value = "box_fee")
-    private Integer boxFee;
+    private Double boxFee;
 
     @TableField(value = "stock")
     private String stock;
@@ -42,5 +42,11 @@ public class Product extends BaseEntity {
 
     @TableField(value = "must")
     private Boolean must;
+
+    @TableField(value = "sell_status")
+    private Boolean sellStatus;
+
+    @TableField(value = "tag")
+    private String tag;
 
 }

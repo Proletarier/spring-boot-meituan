@@ -1,6 +1,6 @@
-package com.meituan.waimai.common.model.enums;
+package com.meituan.waimai.enums;
 
-public enum Activity {
+public enum ActivityEnum {
 
     preferential,
     firstSubtraction,

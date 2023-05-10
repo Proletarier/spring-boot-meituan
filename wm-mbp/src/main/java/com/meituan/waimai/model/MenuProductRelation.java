@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
@@ -16,11 +14,10 @@ public class MenuProductRelation extends BaseEntity {
     private Integer id;
 
     @TableField(value = "menu_id")
-    private String menuId;
+    private Integer menuId;
 
     @TableField(value = "product_id")
-    private String productId;
-
+    private Integer productId;
 
 
 }

@@ -9,5 +9,5 @@ public class FoodCategory {
 
     private String categoryName;
     private String iconUrl;
-    private List<Food> subList;
+    private List<Food> spuList;
 }

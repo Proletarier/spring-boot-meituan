@@ -45,8 +45,8 @@ public class Shop extends BaseEntity {
     @TableField(value = "sale", typeHandler = FastjsonTypeHandler.class)
     private JSONObject sale;
 
-    @TableField(value = "tag")
-    private String tag;
+    @TableField(value = "characteristics")
+    private String characteristics;
 
     @TableField(value = "exclusive_delivery")
     private Boolean exclusiveDelivery;
