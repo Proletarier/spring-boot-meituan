@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>wm-mbp</artifactId>
+            <artifactId>mbp</artifactId>
         </dependency>
     </dependencies>
 
