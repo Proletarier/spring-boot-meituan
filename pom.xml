@@ -12,7 +12,7 @@
     <modules>
         <module>common</module>
         <module>wm-security</module>
-        <module>mbp</module>
+        <module>mappers</module>
         <module>wm-admin</module>
         <module>customer</module>
     </modules>
@@ -106,7 +106,7 @@
             </dependency>
             <dependency>
                 <groupId>com.meituan</groupId>
-                <artifactId>mbp</artifactId>
+                <artifactId>mappers</artifactId>
                 <version>${mbp.version}</version>
             </dependency>
             <!--安全模块-->

@@ -1,4 +1,4 @@
-package com.meituan.waimai.common.filter;
+package com.meituan.waimai.common.aop;
 
 import com.meituan.waimai.common.domain.CommonResult;
 import com.meituan.waimai.common.domain.ResultCode;
@@ -17,6 +17,9 @@ import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+@Slf4j
+@Aspect
+@Component
 public class ControllerHandleAop {
 
 	private final static Set<String> KEY = new ConcurrentSkipListSet<>();
@@ -25,7 +28,11 @@ public class ControllerHandleAop {
 	public  void executeService(){
 	}
 
-	@Around("executeService()")
+	@Pointcut("execution(public * com.meituan.waimai.controller.*.*(..))")
+	public  void execute(){
+	}
+
+	@Around("executeService() || execute()")
 	public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
 		ServletRequestAttributes requestAttributes =(ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = requestAttributes.getRequest();

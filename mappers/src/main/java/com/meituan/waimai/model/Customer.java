@@ -29,6 +29,6 @@ public class Customer extends BaseEntity {
 
     @TableField(value = "is_member")
     @ApiModelProperty(value="是否是会员")
-    private Integer isMember;
+    private Boolean isMember;
 
 }

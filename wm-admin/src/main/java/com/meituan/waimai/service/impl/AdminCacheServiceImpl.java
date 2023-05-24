@@ -1,5 +1,6 @@
 package com.meituan.waimai.service.impl;
 
+import com.meituan.waimai.common.api.RedisService;
 import com.meituan.waimai.model.Resource;
 import com.meituan.waimai.service.AdminCacheService;
 import org.springframework.beans.factory.annotation.Autowired;

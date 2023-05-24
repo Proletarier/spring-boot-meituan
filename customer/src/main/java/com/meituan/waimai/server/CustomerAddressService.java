@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerAddressService extends ServiceImpl<CustomerAddressMapper,CustomerAddress>  {
 
-
 	public boolean saveAddress(CustomerAddress address) {
 		address.setCustomerId(CustomerContext.getCustomerId());
 		return save(address);

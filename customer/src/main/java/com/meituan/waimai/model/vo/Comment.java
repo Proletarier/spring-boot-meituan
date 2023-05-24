@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ShopComment {
+public class Comment {
 
     private Integer shopId;
     private Double deliveryScore;
@@ -17,4 +17,12 @@ public class ShopComment {
     private Double packScore;
     private Double qualityScore;
     private List<CommentLabel> commentLabels;
+
+    @Data
+    public static class CommentLabel {
+        private Integer id;
+        private String content;
+        private Integer isSelected;
+    }
+
 }

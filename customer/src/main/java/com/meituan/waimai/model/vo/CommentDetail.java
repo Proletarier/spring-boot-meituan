@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import lombok.Data;
 
 @Data
-public class CommentVo {
+public class CommentDetail {
 
     private String commentTime;
     private String content;

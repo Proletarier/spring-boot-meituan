@@ -2,6 +2,7 @@ package com.meituan.waimai.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class NearShops {
 
     private  Integer count;
-    private List<ShopVo> shopVoList;
+    private List<ShopProfile> shopVoList;
 
     public Integer getCount() {
         return count;
@@ -22,13 +23,30 @@ public class NearShops {
         this.count = count;
     }
 
-    public List<ShopVo> getShopVoList() {
+    public List<ShopProfile> getShopVoList() {
         return shopVoList;
     }
 
-    public void setShopVoList(List<ShopVo> shopVoList) {
+    public void setShopVoList(List<ShopProfile> shopVoList) {
         this.shopVoList = shopVoList;
     }
 
+
+    @Data
+    public static class ShopProfile {
+
+        private Integer id;
+        private String shopName;
+        private String picUrl;
+        private Float shopScore;
+        private String  monthSalesTip;
+        private String  deliveryTimeTip;
+        private String  distance;
+        private String  minPriceTip;
+        private String  shippingFeeTip;
+        private String  averagePriceTip;
+        private List<Activity> activityList;
+
+    }
 
 }

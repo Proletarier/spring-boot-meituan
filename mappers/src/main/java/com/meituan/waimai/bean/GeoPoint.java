@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -12,9 +12,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class GeoPoint implements Serializable {
 
-    @NotBlank
+
+    @NotNull
     private Double lat;
-    @NotBlank
+    @NotNull
     private Double lng;
 
     public GeoPoint(double lat, double lng) {

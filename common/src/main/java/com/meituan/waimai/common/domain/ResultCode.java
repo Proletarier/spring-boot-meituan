@@ -16,8 +16,9 @@ public enum ResultCode implements IErrorCode {
     VALIDATE_NULL("Validate.Null", "请求的数据格式不符"),
     SYSTEM_ERROR("System.Error", "服务器内部错误"),
     REPEAT_SUBMIT("Repeat.Submit", "请勿重复提交"),
-    LOCATION_FAILED("Location.Failed", "定位失败");
-
+    CAPTCHA_FAILED("Captcha.Failed", "验证码验证失败"),
+    LOCATION_INVALID("Location.Failed", "定位失败"),
+    ADDRESS_NOT_EXIST("Address.not.exist","地址不存在");
 
 
     private final String code;

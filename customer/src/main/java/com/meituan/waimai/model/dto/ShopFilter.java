@@ -3,6 +3,7 @@ package com.meituan.waimai.model.dto;
 import com.meituan.waimai.bean.GeoPoint;
 import com.meituan.waimai.enums.ShopCharacteristicsEnum;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -10,7 +11,9 @@ public class ShopFilter {
 
     private Integer limit  = 5;
     private Integer nextStartIndex = 1;
+
     @NotNull
+    @Valid
     private GeoPoint location;
     private ShopSort ruleSort;
     private List<ShopCharacteristicsEnum> feature;

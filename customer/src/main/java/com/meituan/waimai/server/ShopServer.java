@@ -4,19 +4,19 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.meituan.waimai.bean.CustomerContext;
 import com.meituan.waimai.bean.GeoPoint;
 import com.meituan.waimai.common.util.DistanceCalculator;
 import com.meituan.waimai.mapper.*;
 
-import com.meituan.waimai.model.Category;
+import com.meituan.waimai.model.*;
 
-import com.meituan.waimai.model.Comment;
-import com.meituan.waimai.model.Menu;
-import com.meituan.waimai.model.Shop;
 import com.meituan.waimai.model.dto.ShopFilter;
 import com.meituan.waimai.model.vo.*;
+import com.meituan.waimai.model.vo.Comment;
+import com.meituan.waimai.model.vo.ShopInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class ShopServer {
+public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
 
     @Autowired
     NearShopMapper shopMapper;
@@ -42,6 +42,7 @@ public class ShopServer {
     FoodMapper foodMapper;
     @Autowired
     ShopCommentMapper shopCommentMapper;
+
 
     public NearShops getNearShop(ShopFilter shopFilter) {
         int offSet = (shopFilter.getNextStartIndex() - 1) * shopFilter.getLimit();
@@ -65,7 +66,7 @@ public class ShopServer {
             nearShops.setShopVoList(new ArrayList<>(0));
             return nearShops;
         }
-        List<ShopVo> shops = shopMapper.selectNearShopMapper(shopFilter, cateIds, offSet);
+        List<NearShops.ShopProfile> shops = shopMapper.selectNearShopMapper(shopFilter, cateIds, offSet);
         shops.forEach(shop -> {
             double meter = Double.parseDouble(shop.getDistance());
             if (meter < 1000) {
@@ -95,7 +96,7 @@ public class ShopServer {
     }
 
     public ShopInfo getShopInfo(Integer shopId) {
-        Shop shop = shopMapper.selectById(shopId);
+        Shop shop = getById(shopId);
         ShopInfo shopInfo = new ShopInfo();
         if (shop != null) {
             shopInfo.setShopName(shop.getShopName());
@@ -172,41 +173,55 @@ public class ShopServer {
     }
 
 
-    public ShopComment getShopComment(Integer shopId) {
-        Shop shop = shopMapper.selectById(shopId);
+    public Comment getShopComment(Integer shopId) {
+        Shop shop = getById(shopId);
 
-        ShopComment shopComment = new ShopComment();
+        Comment comment = new Comment();
         JSONObject sale = shop.getSale();
         if (sale != null && !sale.isEmpty()) {
             JSONObject score = sale.getJSONObject("score");
             if (score != null && !score.isEmpty()) {
-                shopComment.setShopScore(score.getDouble("shopScore"));
-                shopComment.setPackScore(score.getDouble("packScore"));
-                shopComment.setDeliveryScore(score.getDouble("deliveryScore"));
-                shopComment.setQualityScore(score.getDouble("qualityScore"));
+                comment.setShopScore(score.getDouble("shopScore"));
+                comment.setPackScore(score.getDouble("packScore"));
+                comment.setDeliveryScore(score.getDouble("deliveryScore"));
+                comment.setQualityScore(score.getDouble("qualityScore"));
             }
         }
-        List<CommentLabel>  commentLabels = shopCommentMapper.selectCommentLabelList(shopId);
-        if(!commentLabels.isEmpty()){
+        List<Comment.CommentLabel> commentLabels = shopCommentMapper.selectCommentLabelList(shopId);
+        if (!commentLabels.isEmpty()) {
             commentLabels.forEach(commentLabel -> {
-                if(commentLabel.getId() == 0){
+                if (commentLabel.getId() == 0) {
                     commentLabel.setIsSelected(1);
-                }else {
+                } else {
                     commentLabel.setIsSelected(0);
                 }
             });
-            shopComment.setCommentLabels(commentLabels);
+            comment.setCommentLabels(commentLabels);
         }
-        return shopComment;
+        return comment;
     }
 
-    public List<CommentVo> getCommentList(Integer shopId, Integer commentLabelId,Integer pageIndex){
+    public List<CommentDetail> getCommentList(Integer shopId, Integer commentLabelId, Integer pageIndex) {
 
-        LambdaQueryWrapper<Comment> commentWrapper = new LambdaQueryWrapper();
-        commentWrapper.eq(Comment::getShopId,shopId);
+        LambdaQueryWrapper<com.meituan.waimai.model.Comment> commentWrapper = new LambdaQueryWrapper();
+        commentWrapper.eq(com.meituan.waimai.model.Comment::getShopId, shopId);
+        if (!CommentLabelEnum.comment_label_all.equals(commentLabelId)) {
+           // commentWrapper.eq()
+        }
+        return null;
+    }
 
-
-        return  null;
+    public static class CommentLabelEnum {
+        public static Integer comment_label_all = 0;
+        public static Integer comment_label_good = 1;
+        public static Integer comment_label_negative = 2;
+        public static Integer comment_label_picture = 3;
+        public static Integer comment_label_taste = 4;
+        public static Integer comment_label_service = 5;
+        public static Integer comment_label_pack = 6;
+        public static Integer comment_label_recommend = 7;
+        public static Integer comment_label_satisfaction = 8;
+        public static Integer comment_label_weight = 9;
     }
 
 }

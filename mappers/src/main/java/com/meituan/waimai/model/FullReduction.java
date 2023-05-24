@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @TableName(value = "_full_reduction")
-public class FullReduction {
+public class FullReduction extends BaseEntity {
 
     @TableField(value = "shop_id")
     private Integer shopId;

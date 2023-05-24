@@ -17,10 +17,10 @@ public class CommonResult<T> {
      */
     private T data;
 
-    protected CommonResult() {
+    public CommonResult() {
     }
 
-    protected CommonResult(String code, String message, T data) {
+    public CommonResult(String code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;

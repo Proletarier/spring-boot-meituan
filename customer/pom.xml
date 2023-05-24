@@ -26,7 +26,7 @@
         </dependency>
         <dependency>
             <groupId>com.meituan</groupId>
-            <artifactId>mbp</artifactId>
+            <artifactId>mappers</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

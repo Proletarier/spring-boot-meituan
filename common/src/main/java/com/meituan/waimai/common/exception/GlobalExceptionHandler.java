@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -75,19 +79,31 @@ public class GlobalExceptionHandler {
     public CommonResult<Void> exceptionHandler(HttpServletRequest req, MethodArgumentNotValidException e) {
         logger.error("other MethodArgumentNotValidException ！cause:", e);
         List<FieldError> fieldErrorList = e.getFieldErrors();
-        StringBuilder message = new StringBuilder();
         if (!CollectionUtils.isEmpty(fieldErrorList)) {
+            StringBuilder message = new StringBuilder();
             for (FieldError fieldError : fieldErrorList) {
                 if (fieldError != null && fieldError.getDefaultMessage() != null) {
                     message.append(fieldError.getDefaultMessage()).append(" ");
                 }
             }
+            if (StrUtil.isNotEmpty(message.toString())) {
+                return CommonResult.failed(ResultCode.VALIDATE_FAILED, message.toString());
+            }
+        } else if(e.getGlobalError() != null) {
+            ObjectError error = e.getGlobalError();
+            if (error != null) {
+                return new CommonResult<>(error.getCode(), error.getDefaultMessage(), null);
+            }
         }
-        if (StrUtil.isNotEmpty(message.toString())) {
-            return CommonResult.failed(ResultCode.VALIDATE_FAILED, message.toString());
-        } else {
-            return CommonResult.failed(ResultCode.VALIDATE_FAILED);
-        }
+        return CommonResult.failed(ResultCode.VALIDATE_FAILED);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseBody
+    public CommonResult<Void> handleConstraintViolationException(ConstraintViolationException ex) {
+        logger.warn("params verify invalid: {}", ex.getMessage());
+        String msg = ex.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining("；"));
+        return CommonResult.failed(ResultCode.VALIDATE_FAILED,msg);
     }
 
 

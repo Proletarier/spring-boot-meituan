@@ -1,6 +1,6 @@
 package com.meituan.waimai.mapper;
 
-import com.meituan.waimai.model.vo.CommentLabel;
+import com.meituan.waimai.model.vo.Comment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -35,5 +35,5 @@ public interface ShopCommentMapper extends CommentMapper {
             "SELECT 9 as id, count(*) as comment_count, CONCAT('分量足(', count(*) ,')') as content  from `_comment` c WHERE  shop_id  = 1 and weight = 1 GROUP BY weight",
             ") labels  where labels.comment_count > 0"
     })
-    List<CommentLabel> selectCommentLabelList(@Param("shopId") Integer shopId);
+    List<Comment.CommentLabel> selectCommentLabelList(@Param("shopId") Integer shopId);
 }

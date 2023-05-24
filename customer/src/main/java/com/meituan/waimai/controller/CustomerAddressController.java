@@ -12,9 +12,11 @@ import com.meituan.waimai.mapper.ObjectKeyMapper;
 import com.meituan.waimai.model.CustomerAddress;
 import com.meituan.waimai.model.ObjectKey;
 
-import io.swagger.annotations.ApiOperation;
+import com.meituan.waimai.validation.AddressValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,11 +28,16 @@ public class CustomerAddressController {
 
 	@Autowired
     CustomerAddressService addressService;
-
 	@Autowired
 	ObjectKeyMapper objectKeyMapper;
+	@Autowired
+	AddressValidator validator;
 
-	@ApiOperation(value = "获取当前登录用户的地址列表")
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(validator);
+	}
+
 	@GetMapping(value = "/getAddress")
 	public CommonResult<List<CustomerAddress>> getAddress()  {
 		log.debug("[CustomerAddressController]: getAddress");
@@ -39,10 +46,9 @@ public class CustomerAddressController {
 		return CommonResult.success(addressList);
 	}
 
-	@ApiOperation(value = "新增地址")
 	@PostMapping(value = "/save")
-	public CommonResult<Void> saveAddress(@RequestBody CustomerAddress address)  {
-		log.debug("------ saveAddress param={}", address);
+	public CommonResult<Void> saveAddress(@RequestBody @Validated CustomerAddress address)  {
+		log.debug("[saveAddress] param={}", address);
 		if(addressService.saveAddress(address)){
 			return CommonResult.success();
 		}else{
@@ -50,46 +56,21 @@ public class CustomerAddressController {
 		}
 	}
 
-	@ApiOperation(value = "修改地址")
 	@PutMapping(value = "/update")
-	public CommonResult<Void> updateAddress(@RequestBody CustomerAddress address)  {
+	public CommonResult<Void> updateAddress(@RequestBody @Validated  CustomerAddress address)  {
 		log.debug("------ updateAddress param={}", address);
-		Integer customerId = CustomerContext.getCustomerId();
-
-		if(address.getId() == null){
-			log.error("CustomerAddressController edit address id not exist");
-			return CommonResult.validateFailed();
-		}
-		LambdaQueryWrapper<CustomerAddress> queryWrapper = new LambdaQueryWrapper();
-		queryWrapper.eq(CustomerAddress::getCustomerId,customerId);
-		queryWrapper.eq(CustomerAddress::getId,address.getId());
-		long ret = addressService.count(queryWrapper);
-		if(ret ==  0){
-			log.error("updateAddress fail address not exist, params address:{}",address);
-			return CommonResult.validateFailed();
-		}
 		if(!addressService.updateById(address)){
-			log.error("updateAddress fail");
+			log.error("address modify fail");
 			return CommonResult.serverFailed();
 		}
 		return CommonResult.success();
 	}
 
-	@ApiOperation(value = "删除当前登录用户的地址")
 	@DeleteMapping("/{id}")
-	public CommonResult<Void> deleteAddress(@PathVariable("id") Integer addressId) {
+	public CommonResult<Void> deleteAddress(@PathVariable("id") @Validated Integer addressId) {
 		log.debug("------ deleteAddress param={}", addressId);
-		Integer customerId = CustomerContext.getCustomerId();
-		LambdaQueryWrapper<CustomerAddress> queryWrapper = new LambdaQueryWrapper();
-		queryWrapper.eq(CustomerAddress::getCustomerId,customerId);
-		queryWrapper.eq(CustomerAddress::getId,addressId);
-		long ret = addressService.count(queryWrapper);
-		if(ret ==  0){
-			log.error("deleteAddress fail address not exist, addressId:{}",addressId);
-			return CommonResult.validateFailed();
-		}
 		if(!addressService.removeById(addressId)){
-			log.error("deleteAddress error");
+			log.error("address remove failed");
 			return CommonResult.failed(ResultCode.SYSTEM_ERROR);
 		}
 		return CommonResult.success();
@@ -104,7 +85,6 @@ public class CustomerAddressController {
 		return CommonResult.success(addressService.getOne(queryWrapper));
 	}
 
-	@ApiOperation(value = "获取地址")
 	@GetMapping("/getCityList")
 	public CommonResult<Object>  getCityList() {
 		ObjectKey objectKey = objectKeyMapper.selectOne(new QueryWrapper<ObjectKey>().lambda().eq(ObjectKey::getObjectKey, ObjectKeyConstants.CITY_LIST));

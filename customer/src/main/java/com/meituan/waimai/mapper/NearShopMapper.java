@@ -2,13 +2,13 @@ package com.meituan.waimai.mapper;
 
 
 import com.meituan.waimai.model.dto.ShopFilter;
-import com.meituan.waimai.model.vo.ShopVo;
+import com.meituan.waimai.model.vo.NearShops;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
-public interface NearShopMapper extends ShopMapper {
+public interface NearShopMapper {
 
     @Select({
             "<script>",
@@ -75,9 +75,9 @@ public interface NearShopMapper extends ShopMapper {
             "limit #{condition.limit} offset #{offset}",
             "</script>"
     })
-    List<ShopVo> selectNearShopMapper(@Param("condition") ShopFilter shopFilter,
-                                      @Param("cateIds") List<Integer> cateIds,
-                                      @Param("offset") int offSet);
+    List<NearShops.ShopProfile> selectNearShopMapper(@Param("condition") ShopFilter shopFilter,
+                                                     @Param("cateIds") List<Integer> cateIds,
+                                                     @Param("offset") int offSet);
 
 
     @Select({
