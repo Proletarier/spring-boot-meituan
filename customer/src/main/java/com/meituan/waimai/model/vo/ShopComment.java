@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Comment {
+public class ShopComment {
 
     private Integer shopId;
     private Double deliveryScore;

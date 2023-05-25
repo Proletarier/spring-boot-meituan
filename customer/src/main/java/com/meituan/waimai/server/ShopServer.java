@@ -1,10 +1,12 @@
 package com.meituan.waimai.server;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
 import com.google.common.collect.Lists;
 import com.meituan.waimai.bean.CustomerContext;
 import com.meituan.waimai.bean.GeoPoint;
@@ -15,7 +17,7 @@ import com.meituan.waimai.model.*;
 
 import com.meituan.waimai.model.dto.ShopFilter;
 import com.meituan.waimai.model.vo.*;
-import com.meituan.waimai.model.vo.Comment;
+import com.meituan.waimai.model.vo.ShopComment;
 import com.meituan.waimai.model.vo.ShopInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,8 @@ public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
     FoodMapper foodMapper;
     @Autowired
     ShopCommentMapper shopCommentMapper;
-
+    @Autowired
+    CommentMapper commentMapper;
 
     public NearShops getNearShop(ShopFilter shopFilter) {
         int offSet = (shopFilter.getNextStartIndex() - 1) * shopFilter.getLimit();
@@ -173,21 +176,21 @@ public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
     }
 
 
-    public Comment getShopComment(Integer shopId) {
+    public ShopComment getShopComment(Integer shopId) {
         Shop shop = getById(shopId);
 
-        Comment comment = new Comment();
+        ShopComment shopComment = new ShopComment();
         JSONObject sale = shop.getSale();
         if (sale != null && !sale.isEmpty()) {
             JSONObject score = sale.getJSONObject("score");
             if (score != null && !score.isEmpty()) {
-                comment.setShopScore(score.getDouble("shopScore"));
-                comment.setPackScore(score.getDouble("packScore"));
-                comment.setDeliveryScore(score.getDouble("deliveryScore"));
-                comment.setQualityScore(score.getDouble("qualityScore"));
+                shopComment.setShopScore(score.getDouble("shopScore"));
+                shopComment.setPackScore(score.getDouble("packScore"));
+                shopComment.setDeliveryScore(score.getDouble("deliveryScore"));
+                shopComment.setQualityScore(score.getDouble("qualityScore"));
             }
         }
-        List<Comment.CommentLabel> commentLabels = shopCommentMapper.selectCommentLabelList(shopId);
+        List<ShopComment.CommentLabel> commentLabels = shopCommentMapper.selectCommentLabelList(shopId);
         if (!commentLabels.isEmpty()) {
             commentLabels.forEach(commentLabel -> {
                 if (commentLabel.getId() == 0) {
@@ -196,32 +199,62 @@ public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
                     commentLabel.setIsSelected(0);
                 }
             });
-            comment.setCommentLabels(commentLabels);
+            shopComment.setCommentLabels(commentLabels);
         }
-        return comment;
+        return shopComment;
     }
 
-    public List<CommentDetail> getCommentList(Integer shopId, Integer commentLabelId, Integer pageIndex) {
+    public List<CommentDetail> getCommentList(Integer shopId, Integer commentLabelId, Integer pageNum,Integer pageSize) {
 
-        LambdaQueryWrapper<com.meituan.waimai.model.Comment> commentWrapper = new LambdaQueryWrapper();
-        commentWrapper.eq(com.meituan.waimai.model.Comment::getShopId, shopId);
-        if (!CommentLabelEnum.comment_label_all.equals(commentLabelId)) {
-           // commentWrapper.eq()
+        PageHelper.startPage(pageNum, pageSize);
+        LambdaQueryWrapper<Comment> commentWrapper = new LambdaQueryWrapper();
+        commentWrapper.eq(Comment::getShopId, shopId);
+        if (commentLabelId !=null) {
+            switch (commentLabelId){
+                case 1:
+                    commentWrapper.eq(Comment::getGood, Boolean.TRUE);
+                    break;
+                case 2:
+                    commentWrapper.eq(Comment::getNegative, Boolean.TRUE);
+                    break;
+                case 3:
+                    commentWrapper.eq(Comment::getPicture, Boolean.TRUE);
+                    break;
+                case 4:
+                    commentWrapper.eq(Comment::getTaste, Boolean.TRUE);
+                    break;
+                case 5:
+                    commentWrapper.eq(Comment::getService, Boolean.TRUE);
+                    break;
+                case 6:
+                    commentWrapper.eq(Comment::getPack, Boolean.TRUE);
+                    break;
+                case 7:
+                    commentWrapper.eq(Comment::getRecommend, Boolean.TRUE);
+                    break;
+                case 8:
+                    commentWrapper.eq(Comment::getSatisfaction, Boolean.TRUE);
+                    break;
+                case 9:
+                    commentWrapper.eq(Comment::getWeight, Boolean.TRUE);
+                    break;
+            }
         }
-        return null;
-    }
+        List<Comment> commentList = commentMapper.selectList(commentWrapper);
 
-    public static class CommentLabelEnum {
-        public static Integer comment_label_all = 0;
-        public static Integer comment_label_good = 1;
-        public static Integer comment_label_negative = 2;
-        public static Integer comment_label_picture = 3;
-        public static Integer comment_label_taste = 4;
-        public static Integer comment_label_service = 5;
-        public static Integer comment_label_pack = 6;
-        public static Integer comment_label_recommend = 7;
-        public static Integer comment_label_satisfaction = 8;
-        public static Integer comment_label_weight = 9;
+        return commentList.stream().map(comment ->{
+            CommentDetail detail = new CommentDetail();
+            detail.setUserName(comment.getCustomerName());
+            detail.setUserPicUrl(comment.getCustomerIcon());
+            detail.setContent(comment.getContent());
+            detail.setCommentTime(DateUtil.format(comment.getCreatedDate(),"yyyy-MM-dd"));
+            detail.setDeliveryTime(comment.getDeliveryTime());
+            detail.setPraiseDish(comment.getPraiseDish());
+            detail.setScore(comment.getScore());
+            detail.setPictures(comment.getPictures());
+            detail.setShopReply(comment.getShopReply());
+            return  detail;
+        }).collect(Collectors.toList());
     }
 
 }
