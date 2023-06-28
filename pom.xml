@@ -42,7 +42,7 @@
         <aliyun-oss.version>2.5.0</aliyun-oss.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <commons-io.version>2.5</commons-io.version>
-        <hutool.version>5.4.0</hutool.version>
+        <hutool.version>5.8.16</hutool.version>
         <jjwt.version>0.9.0</jjwt.version>
         <common.version>1.0-SNAPSHOT</common.version>
         <mbp.version>1.0-SNAPSHOT</mbp.version>
@@ -220,6 +220,19 @@
                     <source>${java.version}</source>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.7.2.1</version>
+                <dependencies>
+                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.7.3</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

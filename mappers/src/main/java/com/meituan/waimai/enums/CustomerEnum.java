@@ -6,4 +6,6 @@ public class CustomerEnum {
 
     public static final int is_member  = 0;
     public static final int no_member  = 1;
+
+
 }

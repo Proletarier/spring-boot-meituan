@@ -35,7 +35,7 @@ public class Product extends BaseEntity {
     private Integer weight;
 
     @TableField(value = "unit")
-    private String unit;
+    private Integer unit;
 
     @TableField(value = "sale", typeHandler = FastjsonTypeHandler.class)
     private JSONObject sale;

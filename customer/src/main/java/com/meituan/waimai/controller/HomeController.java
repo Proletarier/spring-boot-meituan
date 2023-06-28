@@ -40,7 +40,7 @@ public class HomeController {
     @GetMapping(value = "/goods_cate")
     public CommonResult<List<FoodMenu>> listGoodsCate() {
 
-        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Category::getIsHome, true);
         List<Category> categoryList = categoryMapper.selectList(queryWrapper);
         if (categoryList.isEmpty()) {

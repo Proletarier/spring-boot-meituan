@@ -7,12 +7,17 @@ import com.meituan.waimai.mapper.ProductDiscountMapper;
 import com.meituan.waimai.model.FullReduction;
 import com.meituan.waimai.model.ProductDiscount;
 import com.meituan.waimai.model.vo.Activity;
+import com.meituan.waimai.model.vo.ActivityPolicy;
+import com.meituan.waimai.model.vo.Discount;
 import com.meituan.waimai.model.vo.Food;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -31,12 +36,8 @@ public class ActivityService {
 
     public List<Activity> getActivity(Integer shopId) {
 
-        if (shopId == null) {
-            log.warn("shop id is null");
-            return new ArrayList<>(0);
-        }
         List<Activity> activityList = Lists.newArrayList();
-        LambdaQueryWrapper<FullReduction> reductionLambdaQueryWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<FullReduction> reductionLambdaQueryWrapper = new LambdaQueryWrapper<>();
         reductionLambdaQueryWrapper.eq(FullReduction::getShopId, shopId);
         List<FullReduction> fullReductionList = fullReductionMapper.selectList(reductionLambdaQueryWrapper);
         if (!fullReductionList.isEmpty()) {
@@ -51,7 +52,7 @@ public class ActivityService {
             activityList.add(activity);
         }
 
-        LambdaQueryWrapper<ProductDiscount> discountLambdaQueryWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<ProductDiscount> discountLambdaQueryWrapper = new LambdaQueryWrapper<>();
         discountLambdaQueryWrapper.eq(ProductDiscount::getShopId, shopId);
         List<ProductDiscount> productDiscounts = productDiscountMapper.selectList(discountLambdaQueryWrapper);
         if (!productDiscounts.isEmpty()) {
@@ -68,9 +69,10 @@ public class ActivityService {
 
     public void setActivityInfo(Food food){
         // 折扣商品
-        LambdaQueryWrapper<ProductDiscount> discountLambdaQueryWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<ProductDiscount> discountLambdaQueryWrapper = new LambdaQueryWrapper<>();
         discountLambdaQueryWrapper.eq(ProductDiscount::getProductId, food.getFoodId());
         ProductDiscount discount = productDiscountMapper.selectOne(discountLambdaQueryWrapper);
+        ActivityPolicy policy = new ActivityPolicy();
         if (discount != null){
             StringBuilder promotionInfo = new StringBuilder();
             promotionInfo.append(String.format("%s折",transform(discount.getDiscount())));
@@ -82,11 +84,68 @@ public class ActivityService {
             if(discount.getMinPurchaseNum() !=null && discount.getMinPurchaseNum()> 0){
                 promotionInfo.append(String.format(" %s份起购",discount.getMinPurchaseNum()));
             }
+
             food.setSpuPromotionInfo(promotionInfo.toString());
             food.setCurrentPrice(discount.getPrice());
+
+            Discount  dis = new Discount();
+            dis.setCount(discount.getCount());
+            dis.setDiscount(discount.getDiscount());
+            dis.setMinPurchaseNum(discount.getMinPurchaseNum());
+            policy.setDiscount(dis);
         }else {
             food.setCurrentPrice(food.getOriginPrice());
         }
+
+        food.setActivityPolicy(policy);
+    }
+
+
+    public DiscountPrice getDiscountPrice(@NotNull Integer shopId,@NotNull Integer productId,Integer purchaseCount,Double originPrice){
+
+        LambdaQueryWrapper<ProductDiscount> discountLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        discountLambdaQueryWrapper.eq(ProductDiscount::getShopId, shopId);
+        discountLambdaQueryWrapper.eq(ProductDiscount::getProductId,productId);
+        ProductDiscount  productDiscount = productDiscountMapper.selectOne(discountLambdaQueryWrapper);
+        if (productDiscount == null) {
+            return  null;
+        }
+
+        DiscountPrice discountPrice = new DiscountPrice();
+        if(productDiscount.getMinPurchaseNum() !=null && purchaseCount < productDiscount.getMinPurchaseNum()){
+            discountPrice.setCount(productDiscount.getMinPurchaseNum());
+        }else {
+            discountPrice.setCount(purchaseCount);
+        }
+
+        int discountCount;
+        int noDiscountCount = 0;
+        if(productDiscount.getCount() != null && productDiscount.getCount() > 0 && discountPrice.getCount() >  productDiscount.getCount()){
+            discountCount  =  productDiscount.getCount();
+            noDiscountCount  =  discountPrice.getCount() - productDiscount.getCount();
+        }else {
+            discountCount  = discountPrice.getCount();;
+        }
+
+        BigDecimal discountQuantity =new BigDecimal(discountCount);
+        BigDecimal discount = BigDecimal.valueOf(productDiscount.getDiscount());
+        BigDecimal price = BigDecimal.valueOf(originPrice);
+
+        BigDecimal discountedPrice  = price.multiply(discountQuantity).multiply(discount).movePointLeft(1).setScale(2, RoundingMode.HALF_UP);
+
+        if(discountedPrice.doubleValue() == 0){
+            discountedPrice = BigDecimal.valueOf(productDiscount.getPrice());
+        }
+        if(noDiscountCount > 0){
+            double currentPrice = price.multiply(new BigDecimal(noDiscountCount)).add(discountedPrice).doubleValue();
+            discountPrice.setCurrentPrice(currentPrice);
+        }else {
+            discountPrice.setCurrentPrice(discountedPrice.doubleValue());
+        }
+        BigDecimal purchase = new BigDecimal(discountPrice.getCount());
+        discountPrice.setOriginPrice(price.multiply(purchase).doubleValue());
+
+        return  discountPrice;
     }
 
 
@@ -96,5 +155,12 @@ public class ActivityService {
         } else {
             return value;
         }
+    }
+
+    @Data
+    public static class DiscountPrice {
+        private Double currentPrice;
+        private Double originPrice;
+        private Integer count;
     }
 }

@@ -24,6 +24,7 @@ public class Food {
     private String spuPromotionInfo;
     private Boolean must;
 
+    private ActivityPolicy activityPolicy;
     private List<String> labelList;
     private List<FoodAttribute> spuAttrList;
 }

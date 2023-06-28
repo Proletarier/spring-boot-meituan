@@ -145,14 +145,14 @@ public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
 
     public List<FoodCategory> getFood(Integer shopId) {
 
-        LambdaQueryWrapper<Menu> menuWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<Menu> menuWrapper = new LambdaQueryWrapper<>();
         menuWrapper.eq(Menu::getShopId, shopId).eq(Menu::getStatus, Boolean.TRUE);
         List<Menu> menuList = menuMapper.selectList(menuWrapper);
         if (!menuList.isEmpty()) {
             List<Integer> menuIds = menuList.stream().map(Menu::getId).collect(Collectors.toList());
             List<Food> foodList = foodMapper.selectProductByMenuId(menuIds);
 
-            List<FoodCategory> categories = menuList.stream().map(menu -> {
+            return menuList.stream().map(menu -> {
                 FoodCategory foodCategory = new FoodCategory();
                 foodCategory.setCategoryName(menu.getMenuName());
                 foodCategory.setIconUrl(menu.getIcon());
@@ -169,8 +169,6 @@ public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
                 foodList.removeAll(subList);
                 return foodCategory;
             }).collect(Collectors.toList());
-
-            return categories;
         }
         return new ArrayList<>(0);
     }
@@ -207,7 +205,7 @@ public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
     public List<CommentDetail> getCommentList(Integer shopId, Integer commentLabelId, Integer pageNum,Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
-        LambdaQueryWrapper<Comment> commentWrapper = new LambdaQueryWrapper();
+        LambdaQueryWrapper<Comment> commentWrapper = new LambdaQueryWrapper<>();
         commentWrapper.eq(Comment::getShopId, shopId);
         if (commentLabelId !=null) {
             switch (commentLabelId){
@@ -238,6 +236,7 @@ public class ShopServer extends ServiceImpl<ShopMapper, Shop> {
                 case 9:
                     commentWrapper.eq(Comment::getWeight, Boolean.TRUE);
                     break;
+                default:
             }
         }
         List<Comment> commentList = commentMapper.selectList(commentWrapper);
