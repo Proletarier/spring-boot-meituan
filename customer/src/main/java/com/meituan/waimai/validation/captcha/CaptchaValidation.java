@@ -34,6 +34,7 @@ public class CaptchaValidation<T extends Annotation, K> implements ConstraintVal
         @Value("${captcha.limit.interval}")
         private Integer captchaTimeInterval;
 
+        @Override
         public void initialize(OverSendCaptcha constraintAnnotation) {
             predicate = phone -> {
                 int count = cacheService.getSendCaptchaCount(phone);
@@ -48,6 +49,7 @@ public class CaptchaValidation<T extends Annotation, K> implements ConstraintVal
 
     public static class ValidCaptchaValidator extends CaptchaValidation<ValidCaptcha, CustomerLoginForm> {
 
+        @Override
         public void initialize(ValidCaptcha constraintAnnotation) {
             predicate = loginForm -> {
                 String captchaCode = cacheService.getCaptcha(loginForm.getPhone());

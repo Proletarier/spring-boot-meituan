@@ -22,12 +22,15 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import com.meituan.waimai.model.dto.OrderPreViewParams.FoodSpec;
 import com.meituan.waimai.model.vo.OrderDetail.*;
+
+import static com.meituan.waimai.enums.CouponEnum.CouponTypeEnum.*;
 
 
 @Slf4j
@@ -46,22 +49,165 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     CouponMapper couponMapper;
     @Autowired
     CouponHistoryMapper couponHistoryMapper;
+    @Autowired
+    CouponShopRelationMapper couponShopRelationMapper;
+    @Autowired
+    CouponShopCategoryRelationMapper couponShopCategoryRelationMapper;
 
-    public OrderDetail preViewOrder(@NotNull Integer shopId, @NotNull List<FoodSpec> foodList) {
+    private static final int part = 0;
+    private static final int gram = 1;
 
+
+    public OrderDetail preViewOrder(@NotNull Integer shopId, @NotNull List<FoodSpec> foodList, Integer couponId) {
         OrderDetail orderDetail = new OrderDetail();
-
+        // set shop info
         Shop shop = shopMapper.selectById(shopId);
-        if (shop != null) {
-            orderDetail.setImageUrl(shop.getPicUrl());
-            orderDetail.setExclusiveDelivery(shop.getExclusiveDelivery());
-            orderDetail.setShopName(shop.getShopName());
+        orderDetail.setImageUrl(shop.getPicUrl());
+        orderDetail.setExclusiveDelivery(shop.getExclusiveDelivery());
+        orderDetail.setShopName(shop.getShopName());
+        // set address
+        AddressInfo addressInfo = getAddress(shop.getLocation());
+        orderDetail.setAddressInfo(addressInfo);
+        // set cart
+        List<Cart> cartList = getShopCartInfo(foodList, shopId);
+        orderDetail.setFoodList(cartList);
+        // set box price
+        double boxFeeTotal = cartList.stream().mapToDouble(Cart::getBoxPrice).sum();
+        orderDetail.setBoxFee(boxFeeTotal);
+        // set deliver price
+        orderDetail.setDeliverFee(5.0);
+        orderDetail.setDeliverTime(DateUtil.offsetHour(DateUtil.date(), 1).getTime());
+        //set coupon
+        setCouponList(orderDetail, shopId, shop.getCategoryId());
+        // set coupon price
+        if (couponId != null) {
+            orderDetail.getCouponDetailVos().forEach(couponDetailVo -> {
+                if (couponDetailVo.getCouponValid() == 1) {
+                    CouponInfo coupon = couponDetailVo.getCouponInfoList().stream().filter(couponInfo -> couponInfo.getId().equals(couponId)).findFirst().orElse(null);
+                    if (coupon != null) {
+                        orderDetail.setCouponId(couponId);
+                        orderDetail.setCouponPrice(coupon.getAmount());
+                    }
+                }
+            });
         }
+        // set discount price
+        double totalPrice = cartList.stream().mapToDouble(cart -> cart.getOriginAmount() == null ? cart.getCurrentAmount() : cart.getOriginAmount()).sum();
+        double discountedPrice = cartList.stream().mapToDouble(Cart::getCurrentAmount).sum();
+        double discountPrice = NumberUtil.sub(totalPrice, discountedPrice);
+        if (orderDetail.getCouponPrice() != null) {
+            orderDetail.setTotalDiscountPrice(NumberUtil.add(discountPrice, orderDetail.getCouponPrice().doubleValue()));
+        } else {
+            orderDetail.setTotalDiscountPrice(discountPrice);
+        }
+        // set total price
+        double payPrice = discountedPrice;
+        if (orderDetail.getCouponPrice() != null) {
+            payPrice =  NumberUtil.sub(payPrice, orderDetail.getCouponPrice().doubleValue());
+        }
+        if(orderDetail.getDeliverFee() != null){
+            payPrice = NumberUtil.add(payPrice, orderDetail.getDeliverFee().doubleValue());
+        }
+        if(orderDetail.getBoxFee() != null){
+            payPrice = NumberUtil.add(payPrice, orderDetail.getBoxFee().doubleValue());
+        }
+        orderDetail.setTotalPrice(payPrice);
+        return orderDetail;
+    }
+
+
+    private void setCouponList(OrderDetail orderDetail, Integer shopId, String categoryId) {
+        LambdaQueryWrapper<CouponHistory> couponHistoryQueryWrapper = new LambdaQueryWrapper<>();
+        couponHistoryQueryWrapper.eq(CouponHistory::getCustomerId, CustomerContext.getCustomerId());
+        couponHistoryQueryWrapper.ge(CouponHistory::getEndTime, new Date());
+        List<CouponHistory> couponHistories = couponHistoryMapper.selectList(couponHistoryQueryWrapper);
+
+        CouponDetailVo validCoupon = new CouponDetailVo();
+        validCoupon.setCouponValid(1);
+        validCoupon.setCouponInfoList(Lists.newArrayList());
+
+        CouponDetailVo invalidCoupon = new CouponDetailVo();
+        invalidCoupon.setCouponValid(0);
+        invalidCoupon.setCouponInfoList(Lists.newArrayList());
+
+        couponHistories.forEach(couponHistory -> {
+            Coupon coupon = couponMapper.selectById(couponHistory.getCouponId());
+
+            CouponInfo couponInfo = new CouponInfo();
+            couponInfo.setId(couponHistory.getId());
+            couponInfo.setCouponType(couponInfo.getCouponType());
+            couponInfo.setCouponId(couponInfo.getId());
+            couponInfo.setAmount(coupon.getAmount());
+            couponInfo.setTitle(coupon.getName());
+            couponInfo.setPriceLimit(String.format("满%s可用", new DecimalFormat("#").format(coupon.getLimitPrice())));
+            if (DateUtil.between(DateUtil.date(), couponHistory.getEndTime(), DateUnit.DAY) == 0L) {
+                couponInfo.setTimeLimit("今日到期");
+            } else {
+                couponInfo.setTimeLimit(String.format("有效期至%s", DateUtil.format(couponHistory.getEndTime(), "yyyy-MM-dd")));
+            }
+            if (coupon.getIncludeSelfPhone() != null && coupon.getIncludeSelfPhone()) {
+                couponInfo.setUseLimits(StrUtil.format(coupon.getNote(), ImmutableBiMap.of("phone", DesensitizedUtil.mobilePhone(CustomerContext.getKeyCustomerTelephone()))));
+            } else {
+                couponInfo.setUseLimits(coupon.getNote());
+            }
+
+            if (MEMBER_BUY.getValue() == coupon.getType()) {
+                validCoupon.getCouponInfoList().add(couponInfo);
+            } else {
+                double total;
+                if (coupon.getIncludeDiscount() != null && coupon.getIncludeDiscount()) {
+                    total = orderDetail.getFoodList().stream().mapToDouble(cart -> cart.getOriginAmount() == null ? cart.getCurrentAmount() : cart.getOriginAmount()).sum();
+                } else {
+                    total = orderDetail.getFoodList().stream().mapToDouble(Cart::getCurrentAmount).sum();
+                }
+                if (coupon.getIncludeBoxFee() != null && coupon.getIncludeBoxFee()) {
+                    total = NumberUtil.add(total, orderDetail.getBoxFee().doubleValue());
+                }
+                if (coupon.getIncludeDeliverFee() != null && coupon.getIncludeDeliverFee()) {
+                    total = NumberUtil.add(total, orderDetail.getDeliverFee().doubleValue());
+                }
+
+                boolean isValid = true;
+                if (PART.getValue() == coupon.getType()) {
+                    LambdaQueryWrapper<CouponShopRelation> couponShopRelationLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                    couponShopRelationLambdaQueryWrapper.eq(CouponShopRelation::getCouponId, coupon.getId());
+                    couponShopRelationLambdaQueryWrapper.eq(CouponShopRelation::getShopId, shopId);
+                    CouponShopRelation couponShopRelation = couponShopRelationMapper.selectOne(couponShopRelationLambdaQueryWrapper);
+                    isValid = couponShopRelation != null;
+                } else if (SHOP_TYPE.getValue() == coupon.getType()) {
+                    if (categoryId == null) {
+                        isValid = false;
+                    } else {
+                        List<Integer> cateIds = Lists.newArrayList();
+                        for (String cateId : categoryId.split(",")) {
+                            cateIds.add(Integer.parseInt(cateId));
+                        }
+                        LambdaQueryWrapper<CouponShopCategoryRelation> couponShopCategoryRelationLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                        couponShopCategoryRelationLambdaQueryWrapper.eq(CouponShopCategoryRelation::getCouponId, coupon.getId());
+                        couponShopCategoryRelationLambdaQueryWrapper.in(CouponShopCategoryRelation::getShopCategoryId, cateIds);
+                        CouponShopCategoryRelation couponShopRelation = couponShopCategoryRelationMapper.selectOne(couponShopCategoryRelationLambdaQueryWrapper);
+                        isValid = couponShopRelation != null;
+                    }
+                }
+                if (isValid) {
+                    if (total >= coupon.getLimitPrice()) {
+                        validCoupon.getCouponInfoList().add(couponInfo);
+                    } else {
+                        invalidCoupon.getCouponInfoList().add(couponInfo);
+                    }
+                } else {
+                    invalidCoupon.getCouponInfoList().add(couponInfo);
+                }
+            }
+        });
+
+        orderDetail.setCouponDetailVos(Arrays.asList(validCoupon, invalidCoupon));
+    }
+
+    private AddressInfo getAddress(GeoPoint shopPoint) {
 
         GeoPoint customerPoint = CustomerContext.getKeyLocation();
-        if (customerPoint != null && shop != null && shop.getLocation() != null) {
-
-            GeoPoint shopPoint = shop.getLocation();
+        if (customerPoint != null && shopPoint != null) {
             double meter = DistanceCalculator.calculateDistance(customerPoint.getLat(), customerPoint.getLng(), shopPoint.getLat(), shopPoint.getLng());
 
             LambdaQueryWrapper<CustomerAddress> queryWrapper = new LambdaQueryWrapper<>();
@@ -76,29 +222,29 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
                 addressInfo.setId(customerAddress.getId());
                 addressInfo.setName(customerAddress.getName());
                 addressInfo.setPhone(customerAddress.getPhone());
-                orderDetail.setAddressInfo(addressInfo);
+                return addressInfo;
             }
         }
+        return null;
+    }
+
+    private List<Cart> getShopCartInfo(List<FoodSpec> foodList, Integer shopId) {
 
         List<Cart> shoppingCartList = Lists.newArrayList();
-        double boxFeeTotal = 0.0;
-        double amount = 0.0;
+
         for (FoodSpec foodSpec : foodList) {
             Product product = productMapper.selectById(foodSpec.getFoodId());
             if (product != null) {
-                Double boxFee = product.getBoxFee();
-                if (boxFee != null) {
-                    boxFeeTotal = boxFeeTotal + boxFee;
-                }
                 Cart shoppingCart = new Cart();
                 shoppingCart.setCount(foodSpec.getCount());
                 shoppingCart.setFoodId(product.getId());
                 shoppingCart.setFoodImage(product.getImageUrl());
                 shoppingCart.setFoodName(product.getName());
+                shoppingCart.setBoxPrice(NumberUtil.mul(product.getBoxFee(),foodSpec.getCount()).doubleValue());
                 if (product.getUnit() != null) {
-                    if (product.getUnit() == 1) {
+                    if (product.getUnit() == gram && product.getWeight() != null) {
                         shoppingCart.setUnit(String.format("约%s克", product.getWeight()));
-                    } else {
+                    } else if (product.getUnit() == part && product.getWeight() != null) {
                         shoppingCart.setUnit(String.format("%s人份", product.getWeight()));
                     }
                 }
@@ -107,75 +253,14 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
                     BigDecimal count = new BigDecimal(foodSpec.getCount());
                     BigDecimal price = BigDecimal.valueOf(product.getPrice());
                     shoppingCart.setCurrentAmount(price.multiply(count).doubleValue());
-                    amount = NumberUtil.add(amount,shoppingCart.getCurrentAmount().doubleValue());
                 } else {
                     shoppingCart.setCurrentAmount(discountPrice.getCurrentPrice());
                     shoppingCart.setOriginAmount(discountPrice.getOriginPrice());
-                    amount = NumberUtil.add(amount,discountPrice.getOriginPrice().doubleValue());
                 }
                 shoppingCartList.add(shoppingCart);
             }
         }
-        orderDetail.setAmount(amount);
-        orderDetail.setBoxFee(boxFeeTotal);
-        orderDetail.setFoodList(shoppingCartList);
-        orderDetail.setDeliverFee(5.0);
-        orderDetail.setDeliverTime(DateUtil.offsetHour(DateUtil.date(),1).getTime());
-
-        LambdaQueryWrapper<CouponHistory> couponHistoryQueryWrapper = new LambdaQueryWrapper<>();
-        couponHistoryQueryWrapper.eq(CouponHistory::getCustomerId, CustomerContext.getCustomerId());
-        couponHistoryQueryWrapper.ge(CouponHistory::getEndTime, new Date());
-        List<CouponHistory> couponHistories = couponHistoryMapper.selectList(couponHistoryQueryWrapper);
-
-
-        CouponDetailVo validCoupon = new CouponDetailVo();
-        validCoupon.setCouponValid(1);
-        validCoupon.setCouponInfoList(Lists.newArrayList());
-
-        CouponDetailVo invalidCoupon = new CouponDetailVo();
-        invalidCoupon.setCouponValid(0);
-        invalidCoupon.setCouponInfoList(Lists.newArrayList());
-
-
-        couponHistories.forEach(couponHistory -> {
-            Coupon coupon = couponMapper.selectById(couponHistory.getCouponId());
-
-            CouponInfo couponInfo = new CouponInfo();
-            couponInfo.setId(couponHistory.getId());
-            couponInfo.setCouponId(couponInfo.getId());
-            couponInfo.setAmount(coupon.getAmount());
-            couponInfo.setTitle(coupon.getName());
-            couponInfo.setPriceLimit(String.format("满%s可用",coupon.getLimitPrice()));
-            if(DateUtil.between(DateUtil.date(),couponHistory.getEndTime(), DateUnit.DAY) == 0L){
-                couponInfo.setPriceLimit("今日到期");
-            }else{
-                couponInfo.setPriceLimit(String.format("有效期至%s",DateUtil.format(couponHistory.getEndTime(),"yyyy-MM-dd")));
-            }
-            if(coupon.getIncludeSelfPhone() != null && coupon.getIncludeSelfPhone()){
-                couponInfo.setUseLimits(StrUtil.format(coupon.getNote(),ImmutableBiMap.of("phone", DesensitizedUtil.mobilePhone(CustomerContext.getKeyCustomerTelephone()))));
-            }else {
-                couponInfo.setUseLimits(coupon.getNote());
-            }
-
-            double total;
-            if(coupon.getIncludeDiscount() != null && coupon.getIncludeDiscount()){
-                total = orderDetail.getAmount();
-            }else {
-                total = orderDetail.getFoodList().stream().mapToDouble(Cart::getCurrentAmount).sum();
-            }
-            if(coupon.getIncludeBoxFee() != null && coupon.getIncludeBoxFee()){
-                total = NumberUtil.add(total, orderDetail.getBoxFee().doubleValue());
-            }
-            if(coupon.getIncludeDeliverFee() != null && coupon.getIncludeDeliverFee()){
-                total = NumberUtil.add(total, orderDetail.getDeliverFee().doubleValue());
-            }
-            if(total >= coupon.getLimitPrice()){
-                validCoupon.getCouponInfoList().add(couponInfo);
-            }else {
-                invalidCoupon.getCouponInfoList().add(couponInfo);
-            }
-        });
-        orderDetail.setCouponDetailVos(Arrays.asList(validCoupon,invalidCoupon));
-        return orderDetail;
+        return shoppingCartList;
     }
+
 }

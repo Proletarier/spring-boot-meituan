@@ -14,7 +14,4 @@ public class CouponShopCategoryRelation extends BaseEntity {
     @TableField(value = "shop_category_id")
     private Integer shopCategoryId;
 
-    @TableField(value = "name")
-    private String name;
-
 }

@@ -77,9 +77,9 @@ public class CustomerAddressController {
 	}
 
 	@GetMapping("/{id}")
-	public CommonResult<CustomerAddress> getAddress(@PathVariable("id") Integer addressId) {
+	public CommonResult<CustomerAddress> getAddress(@PathVariable("id") @Validated Integer addressId) {
 		Integer customerId = CustomerContext.getCustomerId();
-		LambdaQueryWrapper<CustomerAddress> queryWrapper = new LambdaQueryWrapper();
+		LambdaQueryWrapper<CustomerAddress> queryWrapper = new LambdaQueryWrapper<>();
 		queryWrapper.eq(CustomerAddress::getCustomerId,customerId);
 		queryWrapper.eq(CustomerAddress::getId,addressId);
 		return CommonResult.success(addressService.getOne(queryWrapper));

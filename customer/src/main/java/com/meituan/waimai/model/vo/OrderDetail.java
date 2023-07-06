@@ -13,11 +13,14 @@ public class OrderDetail {
     private Double boxFee;
     private Double deliverFee;
     private Double fullReductionFee;
-    private Double amount;
+    private Double totalPrice;
+    private Double totalDiscountPrice;
+    private Double couponPrice;
     private Long deliverTime;
     private AddressInfo addressInfo;
     private List<Cart> foodList;
     private List<CouponDetailVo> couponDetailVos;
+    private Integer couponId;
 
     @Data
     public static class Cart {
@@ -28,6 +31,7 @@ public class OrderDetail {
         private String unit;
         private Double currentAmount;
         private Double originAmount;
+        private Double boxPrice;
         private List<FoodAttributeValue> attributeValue;
     }
 
@@ -36,7 +40,5 @@ public class OrderDetail {
         private Integer couponValid;
         private List<CouponInfo> couponInfoList;
     }
-
-
 
 }

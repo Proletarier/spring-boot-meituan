@@ -36,7 +36,7 @@ public class OrderServiceTest {
         CustomerContext.setCustomerId(1);
         CustomerContext.setKeyCustomerTelephone("18780027522");
 
-        OrderDetail orderDetail =  orderService.preViewOrder(1,specList);
+        OrderDetail orderDetail =  orderService.preViewOrder(1,specList,null);
         Assert.notNull(orderDetail);
         System.out.println(JSONObject.toJSONString(orderDetail));
 
