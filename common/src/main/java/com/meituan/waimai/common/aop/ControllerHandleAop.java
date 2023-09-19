@@ -14,6 +14,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -22,7 +23,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 @Component
 public class ControllerHandleAop {
 
-	private final static Set<String> KEY = new ConcurrentSkipListSet<>();
+	private static final Set<String> KEY = new ConcurrentSkipListSet<>();
 
 	@Pointcut("execution(public * com.meituan.waimai.*.controller.*.*(..))")
 	public  void executeService(){
@@ -46,8 +47,9 @@ public class ControllerHandleAop {
 		// 获取方法名、类名、
 		String methodName = method.getName();
 		String className =  method.getDeclaringClass().getName();
-		String format =  String.format("%s%s%s%s",ip,methodName,className,args);
-		int hashCode = Math.abs(format.hashCode());
+		String format =  String.format("%s%s%s%s",ip,methodName,className, Arrays.toString(args));
+		int hashCode = format.hashCode();
+		hashCode = (hashCode == Integer.MIN_VALUE) ? 0 : Math.abs(hashCode);
 		String key = String.format("%s%s",ip,hashCode);
 		if (!KEY.add(key)){
 			return CommonResult.failed(ResultCode.REPEAT_SUBMIT);

@@ -1,595 +1,718 @@
-/*
- Navicat Premium Data Transfer
+-- waimai.`_admin` definition
 
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 80026
- Source Host           : localhost:3306
- Source Schema         : waimai
-
- Target Server Type    : MySQL
- Target Server Version : 80026
- File Encoding         : 65001
-
- Date: 06/01/2022 14:55:50
-*/
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for wm_admin_login_log
--- ----------------------------
-DROP TABLE IF EXISTS `wm_admin_login_log`;
-CREATE TABLE `wm_admin_login_log`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `admin_user_id` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+CREATE TABLE `_admin` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `nick_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'æ˜µç§°',
+  `phone` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ç”µè¯',
+  `email` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'é‚®ç®±',
+  `note` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'å¤‡æ³¨',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `login_time` datetime DEFAULT NULL COMMENT 'æœ€åŽç™»å½•æ—¶é—´',
+  `status` int DEFAULT NULL COMMENT 'å¸å·å¯ç”¨çŠ¶æ€ï¼š0->ç¦ç”¨ï¼›1->å¯ç”¨',
+  `icon` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'å¤´åƒ',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='åŽå°ç®¡ç†äººå‘˜';
 
--- ----------------------------
--- Table structure for wm_admin_role_relation
--- ----------------------------
-DROP TABLE IF EXISTS `wm_admin_role_relation`;
-CREATE TABLE `wm_admin_role_relation`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `admin_id` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `role_id` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_category` definition
+
+CREATE TABLE `_category` (
+  `id` int NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `parent_id` int DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `count` int DEFAULT NULL,
+  `is_home` tinyint NOT NULL DEFAULT '0',
+  `pre_id` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- waimai.`_comment` definition
+
+CREATE TABLE `_comment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int DEFAULT NULL,
+  `customer_id` int DEFAULT NULL,
+  `shop_id` int DEFAULT NULL,
+  `customer_name` varchar(100) DEFAULT NULL,
+  `customer_icon` varchar(100) DEFAULT NULL,
+  `delivery_time` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `praise_dish` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `shop_reply` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `score` decimal(19,2) DEFAULT NULL,
+  `pictures` json DEFAULT NULL,
+  `good` tinyint(1) DEFAULT '0',
+  `negative` tinyint(1) DEFAULT '0',
+  `picture` tinyint(1) DEFAULT '0',
+  `taste` tinyint(1) DEFAULT '0',
+  `service` tinyint(1) DEFAULT '0',
+  `pack` tinyint(1) DEFAULT '0',
+  `recommend` tinyint(1) DEFAULT '0',
+  `satisfaction` tinyint(1) DEFAULT '0',
+  `weight` tinyint(1) DEFAULT '0',
+  `created_date` datetime(6) DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_admin_user
--- ----------------------------
-DROP TABLE IF EXISTS `wm_admin_user`;
-CREATE TABLE `wm_admin_user`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `nick_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL COMMENT 'ÕËºÅÀàÐÍ: 0->½ûÓÃ£»1->ÆôÓÃ',
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_coupon` definition
+
+CREATE TABLE `_coupon` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `type` int DEFAULT NULL COMMENT 'ä¼˜æƒ åˆ¸ç±»åž‹ï¼›0->å…¨åœºé€šç”¨ï¼›1->éƒ¨åˆ†å•†å®¶ä½¿ç”¨ï¼›2-æŒ‡å®šç±»åž‹å•†å®¶ä½¿ç”¨ï¼›3-ä¼šå‘˜è´­ä¹°çº¢åŒ…;',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `count` int DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  `limit_price` decimal(10,2) DEFAULT NULL COMMENT 'ä½¿ç”¨é™åˆ¶',
+  `note` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `code` varchar(100) DEFAULT NULL,
+  `valid_day` int DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `is_discount` tinyint(1) DEFAULT NULL,
+  `is_box_fee` tinyint(1) DEFAULT NULL,
+  `is_deliver_fee` tinyint(1) DEFAULT NULL,
+  `is_self_phone` tinyint(1) DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='ä¼˜æƒ å·';
+
+
+-- waimai.`_coupon_history` definition
+
+CREATE TABLE `_coupon_history` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `coupon_id` bigint DEFAULT NULL,
+  `customer_id` bigint DEFAULT NULL,
+  `coupon_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `get_type` bigint DEFAULT NULL COMMENT 'èŽ·å–ç±»åž‹ï¼š0->åŽå°èµ é€ï¼›1->ä¸»åŠ¨èŽ·å–',
+  `use_status` int DEFAULT NULL COMMENT 'ä½¿ç”¨çŠ¶æ€ï¼š0->æœªä½¿ç”¨ï¼›1->å·²ä½¿ç”¨ï¼›2->å·²è¿‡æœŸ',
+  `use_time` datetime DEFAULT NULL COMMENT 'ä½¿ç”¨æ—¶é—´',
+  `get_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL COMMENT 'è¿‡æœŸæ—¶é—´',
+  `order_id` bigint DEFAULT NULL,
+  `order_sn` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `UK_mi70ed2lofr0miqiibvr74yfm`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  KEY `idx_coupon_id` (`coupon_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='ä¼˜æƒ å·åŽ†å²';
 
--- ----------------------------
--- Table structure for wm_coupon
--- ----------------------------
-DROP TABLE IF EXISTS `wm_coupon`;
-CREATE TABLE `wm_coupon`  (
-  `id` bigint(0) NOT NULL AUTO_INCREMENT,
-  `type` int(0) NULL DEFAULT NULL COMMENT '´ú½ð¾íÀàÐÍ£»0->ÏµÍ³ºì°ü£»1->ÉÌ¼Òºì°ü',
-  `use_type_ids` int(0) NULL DEFAULT NULL COMMENT 'Ê¹ÓÃÀàÐÍ£º0->È«³¡Í¨ÓÃ 2->Ö¸¶¨ÉÌÆ·',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `count` int(0) NULL DEFAULT NULL COMMENT 'ÊýÁ¿',
-  `amount` decimal(10, 2) NULL DEFAULT NULL COMMENT '½ð¶î',
-  `min_point` decimal(10, 2) NULL DEFAULT NULL COMMENT 'Ê¹ÓÃÃÅ¼÷£»0±íÊ¾ÎÞÃÅ¼÷',
-  `start_time` datetime(0) NULL DEFAULT NULL,
-  `end_time` datetime(0) NULL DEFAULT NULL,
-  `note` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '±¸×¢',
-  `publish_count` int(0) NULL DEFAULT NULL COMMENT '·¢ÐÐÊýÁ¿',
-  `use_count` int(0) NULL DEFAULT NULL COMMENT 'ÒÑÊ¹ÓÃÊýÁ¿',
-  `receive_count` int(0) NULL DEFAULT NULL COMMENT 'ÁìÈ¡ÊýÁ¿',
-  `enable_time` datetime(0) NULL DEFAULT NULL COMMENT '¿ÉÒÔÁìÈ¡µÄÈÕÆÚ',
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'ºì°ü' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Table structure for wm_coupon_goods_relation
--- ----------------------------
-DROP TABLE IF EXISTS `wm_coupon_goods_relation`;
-CREATE TABLE `wm_coupon_goods_relation`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `coupon_id` int(0) NULL DEFAULT NULL,
-  `goods_id` int(0) NULL DEFAULT NULL,
-  `goods_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `goods_sn` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_as_ci ROW_FORMAT = Redundant;
+-- waimai.`_coupon_shop_category_relation` definition
 
--- ----------------------------
--- Table structure for wm_coupon_history
--- ----------------------------
-DROP TABLE IF EXISTS `wm_coupon_history`;
-CREATE TABLE `wm_coupon_history`  (
-  `id` bigint(0) NOT NULL AUTO_INCREMENT,
-  `coupon_id` bigint(0) NULL DEFAULT NULL,
-  `customer_id` bigint(0) NULL DEFAULT NULL,
-  `coupon_code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `member_nickname` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ÁìÈ¡ÈËêÇ³Æ',
-  `get_type` int(0) NULL DEFAULT NULL COMMENT '»ñÈ¡ÀàÐÍ£º0->ºóÌ¨ÔùËÍ£»1->Ö÷¶¯»ñÈ¡',
-  `use_status` int(0) NULL DEFAULT NULL COMMENT 'Ê¹ÓÃ×´Ì¬£º0->Î´Ê¹ÓÃ£»1->ÒÑÊ¹ÓÃ£»2->ÒÑ¹ýÆÚ',
-  `use_time` datetime(0) NULL DEFAULT NULL COMMENT 'Ê¹ÓÃÊ±¼ä',
-  `order_id` bigint(0) NULL DEFAULT NULL COMMENT '¶©µ¥±àºÅ',
-  `order_sn` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '¶©µ¥ºÅÂë',
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_coupon_id`(`coupon_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'ÓÅ»ÝÈ¯Ê¹ÓÃ¡¢ÁìÈ¡ÀúÊ·±í' ROW_FORMAT = Dynamic;
+CREATE TABLE `_coupon_shop_category_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `coupon_id` int DEFAULT NULL,
+  `shop_category_id` int DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- ----------------------------
--- Table structure for wm_coupon_product_category_relation
--- ----------------------------
-DROP TABLE IF EXISTS `wm_coupon_product_category_relation`;
-CREATE TABLE `wm_coupon_product_category_relation`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `coupon_id` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `parent_category_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_category_id` int(0) NULL DEFAULT NULL,
-  `shop_category_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Table structure for wm_customer
--- ----------------------------
-DROP TABLE IF EXISTS `wm_customer`;
-CREATE TABLE `wm_customer`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `face` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+-- waimai.`_coupon_shop_relation` definition
+
+CREATE TABLE `_coupon_shop_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `coupon_id` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `_coupon_shop_relation_UN` (`coupon_id`,`shop_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.`_customer` definition
+
+CREATE TABLE `_customer` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `face` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `phone` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `status` int(0) NULL DEFAULT NULL COMMENT 'ÕÊºÅÆôÓÃ×´Ì¬:0->½ûÓÃ£»1->ÆôÓÃ',
-  `customer_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `is_member` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+  `status` int DEFAULT NULL COMMENT 'å¸å·å¯ç”¨çŠ¶æ€:0->ç¦ç”¨ï¼›1->å¯ç”¨',
+  `customer_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `is_member` tinyint DEFAULT NULL,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `UK_ilvxw862c5qkriekw0widql6t`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `UK_ilvxw862c5qkriekw0widql6t` (`phone`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_customer_address
--- ----------------------------
-DROP TABLE IF EXISTS `wm_customer_address`;
-CREATE TABLE `wm_customer_address`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(0) NULL DEFAULT NULL,
-  `gender` int(0) NULL DEFAULT NULL,
-  `house_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `poi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_customer_address` definition
+
+CREATE TABLE `_customer_address` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL,
+  `gender` int NOT NULL,
+  `house_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `shipping_address` varchar(100) NOT NULL,
+  `location` point DEFAULT NULL,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_customer_favorite_shop
--- ----------------------------
-DROP TABLE IF EXISTS `wm_customer_favorite_shop`;
-CREATE TABLE `wm_customer_favorite_shop`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `customer_id` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(0) NULL DEFAULT NULL,
-  `updated_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(0) NULL DEFAULT NULL,
+
+-- waimai.`_full_reduction` definition
+
+CREATE TABLE `_full_reduction` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `full_price` decimal(10,2) DEFAULT NULL COMMENT 'æ»¡',
+  `reduce_price` decimal(10,2) DEFAULT NULL COMMENT 'å‡',
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='å•†å“æ»¡å‡è¡¨';
 
--- ----------------------------
--- Table structure for wm_dictionary
--- ----------------------------
-DROP TABLE IF EXISTS `wm_dictionary`;
-CREATE TABLE `wm_dictionary`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `choice` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `dic_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `dic_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `dic_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `is_lock` int(0) NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL COMMENT 'ÕÊºÅÆôÓÃ×´Ì¬:0->½ûÓÃ£»1->ÆôÓÃ',
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_menu` definition
+
+CREATE TABLE `_menu` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `icon` varchar(100) CHARACTER SET utf8mb3 DEFAULT NULL,
+  `menu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'åˆ†ç±»åç§°',
+  `sort` int DEFAULT NULL COMMENT 'æŽ’åº',
+  `status` tinyint DEFAULT NULL COMMENT 'æ˜¯å¦å¯ç”¨ 0-ç¦ç”¨ 1-å¯ç”¨',
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_dictionary_detail
--- ----------------------------
-DROP TABLE IF EXISTS `wm_dictionary_detail`;
-CREATE TABLE `wm_dictionary_detail`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `detail_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `detail_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `detail_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `dic_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `is_lock` int(0) NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL COMMENT 'ÕÊºÅÆôÓÃ×´Ì¬:0->½ûÓÃ£»1->ÆôÓÃ',
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_menu_product_relation` definition
+
+CREATE TABLE `_menu_product_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `menu_id` int DEFAULT NULL,
+  `product_id` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=494 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_goods
--- ----------------------------
-DROP TABLE IF EXISTS `wm_goods`;
-CREATE TABLE `wm_goods`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `goods_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `price` int(0) NULL DEFAULT NULL,
-  `sell_status` int(0) NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `tag_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `goods_type` int(0) NULL DEFAULT NULL,
-  `unit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_object_key` definition
+
+CREATE TABLE `_object_key` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `object_key` varchar(100) DEFAULT NULL,
+  `object_value` json DEFAULT NULL,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- waimai.`_order` definition
+
+CREATE TABLE `_order` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_sn` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `delivery_man_id` int DEFAULT NULL,
+  `shop_id` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `expect_time` datetime DEFAULT NULL,
+  `total_price` decimal(10,2) DEFAULT NULL,
+  `box_price` decimal(10,2) DEFAULT NULL,
+  `delivery_price` decimal(10,2) DEFAULT NULL,
+  `coupon_amount` decimal(10,2) DEFAULT NULL,
+  `red_packet_amount` decimal(10,2) DEFAULT NULL,
+  `subtract_delivery_amount` decimal(10,2) DEFAULT NULL,
+  `tableware_count` tinyint DEFAULT NULL,
+  `pay_type` tinyint(1) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `receiver_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `receiver_phone` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `receiver_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `receiver_address_location` point DEFAULT NULL,
+  `delete_status` tinyint(1) DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_goods_attribute
--- ----------------------------
-DROP TABLE IF EXISTS `wm_goods_attribute`;
-CREATE TABLE `wm_goods_attribute`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `goods_attribute_category_id` int(0) NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `sort` int(0) NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_order_item` definition
+
+CREATE TABLE `_order_item` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_sn` varchar(100) DEFAULT NULL,
+  `product_id` int DEFAULT NULL,
+  `product_name` varchar(100) DEFAULT NULL,
+  `quantity` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `discount_amount` decimal(10,2) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- waimai.`_order_operate_history` definition
+
+CREATE TABLE `_order_operate_history` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int DEFAULT NULL,
+  `order_status` tinyint(1) DEFAULT NULL COMMENT 'è®¢å•çŠ¶æ€ï¼š0->è®¢å•å·²æäº¤ï¼›1->æ”¯ä»˜æˆåŠŸï¼›2->å•†å®¶å·²æŽ¥å•ï¼›3->éª‘æ‰‹å·²æŽ¥å•ï¼›4->éª‘æ‰‹å·²åˆ°åº—ï¼›5->éª‘æ‰‹å·²å–è´§ï¼›6->å•†å“å·²é€è¾¾ï¼›6->è®¢å•å·²å®Œæˆ',
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- waimai.`_product` definition
+
+CREATE TABLE `_product` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `food_type` tinyint DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'äº§å“åç§°',
+  `image_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'äº§å“å›¾ç‰‡',
+  `introduce` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'äº§å“ä»‹ç»',
+  `price` decimal(10,2) DEFAULT NULL COMMENT 'ä»·æ ¼',
+  `box_fee` decimal(10,2) DEFAULT NULL,
+  `weight` int DEFAULT NULL COMMENT 'é‡é‡',
+  `unit` tinyint(1) DEFAULT NULL,
+  `stock` int DEFAULT NULL COMMENT 'åº“å­˜',
+  `low_stock` int DEFAULT NULL COMMENT 'åº“å­˜é¢„è­¦',
+  `sale` json DEFAULT NULL COMMENT 'é”€å”®æ•°æ®',
+  `must` tinyint DEFAULT '0',
+  `sell_status` tinyint DEFAULT NULL,
+  `tag` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='é£Ÿç‰©';
 
--- ----------------------------
--- Table structure for wm_goods_attribute_category
--- ----------------------------
-DROP TABLE IF EXISTS `wm_goods_attribute_category`;
-CREATE TABLE `wm_goods_attribute_category`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `select_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `select_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_product_attribute` definition
+
+CREATE TABLE `_product_attribute` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'åˆ é™¤çŠ¶æ€',
+  `product_attribute_category_id` int DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_goods_attribute_value
--- ----------------------------
-DROP TABLE IF EXISTS `wm_goods_attribute_value`;
-CREATE TABLE `wm_goods_attribute_value`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `goods_attribute_category_id` int(0) NULL DEFAULT NULL,
-  `goods_attribute_id` int(0) NULL DEFAULT NULL,
-  `goods_id` int(0) NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+
+-- waimai.`_product_attribute_category` definition
+
+CREATE TABLE `_product_attribute_category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `category_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_goods_menu
--- ----------------------------
-DROP TABLE IF EXISTS `wm_goods_menu`;
-CREATE TABLE `wm_goods_menu`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `sort` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
+
+-- waimai.`_product_attribute_value` definition
+
+CREATE TABLE `_product_attribute_value` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int DEFAULT NULL,
+  `product_attribute_id` int DEFAULT NULL,
+  `product_attribute_category_id` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for wm_goods_menu_relation
--- ----------------------------
-DROP TABLE IF EXISTS `wm_goods_menu_relation`;
-CREATE TABLE `wm_goods_menu_relation`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `goods_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `menu_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Table structure for wm_menu
--- ----------------------------
-DROP TABLE IF EXISTS `wm_menu`;
-CREATE TABLE `wm_menu`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `hidden` int(0) NULL DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `level` int(0) NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `parent_id` int(0) NULL DEFAULT NULL,
-  `position` int(0) NULL DEFAULT NULL,
-  `sort` int(0) NULL DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `type` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+-- waimai.`_product_discount` definition
 
--- ----------------------------
--- Table structure for wm_order
--- ----------------------------
-DROP TABLE IF EXISTS `wm_order`;
-CREATE TABLE `wm_order`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_order_comment
--- ----------------------------
-DROP TABLE IF EXISTS `wm_order_comment`;
-CREATE TABLE `wm_order_comment`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `comment_time` datetime(6) NULL DEFAULT NULL,
-  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `delivery_score` decimal(19, 2) NULL DEFAULT NULL,
-  `pack_score` decimal(19, 2) NULL DEFAULT NULL,
-  `pictures` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `quality_score` decimal(19, 2) NULL DEFAULT NULL,
-  `score` decimal(19, 2) NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  `user_id` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_resource
--- ----------------------------
-DROP TABLE IF EXISTS `wm_resource`;
-CREATE TABLE `wm_resource`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `category_id` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `sort` int(0) NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_resource_category
--- ----------------------------
-DROP TABLE IF EXISTS `wm_resource_category`;
-CREATE TABLE `wm_resource_category`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `sort` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_resource_relation
--- ----------------------------
-DROP TABLE IF EXISTS `wm_resource_relation`;
-CREATE TABLE `wm_resource_relation`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `menu_id` int(0) NULL DEFAULT NULL,
-  `role_id` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  `resource_id` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_role
--- ----------------------------
-DROP TABLE IF EXISTS `wm_role`;
-CREATE TABLE `wm_role`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'Ãû³Æ',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ÃèÊö',
-  `admin_count` int(0) NULL DEFAULT NULL COMMENT 'ºóÌ¨ÓÃ»§ÊýÁ¿',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `status` int(0) NULL DEFAULT NULL COMMENT 'ÆôÓÃ×´Ì¬£º0->½ûÓÃ£»1->ÆôÓÃ',
-  `sort` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_role_menu_relation
--- ----------------------------
-DROP TABLE IF EXISTS `wm_role_menu_relation`;
-CREATE TABLE `wm_role_menu_relation`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `role_id` int(0) NULL DEFAULT NULL,
-  `menu_id` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 119 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_role_resource_relation
--- ----------------------------
-DROP TABLE IF EXISTS `wm_role_resource_relation`;
-CREATE TABLE `wm_role_resource_relation`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `role_id` int(0) NULL DEFAULT NULL,
-  `resource_id` int(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_shop
--- ----------------------------
-DROP TABLE IF EXISTS `wm_shop`;
-CREATE TABLE `wm_shop`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_shop_category
--- ----------------------------
-DROP TABLE IF EXISTS `wm_shop_category`;
-CREATE TABLE `wm_shop_category`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `all` int(0) NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `level` int(0) NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `parent_id` int(0) NULL DEFAULT NULL,
-  `priority` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_shop_info
--- ----------------------------
-DROP TABLE IF EXISTS `wm_shop_info`;
-CREATE TABLE `wm_shop_info`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `city` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `county` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_sn` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_shop_license
--- ----------------------------
-DROP TABLE IF EXISTS `wm_shop_license`;
-CREATE TABLE `wm_shop_license`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `business_scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `company_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `company_owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `created_date` datetime(6) NULL DEFAULT NULL,
-  `enroll_time` datetime(6) NULL DEFAULT NULL,
-  `expire_time` datetime(6) NULL DEFAULT NULL,
-  `idacrd_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `idcard_img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `idcard_num` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `qualify_pics` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `shop_id` int(0) NULL DEFAULT NULL,
-  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `updated_date` datetime(6) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for wm_user
--- ----------------------------
-DROP TABLE IF EXISTS `wm_user`;
-CREATE TABLE `wm_user`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `create_time` datetime(6) NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `login_time` datetime(6) NULL DEFAULT NULL,
-  `nick_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL COMMENT 'ÕËºÅÀàÐÍ: 0->½ûÓÃ£»1->ÆôÓÃ',
-  `type` int(0) NULL DEFAULT NULL COMMENT 'ÕËºÅÀàÐÍ: 1->ÏµÍ³ÈËÔ±£»2->ÉÌ¼Ò',
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+CREATE TABLE `_product_discount` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `product_id` bigint DEFAULT NULL,
+  `count` int DEFAULT NULL COMMENT 'æ»¡è¶³çš„å•†å“æ•°é‡',
+  `min_purchase_num` int DEFAULT NULL,
+  `discount` decimal(10,2) DEFAULT NULL COMMENT 'æŠ˜æ‰£',
+  `price` decimal(10,2) DEFAULT NULL COMMENT 'æŠ˜åŽä»·æ ¼',
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `UK_nvx67rp33tpue2fo73usqix70`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  UNIQUE KEY `_product_discount_UN` (`shop_id`,`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC COMMENT='å•†å“æŠ˜æ‰£è¡¨';
 
-SET FOREIGN_KEY_CHECKS = 1;
+
+-- waimai.`_product_package` definition
+
+CREATE TABLE `_product_package` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `food_id` int DEFAULT NULL,
+  `compound_id` int DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='å¥—é¤';
+
+
+-- waimai.`_product_sku_stock` definition
+
+CREATE TABLE `_product_sku_stock` (
+  `id` int NOT NULL,
+  `product_id` int DEFAULT NULL,
+  `attr_id` int DEFAULT NULL,
+  `activity_stock` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'æ´»åŠ¨åº“å­˜',
+  `real_stock` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'å®žé™…åº“å­˜',
+  `sold_status` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'é”€å”®çŠ¶æ€',
+  `spec` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'è¯´æ˜Ž',
+  `origin_price` decimal(10,2) DEFAULT NULL COMMENT 'åŽŸä»·',
+  `current_price` decimal(10,2) DEFAULT NULL COMMENT 'çŽ°ä»·',
+  `box_fee` decimal(10,2) DEFAULT NULL COMMENT 'åŒ…è£…è´¹',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='åº“å­˜';
+
+
+-- waimai.`_shop` definition
+
+CREATE TABLE `_shop` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(100) DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `category_id` varchar(255) DEFAULT NULL COMMENT 'å•†å®¶åˆ†ç±»',
+  `pic_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'å¤´åƒ',
+  `shop_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'å•†åº—åç§°',
+  `phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ç”µè¯å·ç ',
+  `address` varchar(255) DEFAULT NULL,
+  `bulletin` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'å…¬å‘Š',
+  `location` point DEFAULT NULL,
+  `shipping_time` json DEFAULT NULL,
+  `sale` json DEFAULT NULL,
+  `characteristics` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  `min_price` decimal(10,2) DEFAULT NULL,
+  `exclusive_delivery` tinyint DEFAULT '0',
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.`_shop_license` definition
+
+CREATE TABLE `_shop_license` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `shop_id` int DEFAULT NULL,
+  `qualify_pics` json DEFAULT NULL COMMENT 'ç»è¥è¯ä¹¦',
+  `company_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'å…¬å¸åç§°',
+  `company_owner` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'æ³•äºº',
+  `business_scope` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ç»è¥èŒƒå›´',
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'å…¬å¸åœ°å€',
+  `enroll_time` datetime DEFAULT NULL COMMENT 'æ³¨å†Œæ—¥æœŸ',
+  `expire_time` datetime DEFAULT NULL COMMENT 'è¿‡æœŸæ—¶é—´',
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.`_shop_user` definition
+
+CREATE TABLE `_shop_user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `create_time` datetime(6) DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `login_time` datetime(6) DEFAULT NULL,
+  `nick_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `status` int DEFAULT NULL COMMENT 'ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½: 0->ï¿½ï¿½ï¿½Ã£ï¿½1->ï¿½ï¿½ï¿½ï¿½',
+  `type` int DEFAULT NULL COMMENT 'ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½: 1->ÏµÍ³ï¿½ï¿½Ô±ï¿½ï¿½2->ï¿½Ì¼ï¿½',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `UK_nvx67rp33tpue2fo73usqix70` (`phone`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.admin_login_log definition
+
+CREATE TABLE `admin_login_log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'æµè§ˆå™¨ç™»å½•ç±»åž‹',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.admin_role_relation definition
+
+CREATE TABLE `admin_role_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int DEFAULT NULL,
+  `role_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.region definition
+
+CREATE TABLE `region` (
+  `id` int NOT NULL COMMENT 'åŒºåŸŸä¸»é”®',
+  `name` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'åŒºåŸŸåç§°',
+  `pid` int DEFAULT NULL COMMENT 'åŒºåŸŸä¸Šçº§æ ‡è¯†',
+  `sname` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'åœ°åç®€ç§°',
+  `level` int DEFAULT NULL COMMENT 'åŒºåŸŸç­‰çº§',
+  `city_code` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'åŒºåŸŸç¼–ç ',
+  `yzcode` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'é‚®æ”¿ç¼–ç ',
+  `mername` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'ç»„åˆåç§°',
+  `Lng` float DEFAULT NULL,
+  `Lat` float DEFAULT NULL,
+  `pinyin` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.resource definition
+
+CREATE TABLE `resource` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'èµ„æºåç§°',
+  `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'èµ„æºURL',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'æè¿°',
+  `category_id` int DEFAULT NULL COMMENT 'èµ„æºåˆ†ç±»ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.resource_category definition
+
+CREATE TABLE `resource_category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'åˆ†ç±»åç§°',
+  `sort` int DEFAULT NULL COMMENT 'æŽ’åº',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.`role` definition
+
+CREATE TABLE `role` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'åç§°',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'æè¿°',
+  `admin_count` int DEFAULT NULL COMMENT 'åŽå°ç”¨æˆ·æ•°é‡',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `status` int DEFAULT NULL COMMENT 'å¯ç”¨çŠ¶æ€ï¼š0->ç¦ç”¨ï¼›1->å¯ç”¨',
+  `sort` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.role_menu_relation definition
+
+CREATE TABLE `role_menu_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_id` int DEFAULT NULL,
+  `menu_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.role_resource_relation definition
+
+CREATE TABLE `role_resource_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_id` int DEFAULT NULL,
+  `resource_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_admin_login_log definition
+
+CREATE TABLE `wm_admin_login_log` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `admin_user_id` int DEFAULT NULL,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_admin_role_relation definition
+
+CREATE TABLE `wm_admin_role_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `admin_id` int DEFAULT NULL,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `role_id` int DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_admin_user definition
+
+CREATE TABLE `wm_admin_user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nick_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `status` int DEFAULT NULL COMMENT 'ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½: 0->ï¿½ï¿½ï¿½Ã£ï¿½1->ï¿½ï¿½ï¿½ï¿½',
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `UK_mi70ed2lofr0miqiibvr74yfm` (`phone`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_dictionary definition
+
+CREATE TABLE `wm_dictionary` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `choice` int DEFAULT NULL,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `dic_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `dic_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `dic_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `is_lock` int DEFAULT NULL,
+  `status` int DEFAULT NULL COMMENT 'ï¿½Êºï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬:0->ï¿½ï¿½ï¿½Ã£ï¿½1->ï¿½ï¿½ï¿½ï¿½',
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_dictionary_detail definition
+
+CREATE TABLE `wm_dictionary_detail` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `detail_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `detail_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `detail_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `dic_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `is_lock` int DEFAULT NULL,
+  `status` int DEFAULT NULL COMMENT 'ï¿½Êºï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬:0->ï¿½ï¿½ï¿½Ã£ï¿½1->ï¿½ï¿½ï¿½ï¿½',
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_resource definition
+
+CREATE TABLE `wm_resource` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `category_id` int DEFAULT NULL,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `sort` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_resource_category definition
+
+CREATE TABLE `wm_resource_category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `sort` int DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_resource_relation definition
+
+CREATE TABLE `wm_resource_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `created_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_date` datetime(6) DEFAULT NULL,
+  `menu_id` int DEFAULT NULL,
+  `role_id` int DEFAULT NULL,
+  `updated_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `updated_date` datetime(6) DEFAULT NULL,
+  `resource_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_role definition
+
+CREATE TABLE `wm_role` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½',
+  `admin_count` int DEFAULT NULL COMMENT 'ï¿½ï¿½Ì¨ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½',
+  `create_time` datetime DEFAULT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½',
+  `status` int DEFAULT NULL COMMENT 'ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½0->ï¿½ï¿½ï¿½Ã£ï¿½1->ï¿½ï¿½ï¿½ï¿½',
+  `sort` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_role_menu_relation definition
+
+CREATE TABLE `wm_role_menu_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_id` int DEFAULT NULL,
+  `menu_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+
+-- waimai.wm_role_resource_relation definition
+
+CREATE TABLE `wm_role_resource_relation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_id` int DEFAULT NULL,
+  `resource_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
