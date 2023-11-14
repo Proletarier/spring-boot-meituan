@@ -34,3 +34,7 @@ captcha:
   limit:
     interval: 100
     count: 10
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

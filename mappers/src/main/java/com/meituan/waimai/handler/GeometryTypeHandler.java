@@ -4,12 +4,14 @@ import com.meituan.waimai.bean.GeoPoint;
 import com.meituan.waimai.bean.GeoPointConverter;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedTypes;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@MappedTypes(value = {GeoPoint.class})
 public class GeometryTypeHandler  extends BaseTypeHandler<GeoPoint> {
 
     GeoPointConverter converter = new GeoPointConverter();
